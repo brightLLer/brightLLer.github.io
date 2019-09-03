@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>librosa术语介绍</title>
+      <link href="/2019/09/02/librosa-term/"/>
+      <url>/2019/09/02/librosa-term/</url>
+      
+        <content type="html"><![CDATA[<h1 id="librosa中的相关术语介绍"><a href="#librosa中的相关术语介绍" class="headerlink" title="librosa中的相关术语介绍"></a>librosa中的相关术语介绍</h1><blockquote><p>注：librosa是一个音频处理库，戳<a href="http://librosa.github.io/librosa/" target="_blank" rel="noopener">这里</a>看官方document。</p></blockquote><h2 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a>术语解释</h2><h3 id="time-series"><a href="#time-series" class="headerlink" title="time series"></a><strong>time series</strong></h3><p>Typically an audio signal, denoted by <code>y</code>, and represented as a one-dimensional numpy.ndarray of floating-point values. <code>y[t]</code> corresponds to amplitude of the waveform at sample <code>t</code>.<br>时间序列：一般指的是音频信号，用<code>y</code>来表示，<code>y</code>是一个浮点类型的一维数组，<code>y[t]</code>表示波形图中样本<code>t</code>处的幅度值</p><h3 id="sampling-rate"><a href="#sampling-rate" class="headerlink" title="sampling rate"></a><strong>sampling rate</strong></h3><p>The (positive integer) number of samples per second of a time series. This is denoted by an integer variable <code>sr</code>.<br>采样频率：时间序列中，每秒的样本数目（一个正整数）。经常用一个整型变量<code>sr</code>来表示</p><h3 id="frame"><a href="#frame" class="headerlink" title="frame"></a><strong>frame</strong></h3><p>A short slice of a time series used for analysis purposes. This usually corresponds to a single column of a spectrogram matrix.<br>帧：一个时间序列的短切片，常用于分析。帧通常与时频矩阵中一个单独的列相关（specgram的行表示频率，列表示时间），强调一点，帧的意义是时间上的。</p><h3 id="window"><a href="#window" class="headerlink" title="window"></a><strong>window</strong></h3><p>The (positive integer) number of samples in an analysis window (or frame). This is denoted by an integer variable <code>n_fft</code>.<br>在一个分析窗（或者帧）内的样本的数目（一个正整数）。用整型变量<code>n_fft</code>来表示。<br>注：1、傅里叶变换只能对作用于有限长度的信号，因此才要对信号采样，采样数目<code>n_fft</code>就是一帧的长度<br>2、帧的中心样本称为center，<code>stft</code>等函数中，<code>center</code>参数若为<code>True</code>，信号y会被左右填充(padded)以确保第<code>k</code>帧以<code>k*hop_length</code>那个样本为中心（v3.0开始），若为<code>False</code>，则不填充而且第k帧的起点就是<code>k*hop_length</code>那个样本。对应到specgram中就是<code>D[:, t]</code>或者<code>S[:, t]</code><br>center : boolean</p><ul><li>If <code>True</code>, the signal <code>y</code> is padded so that frame <code>D[:, t]</code> is centered at <code>y[t * hop_length]</code>.</li><li>If <code>False</code>, then <code>D[:, t]</code> begins at <code>y[t * hop_length]</code><h3 id="hop-length"><a href="#hop-length" class="headerlink" title="hop length"></a><strong>hop length</strong></h3>The number of samples between successive frames, e.g., the columns of a spectrogram. This is denoted as a positive integer <code>hop_length</code>.<br>帧移：连续帧之间的样本数目，用一个正整数变量<code>hop_length</code>来表示。注：其实就是上一帧的起点到下一帧起点的位移<h3 id="window-length"><a href="#window-length" class="headerlink" title="window length"></a><strong>window length</strong></h3>The length (width) of the window function (e.g., Hann window). Note that this can be smaller than the frame length used in a short-time Fourier transform. Typically denoted as a positive integer variable <code>win_length</code>.<br>窗长度：窗的长度（宽度），在短时傅里叶变换中可以比帧长度小（多数时候两者长度一样，窗长小于帧长时使用零填充补充至长度相等）。经常用正整数变量<code>win_length</code>来表示<h3 id="spectrogram"><a href="#spectrogram" class="headerlink" title="spectrogram"></a><strong>spectrogram</strong></h3>A matrix <code>S</code> where the rows index frequency bins, and the columns index frames (time). Spectrograms can be either real-valued or complex-valued. By convention, real-valued spectrograms are denoted as numpy.ndarrays <code>S</code>, while complex-valued STFT matrices are denoted as <code>D</code>.<br>时频矩阵：一个矩阵，其行索引频带，列索引帧（时间）。时频矩阵的元素可以是实数也可以是复数。按照约定俗成的表示，实数时频矩阵用数组<code>S</code>表示，而复数STFT矩阵则用<code>D</code>表示<br><code>np.abs(D[f, t])</code> is the magnitude of frequency bin <code>f</code> at frame <code>t</code><br><code>np.angle(D[f, t])</code> is the phase of frequency bin <code>f</code> at frame <code>t</code><h3 id="onset-strength-envelope"><a href="#onset-strength-envelope" class="headerlink" title="onset (strength) envelope"></a><strong>onset (strength) envelope</strong></h3>An onset envelope <code>onset_env[t]</code> measures the strength of note onsets at frame <code>t</code>. Typically stored as a one-dimensional numpy.ndarray of floating-point values onset_envelope.<br>帧起点数组：记录着每一帧起始时刻处的强度，用一个浮点型一维数组<code>onset_envelope</code>来表示</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 语音分离 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> librosa </tag>
+            
+            <tag> signal processing </tag>
+            
+            <tag> speech separation </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>librosa补充(一)</title>
+      <link href="/2019/09/02/librosa-additional/"/>
+      <url>/2019/09/02/librosa-additional/</url>
+      
+        <content type="html"><![CDATA[<h1 id="补充几个概念以及对部分API的理解"><a href="#补充几个概念以及对部分API的理解" class="headerlink" title="补充几个概念以及对部分API的理解"></a>补充几个概念以及对部分API的理解</h1><blockquote><p>注：时域信号在经过傅里叶变换转换之后一般为复数形式</p></blockquote><h2 id="amplitude和magnitude的区别"><a href="#amplitude和magnitude的区别" class="headerlink" title="amplitude和magnitude的区别"></a><strong>amplitude和magnitude的区别</strong></h2><ul><li>peak amplitude, often shortened to amplitude, is the nonnegative value of the waveform’s peak (either positive or negative).(强调信号的峰值)</li><li>instantaneous amplitude of x is the value of x(t) (either positive or negative) at time t.（瞬时幅度，信号x(t)在t处的值）</li><li>instantaneous magnitude, or simply magnitude, of x is nonnegative and is given by |x(t)|.（瞬时幅度，信号x(t)的模）<br>需要特意强调的就是，magnitude指的是模，不过在多数情况下，amplitude和magnitude在fft中一般是同一个意思。</li></ul><h2 id="振幅，分贝-dB-和能量-power-之间的转换关系"><a href="#振幅，分贝-dB-和能量-power-之间的转换关系" class="headerlink" title="振幅，分贝(dB)和能量(power)之间的转换关系"></a><strong>振幅，分贝(dB)和能量(power)之间的转换关系</strong></h2><ul><li><p>振幅：由于傅里叶变换之后得到的为复数T-F矩阵D，在python里，可以简单得到振幅的T-F矩阵和相位(幅角)的T-F矩阵：</p><pre><code>S = np.abs(D)P = np.angle(D)</code></pre></li><li><p>分贝：librosa的官方文档中对分贝的计算公式定义如下：</p><pre><code>S_db = 20 * np.log10(S / ref)</code></pre><p>其中ref的默认取值为1.0，不过文档似乎更习惯于用<code>ref = np.max(S)</code></p></li><li><p>能量：T-F矩阵中每个T-F单元的能量就是幅值取平方即可</p><pre><code>S_power = S ** 2</code></pre><h2 id="librosa中xx-to-xx型的API"><a href="#librosa中xx-to-xx型的API" class="headerlink" title="librosa中xx_to_xx型的API"></a><strong>librosa中xx_to_xx型的API</strong></h2></li><li><p><code>amplitude_to_db(S[, ref, amin, top_db])</code><br>该API是将幅值转换为分贝，这里的第一个参数S，按照librosa相关术语的描述，应该是一个实数T-F矩阵而不是复数T-F矩阵，但实际测试的时候发现API传入S和D的效果是一样的，源码内部实际上有一句<code>magnitude = np.abs(S)</code>，那么说明参数中的S实际上是被当成D来看的，D中的每个瞬时值被称为amplitude，不过从字面意义上来看，还是当成实数T-F矩阵S来看比较好，也就是说时域信号<code>y</code>经过STFT变换后得到<code>D</code>，先经过<code>S = np.abs(D)</code>之后再传入该API中的S，当然直接传入<code>D</code>也没有任何问题。此外该<code>amplitude_to_db(S)</code>与<code>power_to_db(S ** 2)</code>等价。</p></li><li><p><code>db_to_amplitude(S_db[, ref])</code><br>将分贝转换为幅值。这里的幅值是实数，用magnitude更合适，强调模S。</p></li><li><p><code>power_to_db(S[, ref, amin, top_db, ref_power])</code><br>能量转换为分贝，ref_power参数会在0.6.0版本起抛弃。</p></li><li><p><code>db_to_power(S_db[, ref])</code><br>分贝转换为能量。</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 语音分离 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> librosa </tag>
+            
+            <tag> signal processing </tag>
+            
+            <tag> speech separation </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
