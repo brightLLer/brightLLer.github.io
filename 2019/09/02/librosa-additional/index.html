@@ -40,6 +40,8 @@
 
 
 
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 <script src="/js/iconfont.js?v=1.0.1"></script>
 
 </head>
@@ -318,6 +320,10 @@ P = np.angle(D)</code></pre></li>
 </article>
 
 
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>librosa补充(一)</p>
@@ -334,19 +340,23 @@ P = np.angle(D)</code></pre></li>
 
 
     <div id="comments"></div>
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="/js/gitment.js"></script>
-<script>
-    var gitment = new Gitment({
-        id: 'http://brightLLer.github.io/2019/09/02/librosa-additional/', // 可选。默认为 location.href
-        owner: 'brightller',
-        repo: 'brightller.github.io',
-        oauth: {
-            client_id: '',
-            client_secret: '',
-        },
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: 'brightller.github.io',
+            owner: 'brightller',
+            admin: ['brightller'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
     })
-    gitment.render('comments')
 </script>
 
 
@@ -376,6 +386,24 @@ P = np.angle(D)</code></pre></li>
 </div>
 <div class="acParent"></div>
 
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
 </body>
 <script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
 
@@ -397,6 +425,14 @@ P = np.angle(D)</code></pre></li>
         
 
         /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
         
 
         /*高亮代码块行号*/
@@ -428,6 +464,11 @@ P = np.angle(D)</code></pre></li>
     }
 
     /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
     
 
 </script>
