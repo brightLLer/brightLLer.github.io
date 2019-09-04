@@ -115,7 +115,7 @@
     
         
             
-            <li><div data-rel="hexo">hexo<small>(1)</small></div>
+            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
                 
             </li>
             
@@ -123,7 +123,7 @@
     
         
             
-            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
+            <li><div data-rel="hexo">hexo<small>(1)</small></div>
                 
             </li>
             
@@ -176,14 +176,6 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">hexo</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color2">3-hexo</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">librosa</a>
     </li>
     
@@ -193,6 +185,14 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">speech separation</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">3-hexo</a>
     </li>
     
     <div class="clearfix"></div>
@@ -267,7 +267,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-04 21:08:31'>2019-09-03 16:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-04 21:13:09'>2019-09-03 16:52</time>
         
     </div>
     <div class="article-meta">
@@ -334,7 +334,7 @@ $ npm install</code></pre><p>新建完成后可以看到目录下的结构为：
 ├── source
 |   ├── _drafts
 |   └── _posts
-└── themes</code></pre><p>各个目录的主要功能如下所示：<br>文件/目录|功能<br>-|-<br>_config.yml|网站的<a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">配置</a>文件<br>package.json|应用程序的信息<br>scaffolds|<a href="https://hexo.io/zh-cn/docs/templates.html" target="_blank" rel="noopener">模版</a>文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件<br>source|<a href="https://hexo.io/zh-cn/docs/asset-folders.html" target="_blank" rel="noopener">资源文件夹</a>是存放用户资源的地方。除 posts 文件夹之外，开头命名为 (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去<br>themes|<a href="https://hexo.io/zh-cn/docs/themes.html" target="_blank" rel="noopener">主题</a>文件夹，Hexo 会根据主题来生成静态页面</p>
+└── themes</code></pre><p>各个目录的主要功能如下所示：<br>|文件/目录|功能|<br>|-|-|<br>|_config.yml|网站的<a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">配置</a>文件|<br>|package.json|应用程序的信息|<br>|scaffolds|<a href="https://hexo.io/zh-cn/docs/templates.html" target="_blank" rel="noopener">模版</a>文件夹。当您新建文章时，Hexo 会根据scaffold来建立文件|<br>|source|<a href="https://hexo.io/zh-cn/docs/asset-folders.html" target="_blank" rel="noopener">资源文件夹</a>是存放用户资源的地方。除 posts 文件夹之外，开头命名为 (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件会被拷贝过去|<br>|themes|<a href="https://hexo.io/zh-cn/docs/themes.html" target="_blank" rel="noopener">主题</a>文件夹，Hexo 会根据主题来生成静态页面|</p>
 <p>个人认为比较重要的几个文件_config.yml，source目录和themes目录，它们分别是你配置网站，存在博客和存放主题的地方。</p>
 <p>关于_config.yml，我配置的几个主要地方是：</p>
 <pre><code>title: Zeroone
@@ -356,7 +356,7 @@ $ git clone https://github.com/yelog/hexo-theme-3-hexo.git</code></pre><p>下载
 ├── languages
 ├── layout
 ├── scripts
-└── source</code></pre><p>主题目录下各个文件/目录的主要功能如下所示：<br>文件/目录|功能<br>-|-<br>_config.yml|主题的配置文件<br>languages|语言文件夹，请参见<a href="https://hexo.io/zh-cn/docs/internationalization.html" target="_blank" rel="noopener">国际化 (i18n)</a><br>layout|布局文件夹。用于存放主题的<a href="https://hexo.io/zh-cn/docs/templates.html" target="_blank" rel="noopener">模板</a>文件，决定了网站内容的呈现方式，您可参考模板以获得更多信息<br>scripts|脚本文件夹。在启动时，Hexo 会载入此文件夹内的 JavaScript 文件，参见<a href="https://hexo.io/zh-cn/docs/plugins.html" target="_blank" rel="noopener">插件</a>获取更多信息<br>source|资源文件夹，除了模板以外的 Asset，例如 CSS、JavaScript 文件等，都应该放在这个文件夹中。文件或文件夹开头名称为 _（下划线线）或隐藏的文件会被忽略<br>这里值得一提的是_config.yml文件，这个文件与hexo根目录下的_config.yml文件是不一样的，前者主要用于主题相关的配置，后者则主要是进行网站本身的全局配置。</p>
+└── source</code></pre><p>主题目录下各个文件/目录的主要功能如下所示：<br>|文件/目录|功能|<br>|-|-|<br>|_config.yml|主题的配置文件|<br>|languages|语言文件夹，请参见<a href="https://hexo.io/zh-cn/docs/internationalization.html" target="_blank" rel="noopener">国际化 (i18n)</a><br>layout|布局文件夹。用于存放主题的<a href="https://hexo.io/zh-cn/docs/templates.html" target="_blank" rel="noopener">模板</a>文件，决定了网站内容的呈现方式，您可参考模板以获得更多信息|<br>|scripts|脚本文件夹。在启动时，Hexo 会载入此文件夹内的 JavaScript 文件，参见<a href="https://hexo.io/zh-cn/docs/plugins.html" target="_blank" rel="noopener">插件</a>获取更多信息|<br>|source|资源文件夹，除了模板以外的 Asset，例如 CSS、JavaScript 文件等，都应该放在这个文件夹中。文件或文件夹开头名称为 _（下划线线）或隐藏的文件会被忽略|<br>这里值得一提的是_config.yml文件，这个文件与hexo根目录下的_config.yml文件是不一样的，前者主要用于主题相关的配置，后者则主要是进行网站本身的全局配置。</p>
 <p>关于主题目录下的_config.yml，我配置的几个主要地方是：</p>
 <pre><code># 你的头像url
 avatar: /img/zeroone.png
@@ -448,7 +448,7 @@ gitalk:
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.4k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-03, 16:52:33</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-04, 21:08:31</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-04, 21:13:09</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/03/platform-building/" title="博客平台搭建">https://blog.jtzhang.xyz/2019/09/03/platform-building/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -531,7 +531,7 @@ gitalk:
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#hexo','#3-hexo','#librosa','#signal processing','#speech separation',],
+            'data': ['#librosa','#signal processing','#speech separation','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
