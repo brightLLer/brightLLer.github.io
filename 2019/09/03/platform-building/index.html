@@ -115,7 +115,7 @@
     
         
             
-            <li><div data-rel="hexo">hexo<small>(1)</small></div>
+            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
                 
             </li>
             
@@ -123,7 +123,7 @@
     
         
             
-            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
+            <li><div data-rel="hexo">hexo<small>(1)</small></div>
                 
             </li>
             
@@ -176,14 +176,6 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">hexo</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color2">3-hexo</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">librosa</a>
     </li>
     
@@ -193,6 +185,14 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">speech separation</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">3-hexo</a>
     </li>
     
     <div class="clearfix"></div>
@@ -267,7 +267,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-04 21:52:03'>2019-09-03 16:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-04 21:54:57'>2019-09-03 16:52</time>
         
     </div>
     <div class="article-meta">
@@ -302,7 +302,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#综述"><span class="toc-text">综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo搭建步骤"><span class="toc-text">hexo搭建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#必要条件"><span class="toc-text">必要条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hexo安装"><span class="toc-text">hexo安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#网站配置"><span class="toc-text">网站配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载和配置主题"><span class="toc-text">下载和配置主题</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#综述"><span class="toc-text">综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo搭建步骤"><span class="toc-text">hexo搭建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#必要条件"><span class="toc-text">必要条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo安装"><span class="toc-text">hexo安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网站配置"><span class="toc-text">网站配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载和配置主题"><span class="toc-text">下载和配置主题</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -318,12 +318,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>最近博客平台的搭建也告一段落了，再次感谢各位开源大佬，没有你们的支持，我这个小破站也搭建不起来(╯▔皿▔)╯。废话不多说，整个小博客网站主要是借助<a href="https://hexo.io/" target="_blank" rel="noopener">hexo</a>博客框架和<a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank" rel="noopener">3-hexo</a>这个博客主题完成的，3-hexo主题的使用demo可以查看本站下方的友链部分。整个搭建过程真的踩了不少坑，下面我也会分模块尽可能一一讲述清楚。</p>
-<h2 id="hexo搭建步骤"><a href="#hexo搭建步骤" class="headerlink" title="hexo搭建步骤"></a>hexo搭建步骤</h2><h4 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h4><ol>
+<h2 id="hexo搭建步骤"><a href="#hexo搭建步骤" class="headerlink" title="hexo搭建步骤"></a>hexo搭建步骤</h2><h3 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h3><ol>
 <li>戳<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a>，下载nodejs并安装（本人是在windows上面搭建的），nodejs主要使用npm命令来安装hexo框架的各种插件；</li>
 <li>戳<a href="https://gitforwindows.org/" target="_blank" rel="noopener">git</a>安装windows版git，主要目的是让hexo和github pages配合更新。</li>
 </ol>
-<h4 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h4><p>使用git-bash或者cmd即可安装hexo</p>
-<pre><code>$ npm install -g hexo-cli</code></pre><h4 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h4><p>在你指定的存放网站文件的目录下（我的是brightblog，这个目录在后文将被称为hexo根目录）执行下面三行命令：</p>
+<h3 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h3><p>使用git-bash或者cmd即可安装hexo</p>
+<pre><code>$ npm install -g hexo-cli</code></pre><h3 id="网站配置"><a href="#网站配置" class="headerlink" title="网站配置"></a>网站配置</h3><p>在你指定的存放网站文件的目录下（我的是brightblog，这个目录在后文将被称为hexo根目录）执行下面三行命令：</p>
 <pre><code>$ hexo init brightblog
 $ cd brightblog
 $ npm install</code></pre><p>新建完成后可以看到目录下的结构为：</p>
@@ -363,8 +363,7 @@ $ npm install</code></pre><p>新建完成后可以看到目录下的结构为：
 <td><a href="https://hexo.io/zh-cn/docs/themes.html" target="_blank" rel="noopener">主题</a>文件夹，Hexo 会根据主题来生成静态页面</td>
 </tr>
 </tbody></table>
-<p>个人认为比较重要的几个文件_config.yml，source目录和themes目录，它们分别是你配置网站，存在博客和存放主题的地方。</p>
-<p>关于_config.yml，我配置的几个主要地方是：</p>
+<p>个人认为比较重要的几个文件_config.yml，source目录和themes目录，它们分别是你配置网站，存在博客和存放主题的地方。关于_config.yml，我配置的几个主要地方是：</p>
 <pre><code>title: Zeroone
 author: J. Zhang
 url: https://blog.jtzhang.xyz
@@ -375,7 +374,7 @@ search:
 deploy:
   - type: git
     repo: git@github.com:brightLLer/brightLLer.github.io.git
-    branch: master</code></pre><h4 id="下载和配置主题"><a href="#下载和配置主题" class="headerlink" title="下载和配置主题"></a>下载和配置主题</h4><p>切换到hexo根目录下的themes文件夹，并执行如下命令下载主题（我使用的是3-hexo主题）：</p>
+    branch: master</code></pre><h3 id="下载和配置主题"><a href="#下载和配置主题" class="headerlink" title="下载和配置主题"></a>下载和配置主题</h3><p>切换到hexo根目录下的themes文件夹，并执行如下命令下载主题（我使用的是3-hexo主题）：</p>
 <pre><code>$ cd themes/
 $ git init
 $ git clone https://github.com/yelog/hexo-theme-3-hexo.git</code></pre><p>下载好的主题的名字要配置在hexo根目录下的_config.yml文件中（见上一小节）。一般来说，一个主题的目录具有如下的文件结构：</p>
@@ -384,31 +383,36 @@ $ git clone https://github.com/yelog/hexo-theme-3-hexo.git</code></pre><p>下载
 ├── languages
 ├── layout
 ├── scripts
-└── source</code></pre><p>主题目录下各个文件/目录的主要功能如下所示：<br>|文件/目录|功能|<br>|-|-|<br>|_config.yml|主题的配置文件|<br>|languages|语言文件夹，请参见<a href="https://hexo.io/zh-cn/docs/internationalization.html" target="_blank" rel="noopener">国际化 (i18n)</a><br>layout|布局文件夹。用于存放主题的<a href="https://hexo.io/zh-cn/docs/templates.html" target="_blank" rel="noopener">模板</a>文件，决定了网站内容的呈现方式，您可参考模板以获得更多信息|<br>|scripts|脚本文件夹。在启动时，Hexo 会载入此文件夹内的 JavaScript 文件，参见<a href="https://hexo.io/zh-cn/docs/plugins.html" target="_blank" rel="noopener">插件</a>获取更多信息|<br>|source|资源文件夹，除了模板以外的 Asset，例如 CSS、JavaScript 文件等，都应该放在这个文件夹中。文件或文件夹开头名称为 _（下划线线）或隐藏的文件会被忽略|<br>这里值得一提的是_config.yml文件，这个文件与hexo根目录下的_config.yml文件是不一样的，前者主要用于主题相关的配置，后者则主要是进行网站本身的全局配置。</p>
+└── source</code></pre><p>主题目录下各个文件/目录的主要功能如下所示:</p>
 <table>
 <thead>
 <tr>
-<th>list</th>
-<th>list</th>
-<th>list</th>
+<th>文件/目录</th>
+<th>功能</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>row1</td>
-<td>row2</td>
-<td>row3</td>
+<td>_config.yml</td>
+<td>主题的配置文件</td>
 </tr>
 <tr>
-<td>row1</td>
-<td>row2</td>
-<td>row3</td>
+<td>languages</td>
+<td>语言文件夹，请参见<a href="https://hexo.io/zh-cn/docs/internationalization.html" target="_blank" rel="noopener">国际化 (i18n)</a></td>
 </tr>
 <tr>
-<td>row1</td>
-<td>row2</td>
-<td>row3</td>
+<td>layout</td>
+<td>布局文件夹。用于存放主题的<a href="https://hexo.io/zh-cn/docs/templates.html" target="_blank" rel="noopener">模板</a>文件，决定了网站内容的呈现方式，您可参考模板以获得更多信息</td>
+</tr>
+<tr>
+<td>scripts</td>
+<td>脚本文件夹。在启动时，Hexo 会载入此文件夹内的 JavaScript 文件，参见<a href="https://hexo.io/zh-cn/docs/plugins.html" target="_blank" rel="noopener">插件</a>获取更多信息</td>
+</tr>
+<tr>
+<td>source</td>
+<td>资源文件夹，除了模板以外的 Asset，例如 CSS、JavaScript 文件等，都应该放在这个文件夹中。文件或文件夹开头名称为 _（下划线线）或隐藏的文件会被忽略</td>
 </tr>
 </tbody></table>
+<p>这里值得一提的是_config.yml文件，这个文件与hexo根目录下的_config.yml文件是不一样的，前者主要用于主题相关的配置，后者则主要是进行网站本身的全局配置。</p>
 <p>关于主题目录下的_config.yml，我配置的几个主要地方是：</p>
 <pre><code># 你的头像url
 avatar: /img/zeroone.png
@@ -500,7 +504,7 @@ gitalk:
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.4k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-03, 16:52:33</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-04, 21:52:03</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-04, 21:54:57</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/03/platform-building/" title="博客平台搭建">https://blog.jtzhang.xyz/2019/09/03/platform-building/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -583,7 +587,7 @@ gitalk:
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#hexo','#3-hexo','#librosa','#signal processing','#speech separation',],
+            'data': ['#librosa','#signal processing','#speech separation','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
