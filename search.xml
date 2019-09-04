@@ -8,7 +8,7 @@
       <link href="/2019/09/03/platform-building/"/>
       <url>/2019/09/03/platform-building/</url>
       
-        <content type="html"><![CDATA[<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>最近博客平台的搭建也告一段落了，再次感谢各位开源大佬的支持，没有你们，我这个小破站也搭建不起来┭┮﹏┭┮。废话不多说，整个小博客网站主要是借助<a href="https://hexo.io/" target="_blank" rel="noopener">hexo</a>博客框架和<a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank" rel="noopener">3-hexo</a>这个博客主题完成的，3-hexo主题的使用demo可以查看本站下方的友链部分。整个搭建过程真的踩了不少坑，下面我也会分模块尽可能一一讲述清楚。</p><h2 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>最近博客平台的搭建也告一段落了，再次感谢各位开源大佬的支持，没有你们，我这个小破站也搭建不起来(╯▔皿▔)╯。废话不多说，整个小博客网站主要是借助<a href="https://hexo.io/" target="_blank" rel="noopener">hexo</a>博客框架和<a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank" rel="noopener">3-hexo</a>这个博客主题完成的，3-hexo主题的使用demo可以查看本站下方的友链部分。整个搭建过程真的踩了不少坑，下面我也会分模块尽可能一一讲述清楚。</p><h2 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h2><h4 id="必要条件"><a href="#必要条件" class="headerlink" title="必要条件"></a>必要条件</h4><ol><li>戳<a href="https://nodejs.org/en/" target="_blank" rel="noopener">nodejs</a>，下载nodejs并安装（本人是在windows上面搭建的），nodejs主要使用npm命令来安装hexo框架的各种插件；</li><li>戳<a href="https://gitforwindows.org/" target="_blank" rel="noopener">git</a>安装windows版git，主要目的是让hexo和github pages配合更新。</li></ol><p>#### </p>]]></content>
       
       
       <categories>
