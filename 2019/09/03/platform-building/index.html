@@ -142,7 +142,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="3">
-<input type="hidden" id="yelog_site_word_count" value="3.1k">
+<input type="hidden" id="yelog_site_word_count" value="3.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -267,12 +267,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-04 22:31:09'>2019-09-03 16:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-05 11:41:48'>2019-09-03 16:52</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.7k</span>
+        <span>字数:2.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -302,7 +302,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#综述"><span class="toc-text">综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo搭建步骤"><span class="toc-text">hexo搭建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#必要条件"><span class="toc-text">必要条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo安装"><span class="toc-text">hexo安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网站配置"><span class="toc-text">网站配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载和配置主题"><span class="toc-text">下载和配置主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#站点测试和部署"><span class="toc-text">站点测试和部署</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#综述"><span class="toc-text">综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo搭建步骤"><span class="toc-text">hexo搭建步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#必要条件"><span class="toc-text">必要条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo安装"><span class="toc-text">hexo安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网站配置"><span class="toc-text">网站配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载和配置主题"><span class="toc-text">下载和配置主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#站点测试和部署"><span class="toc-text">站点测试和部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#申请自己的域名"><span class="toc-text">申请自己的域名</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -499,12 +499,57 @@ gitalk:
 # perPage: 每次加载的数据大小，默认10，最大100</code></pre><h2 id="站点测试和部署"><a href="#站点测试和部署" class="headerlink" title="站点测试和部署"></a>站点测试和部署</h2><p>在hexo根目录/站点根目录(brightblog)下打开cmd命令行，执行如下命令</p>
 <pre><code>hexo s</code></pre><p>之后再浏览器的地址栏输入<code>http://localhost:4000</code>就可以看到测试的站点，如下图所示，按住<code>Ctrl+C</code>可以退出本地测试。<br><img src="/img/local-test.png"><br>如果检查后觉得测试页面没有什么问题，就可以部署到Github pages上面了。</p>
 <ol>
-<li>首先在git-bash上执行如下命令安装部署hexo站点用的插件：<pre><code>npm install hexo-deployer-git --save</code></pre></li>
-<li>在Github上创建名为<code>&lt;username&gt;.github.io</code>的仓库，比如我的就是<code>brightller.github.io</code></li>
-<li>在网站的配置文件（不是主题的配置文件）_config.yml中填好部署的配置：<pre><code>deploy:
+<li><p>首先在git-bash上执行如下命令安装部署hexo站点用的插件：</p>
+<pre><code>npm install hexo-deployer-git --save</code></pre></li>
+<li><p>在Github上创建名为<code>&lt;username&gt;.github.io</code>的仓库，比如我的就是<code>brightller.github.io</code></p>
+</li>
+<li><p>在网站的配置文件（不是主题的配置文件）_config.yml中填好部署的配置：</p>
+<pre><code>deploy:
 - type: git
  repo: git@github.com:brightLLer/brightLLer.github.io.git
  branch: master</code></pre></li>
+<li><p>一般来说,github提交代码有两种方式，一种为HTTPS方式，另一种为SSH方式：</p>
+<pre><code># HTTPS方式:
+https://github.com/brightLLer/brightLLer.github.io.git
+# SSH方式:
+git@git.com:brightLLer/brightLLer.github.io.git</code></pre><p>以HTTPS方式提交代码需要每次手动输入github的账号密码，而SSH方式是将本地系统的公钥(每换一台电脑就要重新生成一次)提供给github，之后就不需要每次手动输入账号和密码了，回头看第3点，由于部署的方式是SSH方式，因此我们需要先生成SSH密钥：</p>
+<pre><code>ssh-keygen -t rsa -C &quot;1277472231@qq.com&quot;</code></pre><p>接着切换到<code>C:\Users\&lt;local_user&gt;\.ssh</code>下，可以看到目录结构：</p>
+<pre><code>.
+├── id_rsa
+├── id_rsa.pub
+└── known_hosts</code></pre><p>将id_rsa.pub中的公钥复制到github上面：</p>
+<pre><code>头像 -&gt; settings -&gt; SSH and GPG keys -&gt; New SSH key -&gt; 填写title(随意)和key</code></pre><img src="/img/SSH-github.png">
+</li>
+<li><p>关联本地仓库和远程仓库:</p>
+<pre><code>git remote add origin git@git.com:brightLLer/brightLLer.github.io.git
+# 或者
+git remote add origin https://github.com/brightLLer/brightLLer.github.io.git
+# 可缺省https链接</code></pre></li>
+<li><p>最终部署：</p>
+<pre><code># 第一次部署
+hexo deploy
+# 非第一次部署（修改过内容后重新部署，如主题）
+hexo clean
+hexo generate
+hexo deploy</code></pre></li>
+</ol>
+<p>除此之外，为了开启评论系统Gitalk，我们需要注册<a href="https://github.com/settings/applications/new" target="_blank" rel="noopener">OAuth Application</a>，进去之后我们可以看到下方的界面：<br><img src="/img/OAuth-App.png"><br>这里<code>https://blog.jtzhang.xyz/</code>是我申请的域名，如果没有域名就还是填原来的<code>https://&lt;username&gt;.github.io/</code>就可以了，注册好之后我们会得到自己的<code>client_id</code>和<code>client_secret</code>，可以在github中采用如下方式进入查看：</p>
+<pre><code>头像 -&gt; Developer settings -&gt; OAuth Apps -&gt; App头像</code></pre><p>将它们填写到主题配置文件_config.yml（注意不是网站配置文件_config.yml）上对应的位置就可以了：</p>
+<pre><code>gitalk:
+  githubID: brightller
+  repo: brightller.github.io
+  ClientID: your client_id
+  ClientSecret: your client_secret
+  adminUser: brightller
+  distractionFreeMode: true
+  language: zh-CN
+  perPage: 10</code></pre><h2 id="申请自己的域名"><a href="#申请自己的域名" class="headerlink" title="申请自己的域名"></a>申请自己的域名</h2><p>由于我使用的是腾讯云，所以将腾讯云作为例子，其它平台的操作也是类似的。</p>
+<ol>
+<li>注册腾讯云账号，登录，进入控制台，购买域名，域名大部分需要实名认证，上传自己的身份证即可，审核一般当天能完成.</li>
+<li>进入域名管理，如果审核通过了，可以看到：<img src="/img/domain-manage.png"></li>
+<li>点击上图中的解析，进入之后点击添加如下3条记录，其中前两条是固定的，解析的是github的IP地址，最后一条请填写你自己的仓库名<code>&lt;username&gt;.github.io</code>，主机记录可以随意填，既然是博客可以采用blog这样的一个二级域名，记录类型建议填写CNAME，不要填A，这样github仓库待24小时内审核之后可以直接勾上enfore https，这样网站就可以安全访问了：<img src="/img/all-records.png">
+<img src="/img/enforce-https.png"></li>
+<li>域名注册成功后就可以直接使用域名访问自己的网站了.</li>
 </ol>
 
       
@@ -520,10 +565,10 @@ gitalk:
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>博客平台搭建</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.7k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.4k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-03, 16:52:33</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-04, 22:31:09</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-05, 11:41:48</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/03/platform-building/" title="博客平台搭建">https://blog.jtzhang.xyz/2019/09/03/platform-building/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
