@@ -291,7 +291,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-10 15:34:53'>2019-09-09 22:03</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-10 15:36:48'>2019-09-09 22:03</time>
         
     </div>
     <div class="article-meta">
@@ -375,14 +375,14 @@ return dh.next
 \right.</script><p>利用上述公式，采用自底向上的动态规划法，保存子串对的最长公共后缀，再从这些后缀中找出最长的那个即可<br>搭出公式对应的框架：</p>
 <pre><code>int[][] dp = new int[m + 1][n + 1];
 for(int i = 0; i &lt;= m; i ++){
-  for(int j = 0; j &lt;= n; j ++){
-    if(i == 0 || j == 0)
-      dp[i][j] = 0;
-    else if(X[i - 1] == Y[j - 1]) //对应回原来的数组的索引时i, j分别要减1
-      dp[i][j] = dp[i - 1][j - 1] + 1;
-    else
-      dp[i][j] = 0;
-  }
+    for(int j = 0; j &lt;= n; j ++){
+        if(i == 0 || j == 0)
+          dp[i][j] = 0;
+        else if(X[i - 1] == Y[j - 1]) //对应回原来的数组的索引时i, j分别要减1
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+        else
+          dp[i][j] = 0;
+    }
 }
 </code></pre><pre><code>但是我们要考虑一个问题, 比如给定字符串dabcbe, 反转后为ebcbad,它们的公共子串为：
 d a b c b ...
@@ -435,7 +435,7 @@ for(int i = 0; i &lt;= n; i ++){
     <p><span class="copy-title">文章字数:</span><span class="post-count">722</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-09, 22:03:38</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-10, 15:34:53</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-10, 15:36:48</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/09/leetcode-note-1/" title="Leetcode笔记(一)">https://blog.jtzhang.xyz/2019/09/09/leetcode-note-1/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
