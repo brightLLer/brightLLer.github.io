@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>leetcode笔记(二)</title>
+      <link href="/2019/09/10/leetcode-note-2/"/>
+      <url>/2019/09/10/leetcode-note-2/</url>
+      
+        <content type="html"><![CDATA[<h3 id="移除元素-27"><a href="#移除元素-27" class="headerlink" title="移除元素(27)"></a>移除元素(27)</h3><p>给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-element" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-element</a></p><pre><code>给定 nums = [0,1,2,2,3,0,4,2], val = 2,函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。注意这五个元素可为任意顺序。你不需要考虑数组中超出新长度后面的元素。</code></pre><p>原地删除问题，也就是必须在O(1)额外空间的条件下删除数组中的元素，解决这类问题的固定套路是双指针法。</p><ol><li>设置快指针$j$和慢指针$i$;</li><li><strong>如果</strong>$nums_j = val$, 就递增$j$;</li><li><strong>只要</strong>$nums_j \neq val$, 则$nums_i \leftarrow nums_j$, 同时递增$i$和$j$;<pre><code class="lang-Java">for(int j = 0; j &lt; n; j ++){   if(nums[j] != val){     nums[i] = nums[j];     i ++;   }}return i;</code></pre></li></ol><h3 id="删除排序数组中的重复项-26"><a href="#删除排序数组中的重复项-26" class="headerlink" title="删除排序数组中的重复项(26)"></a>删除排序数组中的重复项(26)</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array</a></p><pre><code>给定 nums = [0,0,1,1,1,2,2,3,3,4],函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。你不需要考虑数组中超出新长度后面的元素。</code></pre><p>依旧是原地删除问题，同样可以采用双指针法解决。</p><ol><li>设置快指针$j$和慢指针$i$;</li><li><strong>如果</strong>$nums_j = nums_i$, 就递增$j$;</li><li><strong>只要</strong>$nums_j \neq nums_i$, 同时递增$i$和$j$, $nums_i \leftarrow nums_j$;<pre><code class="lang-Java">int i = 0;for(int j = 1; j &lt; n; j ++){   if(nums[j] != nums[i]){     i ++;     nums[i] = nums[j];   }}</code></pre></li></ol><h3 id="删除排序数组中的重复项-80"><a href="#删除排序数组中的重复项-80" class="headerlink" title="删除排序数组中的重复项(80)"></a>删除排序数组中的重复项(80)</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii</a></p><pre><code>给定 nums = [0,0,1,1,1,1,2,3,3],函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。你不需要考虑数组中超出新长度后面的元素。</code></pre><p>还是原地删除问题，继续采用双指针法解决。不同的是这次元素最多可以重复两次，可以设置一个标志变量$k$，并初始化$k = 0$，表示数组当前的元素只有一个，一旦出现了第二个，则$k = 1$，之后若再出现第三，第四个跟它相同的元素，$k$也不会再发生变化，直到遇到不同的元素为止，$k$重新清为0.</p><ol><li>设置快指针$j$, 慢指针$i$和标志变量$k$;</li><li><strong>如果</strong>$nums_j = nums_i$, 1) 如果$k = 0$, 递增$i$和$j$, $k \leftarrow 1$, $nums_i \leftarrow nums_j$, 2) 如果$k \neq 0$, 递增$j$;</li><li><strong>只要</strong>$nums_j \neq nums_i$, 递增$i$和$j$, $k \leftarrow 0$, $nums_i \leftarrow nums_j$;</li></ol><p>所以看伪代码会发现，$nums_j = nums_i \wedge k = 0$和$nums_j \neq nums_i$这两种情况的执行部分是基本一致的，可看成同一种情况。</p><pre><code class="lang-Java">int i = 0, k = 0;for(int j = 1; j &lt; nums.length; ++ j) {    if(nums[i] == nums[j]) {        if(k == 0) {            i ++;            nums[i] = nums[j];            k ++;        }    }else {        i ++;        nums[i] = nums[j];        k = 0;    }}return i + 1;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Leetcode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Leetcode笔记(一)</title>
       <link href="/2019/09/09/leetcode-note-1/"/>
       <url>/2019/09/09/leetcode-note-1/</url>
@@ -20,9 +47,9 @@
       
         <tags>
             
-            <tag> Leetcode </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> Leetcode </tag>
             
         </tags>
       
