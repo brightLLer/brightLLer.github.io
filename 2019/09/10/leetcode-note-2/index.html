@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   <title>leetcode笔记(二) | Zeroone</title>
-  <meta name="keywords" content=" leetcode , 算法 ">
+  <meta name="keywords" content=" 算法 , leetcode ">
   <meta name="description" content="leetcode笔记(二) | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
@@ -184,15 +184,11 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">leetcode</a>
+        <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">算法</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -205,6 +201,10 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">speech separation</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -227,7 +227,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/10/leetcode-note-2/"
-           data-tag="leetcode,算法"
+           data-tag="算法,leetcode"
            data-author="" >
             <span class="post-title" title="leetcode笔记(二)">leetcode笔记(二)</span>
             <span class="post-date" title="2019-09-10 21:10:47">2019/09/10</span>
@@ -235,7 +235,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/09/leetcode-note-1/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(一)">Leetcode笔记(一)</span>
             <span class="post-date" title="2019-09-09 22:03:38">2019/09/09</span>
@@ -294,16 +294,16 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color4">leetcode</a>
-            
             <a href="javascript:" class="color3">算法</a>
+            
+            <a href="javascript:" class="color4">leetcode</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-10 22:31:58'>2019-09-10 21:10</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-10 22:36:49'>2019-09-10 21:10</time>
         
     </div>
     <div class="article-meta">
@@ -374,9 +374,7 @@ return i;
 </ol>
 <h3 id="删除排序数组中的重复项-26"><a href="#删除排序数组中的重复项-26" class="headerlink" title="删除排序数组中的重复项(26)"></a>删除排序数组中的重复项(26)</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array</a></p>
 <pre><code>给定 nums = [0,0,1,1,1,2,2,3,3,4],
-
 函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
-
 你不需要考虑数组中超出新长度后面的元素。
 </code></pre><p>依旧是原地删除问题，同样可以采用双指针法解决。</p>
 <ol>
@@ -394,9 +392,7 @@ for(int j = 1; j &lt; n; j ++){
 </ol>
 <h3 id="删除排序数组中的重复项-80"><a href="#删除排序数组中的重复项-80" class="headerlink" title="删除排序数组中的重复项(80)"></a>删除排序数组中的重复项(80)</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii</a></p>
 <pre><code>给定 nums = [0,0,1,1,1,1,2,3,3],
-
 函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。
-
 你不需要考虑数组中超出新长度后面的元素。
 </code></pre><p>还是原地删除问题，继续采用双指针法解决。不同的是这次元素最多可以重复两次，可以设置一个标志变量$k$，并初始化$k = 0$，表示数组当前的元素只有一个，一旦出现了第二个，则$k = 1$，之后若再出现第三，第四个跟它相同的元素，$k$也不会再发生变化，直到遇到不同的元素为止，$k$重新清为0.</p>
 <ol>
@@ -438,7 +434,7 @@ return i + 1;
     <p><span class="copy-title">文章字数:</span><span class="post-count">836</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-10, 21:10:47</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-10, 22:31:58</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-10, 22:36:49</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/10/leetcode-note-2/" title="leetcode笔记(二)">https://blog.jtzhang.xyz/2019/09/10/leetcode-note-2/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -561,7 +557,7 @@ return i + 1;
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#leetcode','#算法','#Leetcode','#librosa','#signal processing','#speech separation','#hexo','#3-hexo',],
+            'data': ['#Leetcode','#算法','#librosa','#signal processing','#speech separation','#leetcode','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
