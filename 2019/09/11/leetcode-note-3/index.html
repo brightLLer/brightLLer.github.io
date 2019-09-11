@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>Leetcode笔记(二) | Zeroone</title>
-  <meta name="keywords" content=" 算法 , leetcode ">
-  <meta name="description" content="Leetcode笔记(二) | Zeroone">
+  <title>Leetcode笔记(三) | Zeroone</title>
+  <meta name="keywords" content=" Leetcode , 算法 ">
+  <meta name="description" content="Leetcode笔记(三) | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
 <meta property="og:type" content="website">
@@ -285,9 +285,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-leetcode-note-2" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode-note-3" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Leetcode笔记(二)</h1>
+        <h1 class="article-title">Leetcode笔记(三)</h1>
     
     <div class="article-meta">
         
@@ -302,21 +302,21 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color3">算法</a>
+            <a href="javascript:" class="color4">Leetcode</a>
             
-            <a href="javascript:" class="color4">leetcode</a>
+            <a href="javascript:" class="color3">算法</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-11 21:29:52'>2019-09-10 21:10</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-11 21:41:47'>2019-09-11 17:05</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.3k</span>
+        <span>字数:780</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -346,7 +346,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#移除元素-27"><span class="toc-text">移除元素(27)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除排序数组中的重复项-26"><span class="toc-text">删除排序数组中的重复项(26)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除排序数组中的重复项-80"><span class="toc-text">删除排序数组中的重复项(80)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#旋转数组"><span class="toc-text">旋转数组</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#缺失的第一个正数-41"><span class="toc-text">缺失的第一个正数(41)</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -361,104 +361,69 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="移除元素-27"><a href="#移除元素-27" class="headerlink" title="移除元素(27)"></a>移除元素(27)</h3><p>给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-element" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-element</a></p>
-<pre><code>给定 nums = [0,1,2,2,3,0,4,2], val = 2,
-函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。
-注意这五个元素可为任意顺序。
-你不需要考虑数组中超出新长度后面的元素。
-</code></pre><p>原地删除问题，也就是必须在O(1)额外空间的条件下删除数组中的元素，解决这类问题的固定套路是双指针法。</p>
+        <h3 id="缺失的第一个正数-41"><a href="#缺失的第一个正数-41" class="headerlink" title="缺失的第一个正数(41)"></a>缺失的第一个正数(41)</h3><p>给定一个未排序的整数数组，找出其中没有出现的最小的正整数。</p>
+<pre><code>输入: [1,2,0]
+输出: 3
+
+输入: [3,4,-1,1]
+输出: 2
+
+输入: [7,8,9,11,12]
+输出: 1
+</code></pre><p>假设数组$nums$的长度为$n$, 那么应当考虑:</p>
 <ol>
-<li>设置快指针$j$和慢指针$i$;</li>
-<li><strong>如果</strong>$nums_j = val$, 就递增$j$;</li>
-<li><strong>只要</strong>$nums_j \neq val$, 则$nums_i \leftarrow nums_j$, 同时递增$i$和$j$;<pre><code class="lang-Java">for(int j = 0; j &lt; n; j ++){
-   if(nums[j] != val){
-     nums[i] = nums[j];
-     i ++;
-   }
-}
-return i;
-</code></pre>
-</li>
+<li>为了让数组中的正整数尽可能小，$nums$中本来的正整数应当是$1\sim n$(但实际上不是), 基于这一点，我们应该关注数组中那些位于$1\sim n$的数字;</li>
+<li>假设数组$nums = [1, 2, 3, 4]$, 每个元素对应的索引依次为$0, 1, 2, 3$, 也就是$nums_i = i + 1$, 也就是说:<pre><code>由于nums[i] = i + 1;
+所以i = nums[i] - 1;
+所以nums[i] = nums[nums[i] - 1];
+</code></pre>那么如果$nums = [3, 4, -1, 1]$, 关注该数组中位于$1 \sim 4$的数, 分别为$1, 3, 4$，这些数应该放到索引为$0, 2, 3$的位置上，下面我们会介绍怎么通过交换去放这些数.</li>
 </ol>
-<h3 id="删除排序数组中的重复项-26"><a href="#删除排序数组中的重复项-26" class="headerlink" title="删除排序数组中的重复项(26)"></a>删除排序数组中的重复项(26)</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array</a></p>
-<pre><code>给定 nums = [0,0,1,1,1,2,2,3,3,4],
-函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
-你不需要考虑数组中超出新长度后面的元素。
-</code></pre><p>依旧是原地删除问题，同样可以采用双指针法解决。</p>
-<ol>
-<li>设置快指针$j$和慢指针$i$;</li>
-<li><strong>如果</strong>$nums_j = nums_i$, 就递增$j$;</li>
-<li><strong>只要</strong>$nums_j \neq nums_i$, 同时递增$i$和$j$, $nums_i \leftarrow nums_j$;<pre><code class="lang-Java">int i = 0;
-for(int j = 1; j &lt; n; j ++){
-   if(nums[j] != nums[i]){
-     i ++;
-     nums[i] = nums[j];
-   }
-}
-</code></pre>
-</li>
-</ol>
-<h3 id="删除排序数组中的重复项-80"><a href="#删除排序数组中的重复项-80" class="headerlink" title="删除排序数组中的重复项(80)"></a>删除排序数组中的重复项(80)</h3><p>给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。<br>原题链接：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii</a></p>
-<pre><code>给定 nums = [0,0,1,1,1,1,2,3,3],
-函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。
-你不需要考虑数组中超出新长度后面的元素。
-</code></pre><p>还是原地删除问题，继续采用双指针法解决。不同的是这次元素最多可以重复两次，可以设置一个标志变量$k$，并初始化$k = 0$，表示数组当前的元素只有一个，一旦出现了第二个，则$k = 1$，之后若再出现第三，第四个跟它相同的元素，$k$也不会再发生变化，直到遇到不同的元素为止，$k$重新清为0.</p>
-<ol>
-<li>设置快指针$j$, 慢指针$i$和标志变量$k$;</li>
-<li><strong>如果</strong>$nums_j = nums_i$, 1) 如果$k = 0$, 递增$i$和$j$, $k \leftarrow 1$, $nums_i \leftarrow nums_j$, 2) 如果$k \neq 0$, 递增$j$;</li>
-<li><strong>只要</strong>$nums_j \neq nums_i$, 递增$i$和$j$, $k \leftarrow 0$, $nums_i \leftarrow nums_j$;</li>
-</ol>
-<p>所以看伪代码会发现，$nums_j = nums_i \wedge k = 0$和$nums_j \neq nums_i$这两种情况的执行部分是基本一致的，可看成同一种情况。</p>
-<pre><code class="lang-Java">int i = 0, k = 0;
-for(int j = 1; j &lt; nums.length; ++ j) {
-    if(nums[i] == nums[j]) {
-        if(k == 0) {
-            i ++;
-            nums[i] = nums[j];
-            k ++;
+<p>第一次遍历数组$nums$</p>
+<pre><code>i = 0, nums[0] != nums[nums[0] - 1] = nums[3 - 1] = nums[2], 因此交换索引0和索引2的数, 得到[-1, 4, 3, 1];
+i = 0, nums[0] = -1不在集合{1, 2, 3, 4}中, i ++;
+i = 1, nums[1] != nums[nums[1] - 1] = nums[4 - 1] = nums[3], 因此交换索引1和索引4的数, 得到[-1, 1, 3, 4];
+i = 1, nums[1] != nums[nums[1] - 1] = nums[1 - 1] = nums[0], 因此交换索引0和索引1的数, 得到[1, -1, 3, 4];
+i = 1, nums[1] = -1不在集合{1, 2, 3, 4}中, i ++;
+i = 2, nums[2] == nums[nums[2] - 1] = nums[3 - 1] = nums[2], i ++;
+i = 3, nums[3] == nums[nums[3] - 1] = nums[4 - 1] = nums[3], i ++;
+i = 4 &gt; n - 1 = 3，循环结束;
+</code></pre><p>第二次遍历数组$nums$</p>
+<pre><code>一旦出现nums[i] != i + 1就返回i + 1, 明显元素-1就不符合，返回i + 1 = 2;
+</code></pre><p>再举个简单的例子，$nums = [5, 6, 7, 8]$</p>
+<pre><code>由于数组长度为4, 每个元素都不在集合{1, 2, 3, 4}中, 第一遍循环不执行, 第二遍循环nums[0] != 0 + 1, 直接返回1;
+</code></pre><p>最后一个例子, $nums = [1, 2, 3, 4]$</p>
+<pre><code>数组中的每个元素都在集合{1, 2, 3, 4}中且nums[i] = nums[nums[i] - 1], 所以第一遍循环也不执行;
+第二遍循环nums[i] == i + 1也全部成立, 这时候只要直接返回数组长度加1即可, 也就是4 + 1 = 5;
+</code></pre><p>代码如下:</p>
+<pre><code>时间复杂度O(n)
+尽管循环有两次, 但是每交换一次，都有一个数回归到正确位置，所以两层循环最多交换n次，所以是O(n)不是O(n^2)
+额外空间为O(1)
+public static int firstMissingPositive(int[] nums) {
+    int n = nums.length;
+    for(int i = 0; i &lt; n; i ++) {
+        while(nums[i] &gt; 0 &amp;&amp; nums[i] &lt;= n &amp;&amp; nums[i] != nums[nums[i] - 1]) {
+            swap(nums, i, nums[i] - 1);
         }
-    }else {
-        i ++;
-        nums[i] = nums[j];
-        k = 0;
     }
-}
-return i + 1;
-</code></pre>
-<h3 id="旋转数组"><a href="#旋转数组" class="headerlink" title="旋转数组"></a>旋转数组</h3><p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。<br>原题链接：<a href="https://leetcode-cn.com/problems/rotate-array" target="_blank" rel="noopener">https://leetcode-cn.com/problems/rotate-array</a></p>
-<pre><code>输入: [1,2,3,4,5,6,7] 和 k = 3
-输出: [5,6,7,1,2,3,4]
-解释:
-向右旋转 1 步: [7,1,2,3,4,5,6]
-向右旋转 2 步: [6,7,1,2,3,4,5]
-向右旋转 3 步: [5,6,7,1,2,3,4]
-</code></pre><p>如果不采用原地算法(O(1))的额外空间，只需要用另外一个额外数组<code>a[]</code>来保存<code>nums[]</code>旋转后的结果即可，原来在位置<code>i</code>上的数，旋转<code>k</code>次后会来到<code>(i + k) % n</code>的位置，其中<code>n</code>是数组的长度，这有点像是循环队列.</p>
-<pre><code>a[i] = nums[(i + k) % n]
-</code></pre><p>但是原题要求用原地算法，那么可以采用的一种简洁算法是：反转算法<br>当我们旋转数组<code>k</code>次时，那么就有<code>n % k</code>个尾部元素移动到了数组的首部，剩下的按顺序往后移动.<br>反转算法的做法是：</p>
-<ul>
-<li>先将整个数组反转</li>
-<li>再反转前<code>k</code>个元素</li>
-<li>最后反转后<code>n - k</code>个元素</li>
-</ul>
-<pre><code>原始数组                  : 1 2 3 4 5 6 7
-反转所有数字后             : 7 6 5 4 3 2 1
-反转前 k 个数字后          : 5 6 7 4 3 2 1
-反转后 n-k 个数字后        : 5 6 7 1 2 3 4
-</code></pre><p>代码如下：</p>
-<pre><code>public static void rotate(int[] nums, int k) {
-    k %= nums.length;
-    reverse(nums, 0, nums.length - 1);
-    reverse(nums, 0, k - 1);
-    reverse(nums, k, nums.length - 1);
+    for(int i = 0; i &lt; n; i ++) {
+        if(nums[i] != i + 1)
+            return i + 1;
+    }
+    return n + 1;
 }
 
-public static void reverse(int[] nums, int start, int end) {
-    for(int i =  start, j = end; i &lt; j; i ++, j --) {
-      int temp = nums[i];
-      nums[i] = nums[j];
-      nums[j] = temp;
-    }
+public static void swap(int[] nums, int idx1, int idx2) {
+      if(idx1 == idx2)
+          return;
+      nums[idx1] = nums[idx1] + nums[idx2];
+      nums[idx2] = nums[idx1] - nums[idx2];
+      nums[idx1] = nums[idx1] - nums[idx2];
 }
+</code></pre><p>小注:</p>
+<pre><code>不引入额外变量交换a和b
+a = a + b;
+b = a - b;
+a = a - b;
 </code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -472,12 +437,12 @@ public static void reverse(int[] nums, int start, int end) {
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Leetcode笔记(二)</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
+    <p><span class="copy-title">文章标题:</span>Leetcode笔记(三)</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">780</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-09-10, 21:10:47</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-11, 21:29:52</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/10/leetcode-note-2/" title="Leetcode笔记(二)">https://blog.jtzhang.xyz/2019/09/10/leetcode-note-2/</a>
+    <p><span class="copy-title">发布时间:</span>2019-09-11, 17:05:26</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-11, 21:41:47</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/11/leetcode-note-3/" title="Leetcode笔记(三)">https://blog.jtzhang.xyz/2019/09/11/leetcode-note-3/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

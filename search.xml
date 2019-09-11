@@ -4,7 +4,34 @@
   
     
     <entry>
-      <title>leetcode笔记(二)</title>
+      <title>Leetcode笔记(三)</title>
+      <link href="/2019/09/11/leetcode-note-3/"/>
+      <url>/2019/09/11/leetcode-note-3/</url>
+      
+        <content type="html"><![CDATA[<h3 id="缺失的第一个正数-41"><a href="#缺失的第一个正数-41" class="headerlink" title="缺失的第一个正数(41)"></a>缺失的第一个正数(41)</h3><p>给定一个未排序的整数数组，找出其中没有出现的最小的正整数。</p><pre><code>输入: [1,2,0]输出: 3输入: [3,4,-1,1]输出: 2输入: [7,8,9,11,12]输出: 1</code></pre><p>假设数组$nums$的长度为$n$, 那么应当考虑:</p><ol><li>为了让数组中的正整数尽可能小，$nums$中本来的正整数应当是$1\sim n$(但实际上不是), 基于这一点，我们应该关注数组中那些位于$1\sim n$的数字;</li><li>假设数组$nums = [1, 2, 3, 4]$, 每个元素对应的索引依次为$0, 1, 2, 3$, 也就是$nums_i = i + 1$, 也就是说:<pre><code>由于nums[i] = i + 1;所以i = nums[i] - 1;所以nums[i] = nums[nums[i] - 1];</code></pre>那么如果$nums = [3, 4, -1, 1]$, 关注该数组中位于$1 \sim 4$的数, 分别为$1, 3, 4$，这些数应该放到索引为$0, 2, 3$的位置上，下面我们会介绍怎么通过交换去放这些数.</li></ol><p>第一次遍历数组$nums$</p><pre><code>i = 0, nums[0] != nums[nums[0] - 1] = nums[3 - 1] = nums[2], 因此交换索引0和索引2的数, 得到[-1, 4, 3, 1];i = 0, nums[0] = -1不在集合{1, 2, 3, 4}中, i ++;i = 1, nums[1] != nums[nums[1] - 1] = nums[4 - 1] = nums[3], 因此交换索引1和索引4的数, 得到[-1, 1, 3, 4];i = 1, nums[1] != nums[nums[1] - 1] = nums[1 - 1] = nums[0], 因此交换索引0和索引1的数, 得到[1, -1, 3, 4];i = 1, nums[1] = -1不在集合{1, 2, 3, 4}中, i ++;i = 2, nums[2] == nums[nums[2] - 1] = nums[3 - 1] = nums[2], i ++;i = 3, nums[3] == nums[nums[3] - 1] = nums[4 - 1] = nums[3], i ++;i = 4 &gt; n - 1 = 3，循环结束;</code></pre><p>第二次遍历数组$nums$</p><pre><code>一旦出现nums[i] != i + 1就返回i + 1, 明显元素-1就不符合，返回i + 1 = 2;</code></pre><p>再举个简单的例子，$nums = [5, 6, 7, 8]$</p><pre><code>由于数组长度为4, 每个元素都不在集合{1, 2, 3, 4}中, 第一遍循环不执行, 第二遍循环nums[0] != 0 + 1, 直接返回1;</code></pre><p>最后一个例子, $nums = [1, 2, 3, 4]$</p><pre><code>数组中的每个元素都在集合{1, 2, 3, 4}中且nums[i] = nums[nums[i] - 1], 所以第一遍循环也不执行;第二遍循环nums[i] == i + 1也全部成立, 这时候只要直接返回数组长度加1即可, 也就是4 + 1 = 5;</code></pre><p>代码如下:</p><pre><code>时间复杂度O(n)尽管循环有两次, 但是每交换一次，都有一个数回归到正确位置，所以两层循环最多交换n次，所以是O(n)不是O(n^2)额外空间为O(1)public static int firstMissingPositive(int[] nums) {    int n = nums.length;    for(int i = 0; i &lt; n; i ++) {        while(nums[i] &gt; 0 &amp;&amp; nums[i] &lt;= n &amp;&amp; nums[i] != nums[nums[i] - 1]) {            swap(nums, i, nums[i] - 1);        }    }    for(int i = 0; i &lt; n; i ++) {        if(nums[i] != i + 1)            return i + 1;    }    return n + 1;}public static void swap(int[] nums, int idx1, int idx2) {      if(idx1 == idx2)          return;      nums[idx1] = nums[idx1] + nums[idx2];      nums[idx2] = nums[idx1] - nums[idx2];      nums[idx1] = nums[idx1] - nums[idx2];}</code></pre><p>小注:</p><pre><code>不引入额外变量交换a和ba = a + b;b = a - b;a = a - b;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Leetcode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Leetcode笔记(二)</title>
       <link href="/2019/09/10/leetcode-note-2/"/>
       <url>/2019/09/10/leetcode-note-2/</url>
       
