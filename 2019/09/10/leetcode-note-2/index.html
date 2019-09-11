@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   <title>leetcode笔记(二) | Zeroone</title>
-  <meta name="keywords" content=" leetcode , 算法 ">
+  <meta name="keywords" content=" 算法 , leetcode ">
   <meta name="description" content="leetcode笔记(二) | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
@@ -184,7 +184,7 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">leetcode</a>
+        <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -192,7 +192,7 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">Leetcode</a>
+        <a href="javascript:" class="color4">leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -227,7 +227,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/10/leetcode-note-2/"
-           data-tag="leetcode,算法"
+           data-tag="算法,leetcode"
            data-author="" >
             <span class="post-title" title="leetcode笔记(二)">leetcode笔记(二)</span>
             <span class="post-date" title="2019-09-10 21:10:47">2019/09/10</span>
@@ -235,7 +235,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/09/leetcode-note-1/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(一)">Leetcode笔记(一)</span>
             <span class="post-date" title="2019-09-09 22:03:38">2019/09/09</span>
@@ -294,16 +294,16 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color4">leetcode</a>
-            
             <a href="javascript:" class="color3">算法</a>
+            
+            <a href="javascript:" class="color4">leetcode</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-11 11:01:05'>2019-09-10 21:10</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-11 11:04:01'>2019-09-10 21:10</time>
         
     </div>
     <div class="article-meta">
@@ -430,14 +430,28 @@ return i + 1;
 <ul>
 <li>先将整个数组反转</li>
 <li>再反转前<code>k</code>个元素</li>
-<li>最后反转后<code>n - k</code>个元素<pre><code>原始数组                  : 1 2 3 4 5 6 7
+<li>最后反转后<code>n - k</code>个元素</li>
+</ul>
+<pre><code>原始数组                  : 1 2 3 4 5 6 7
 反转所有数字后             : 7 6 5 4 3 2 1
 反转前 k 个数字后          : 5 6 7 4 3 2 1
 反转后 n-k 个数字后        : 5 6 7 1 2 3 4
-</code></pre>代码如下：<br>```<br>public static void rotate(int[] nums, int k) {<br>  k %= nums.length;<br>  reverse(nums, 0, nums.length - 1);<br>  reverse(nums, 0, k - 1);<br>  reverse(nums, k, nums.length - 1);<br>}</li>
-</ul>
-<p>public static void reverse(int[] nums, int start, int end) {<br>    for(int i =  start, j = end; i &lt; j; i ++, j —) {<br>      int temp = nums[i];<br>      nums[i] = nums[j];<br>      nums[j] = temp;<br>    }<br>}<br>```</p>
+</code></pre><p>代码如下：</p>
+<pre><code>public static void rotate(int[] nums, int k) {
+    k %= nums.length;
+    reverse(nums, 0, nums.length - 1);
+    reverse(nums, 0, k - 1);
+    reverse(nums, k, nums.length - 1);
+}
 
+public static void reverse(int[] nums, int start, int end) {
+    for(int i =  start, j = end; i &lt; j; i ++, j --) {
+      int temp = nums[i];
+      nums[i] = nums[j];
+      nums[j] = temp;
+    }
+}
+</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -454,7 +468,7 @@ return i + 1;
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-10, 21:10:47</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-11, 11:01:05</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-11, 11:04:01</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/10/leetcode-note-2/" title="leetcode笔记(二)">https://blog.jtzhang.xyz/2019/09/10/leetcode-note-2/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -577,7 +591,7 @@ return i + 1;
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#leetcode','#算法','#Leetcode','#librosa','#signal processing','#speech separation','#hexo','#3-hexo',],
+            'data': ['#Leetcode','#算法','#leetcode','#librosa','#signal processing','#speech separation','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
