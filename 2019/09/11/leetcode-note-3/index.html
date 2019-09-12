@@ -150,7 +150,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="6">
-<input type="hidden" id="yelog_site_word_count" value="7.7k">
+<input type="hidden" id="yelog_site_word_count" value="8.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -307,12 +307,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-12 11:29:36'>2019-09-11 17:05</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-12 22:24:01'>2019-09-11 17:05</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.9k</span>
+        <span>字数:2.5k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -342,7 +342,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#缺失的第一个正数-41"><span class="toc-text">缺失的第一个正数(41)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#空间复杂度为-O-n"><span class="toc-text">空间复杂度为$O(n)$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原地算法-空间复杂度为-O-1"><span class="toc-text">原地算法, 空间复杂度为$O(1)$</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#猜数字游戏-299"><span class="toc-text">猜数字游戏(299)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两个字典数组"><span class="toc-text">两个字典数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单字典数组或者哈希表"><span class="toc-text">单字典数组或者哈希表</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#缺失的第一个正数-41"><span class="toc-text">缺失的第一个正数(41)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#空间复杂度为-O-n"><span class="toc-text">空间复杂度为$O(n)$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原地算法-空间复杂度为-O-1"><span class="toc-text">原地算法, 空间复杂度为$O(1)$</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#猜数字游戏-299"><span class="toc-text">猜数字游戏(299)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两个字典数组"><span class="toc-text">两个字典数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单字典数组或者哈希表"><span class="toc-text">单字典数组或者哈希表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加油站-134"><span class="toc-text">加油站(134)</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -499,7 +499,46 @@ s[3] != g[3]但是d[g[3]] = d[1] = 0, s中没有数字1了;
       }
       return a + &quot;A&quot; + b + &quot;B&quot;;
 }
-</code></pre>
+</code></pre><h3 id="加油站-134"><a href="#加油站-134" class="headerlink" title="加油站(134)"></a>加油站(134)</h3><p>在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。</p>
+<p>你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。</p>
+<p>如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。<br>原始链接: <a href="https://leetcode-cn.com/problems/gas-station" target="_blank" rel="noopener">https://leetcode-cn.com/problems/gas-station</a></p>
+<pre><code>输入:
+gas  = [1,2,3,4,5]
+cost = [3,4,5,1,2]
+输出: 3
+从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油
+开往 4 号加油站，此时油箱有 4 - 1 + 5 = 8 升汽油
+开往 0 号加油站，此时油箱有 8 - 2 + 1 = 7 升汽油
+开往 1 号加油站，此时油箱有 7 - 3 + 2 = 6 升汽油
+开往 2 号加油站，此时油箱有 6 - 4 + 3 = 5 升汽油
+开往 3 号加油站，你需要消耗 5 升汽油，正好足够你返回到 3 号加油站。
+因此，3 可为起始索引。
+</code></pre><p>这个题目的关键点只有两个:</p>
+<ol>
+<li><p>如果$\sum{gas} &lt; \sum{cost}$, 环绕一圈是不可能的，此时将返回结果-1, 环行过程中油箱剩余总的油量为:</p>
+<script type="math/tex; mode=display">
+totalTank = \sum{gas} - \sum{cost}</script><p>如果$totalTank &lt; 0$则返回-1.</p>
+</li>
+<li><p>对于第$i$个加油站, 如果$gas_i - cost_i &lt; 0$, 则不能从加油站$i$出发到达加油站$i+1$, 如果引入变量$curTank$来记录当前油箱的油量, 前面的描述可以一般化为如果<strong>某一个加油站$curTank &lt; 0$, 则这个加油站是不可达的</strong>, 此时可以把发生$curTank &lt; 0$的这个加油站作为下一次出发的起点, 并将$curTank$重置为0. </p>
+<pre><code>比如路线A-C-B-D-..., 如果将A作为起点，而B处发生$curTank &lt; 0$, 那么此时就将B作为起点，重新环行.
+也就是, 如果不能把A作为起点到达B, 那么也不可能把A和B中间的某一点作为起点(比如C)并通过该点到达C.
+这不仅排除了A作为起点，同时把C作为起点也排除了, 所以可以跳过C选择B作为下一个检查的起点.
+</code></pre><p>代码如下:</p>
+<pre><code>public static int canCompleteCircuit(int[] gas, int[] cost) {
+     int totalTank = 0, curTank = 0, startStation = 0;
+     for(int i = 0; i &lt; gas.length; i ++) {
+         totalTank += gas[i] - cost[i];
+         curTank += gas[i] - cost[i]; //执行完这一句就到了站点i + 1
+         if(curTank &lt; 0) {
+             curTank = 0;
+             startStation = i + 1;
+         }
+     }
+     return totalTank &gt;= 0 ? startStation: -1;
+}
+</code></pre></li>
+</ol>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -513,10 +552,10 @@ s[3] != g[3]但是d[g[3]] = d[1] = 0, s中没有数字1了;
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>Leetcode笔记(三)</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.9k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.5k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-11, 17:05:26</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-12, 11:29:36</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-12, 22:24:01</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/11/leetcode-note-3/" title="Leetcode笔记(三)">https://blog.jtzhang.xyz/2019/09/11/leetcode-note-3/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
