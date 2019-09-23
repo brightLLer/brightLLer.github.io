@@ -111,7 +111,15 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(6)</small></div></li>
+    <li><div class="all active">全部文章<small>(7)</small></div></li>
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(1)</small></div>
+                
+            </li>
+            
+        
     
         
             
@@ -123,7 +131,7 @@
     
         
             
-            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
+            <li><div data-rel="hexo">hexo<small>(1)</small></div>
                 
             </li>
             
@@ -131,7 +139,7 @@
     
         
             
-            <li><div data-rel="hexo">hexo<small>(1)</small></div>
+            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
                 
             </li>
             
@@ -149,8 +157,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="6">
-<input type="hidden" id="yelog_site_word_count" value="8.4k">
+<input type="hidden" id="yelog_site_posts_number" value="7">
+<input type="hidden" id="yelog_site_word_count" value="9.3k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -184,11 +192,23 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">算法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">排序</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">算法</a>
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">3-hexo</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -203,14 +223,6 @@
         <a href="javascript:" class="color3">speech separation</a>
     </li>
     
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">hexo</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color2">3-hexo</a>
-    </li>
-    
     <div class="clearfix"></div>
 </div>
 
@@ -221,9 +233,17 @@
     
     <nav id="title-list-nav">
         
+        <a  class="算法 "
+           href="/2019/09/22/counting-sort/"
+           data-tag="算法,排序"
+           data-author="" >
+            <span class="post-title" title="计数排序">计数排序</span>
+            <span class="post-date" title="2019-09-22 21:57:11">2019/09/22</span>
+        </a>
+        
         <a  class="Leetcode "
            href="/2019/09/11/leetcode-note-3/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(三)">Leetcode笔记(三)</span>
             <span class="post-date" title="2019-09-11 17:05:26">2019/09/11</span>
@@ -231,7 +251,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/10/leetcode-note-2/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(二)">Leetcode笔记(二)</span>
             <span class="post-date" title="2019-09-10 21:10:47">2019/09/10</span>
@@ -239,7 +259,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/09/leetcode-note-1/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(一)">Leetcode笔记(一)</span>
             <span class="post-date" title="2019-09-09 22:03:38">2019/09/09</span>
@@ -704,7 +724,7 @@ hexo deploy
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#Leetcode','#算法','#librosa','#signal processing','#speech separation','#hexo','#3-hexo',],
+            'data': ['#算法','#排序','#Leetcode','#hexo','#3-hexo','#librosa','#signal processing','#speech separation',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');

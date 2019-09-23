@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>计数排序</title>
+      <link href="/2019/09/22/counting-sort/"/>
+      <url>/2019/09/22/counting-sort/</url>
+      
+        <content type="html"><![CDATA[<h3 id="与基于比较的排序算法的区别"><a href="#与基于比较的排序算法的区别" class="headerlink" title="与基于比较的排序算法的区别"></a>与基于比较的排序算法的区别</h3><p>一般的基于比较的排序算法的最好平均时间复杂度可以达到 $O(n\log{n})$ 的复杂度, 但是计数排序的时间复杂度可以达到$O(n)$. 但是计数排序在使用方面有个限制，即排序的数组中的元素必须在一定的范围内.</p><h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><p>给定数组$a$</p><div class="table-container"><table><thead><tr><th>$index$</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td>$value$</td><td>3</td><td>0</td><td>2</td><td>3</td><td>1</td></tr></tbody></table></div><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a><strong>第一步</strong></h4><p>假设代排序数组为$a$, 获取数组中最大和最小的元素, 分别记为 $\max{(a)}$ 和 $\min{(a)}$, 开辟数组$c$, 空间大小为: $\max{(a)}-\min{(a)} + 1$, 从给出的例子来看, 最大值和最小值分别为3和0, 所以开辟的数组大小为4;</p><h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a><strong>第二步</strong></h4><p>$c$ 中记录$a$中每个元素出现的次数:</p><div class="table-container"><table><thead><tr><th>$index$</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><td>$value$</td><td>1</td><td>1</td><td>1</td><td>2</td></tr></tbody></table></div><h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a><strong>第三步</strong></h4><p>修改$c$, 让$c$中的每个元素$c_i$记录不超过$i$的元素的个数, 也就是当前元素累加前一个元素:</p><script type="math/tex; mode=display">c_{i}=c_{i-1}+1</script><p>得到的结果为:</p><div class="table-container"><table><thead><tr><th>$index$</th><th>0</th><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><td>$value$</td><td>1</td><td>2</td><td>3</td><td>5</td></tr></tbody></table></div><h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a><strong>第四步</strong></h4><p>根据数组$c$得到排序后的数组$b$.</p><div class="table-container"><table><thead><tr><th style="text-align:center">$a_{index}$</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td style="text-align:center">$a$</td><td><strong>3</strong></td><td>0</td><td>2</td><td>3</td><td>1</td></tr><tr><td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td><td>0</td><td>1</td><td>2</td><td><strong>3</strong></td><td>-</td></tr><tr><td style="text-align:center">$c:=count(a_i)$</td><td>1</td><td>2</td><td>3</td><td><strong>5</strong></td><td>-</td></tr><tr><td style="text-align:center">$b_{index}$</td><td>1</td><td>2</td><td>3</td><td>4</td><td><strong>5</strong></td></tr><tr><td style="text-align:center">$b$</td><td></td><td></td><td></td><td></td><td><strong>3</strong></td></tr></tbody></table></div><p>这是怎么确定$b_5$是$3$的呢?注意加粗字体部分，它们实际上是串联在一起的, 前5行自上往下串成一条线:</p><script type="math/tex; mode=display">0 \rightarrow \mathbf{3} \rightarrow 3 \rightarrow 5 \rightarrow \mathbf{5}</script><p>注意数组$c$是累加的结果, 所以$b_5=3$ (注意上面串线加粗的$\mathbf{3}$和$\mathbf{5}$), 经过这一步计算后, 数组$c$会发生一些变化, 也就是不超过3的累加计数5需要减去1, 更新为4, 因为有一个3已经找到了它的位置.</p><div class="table-container"><table><thead><tr><th style="text-align:center">$a_{index}$</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td style="text-align:center">$a$</td><td>3</td><td>0</td><td>2</td><td>3</td><td>1</td></tr><tr><td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td><td>0</td><td>1</td><td>2</td><td>3</td><td>-</td></tr><tr><td style="text-align:center">$c:=count(a_i)$</td><td>1</td><td>2</td><td>3</td><td><strong>4</strong></td><td>-</td></tr><tr><td style="text-align:center">$b_{index}$</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr><tr><td style="text-align:center">$b$</td><td></td><td></td><td></td><td></td><td>3</td></tr></tbody></table></div><p>接下来采用同样的方法进行”串线”:</p><script type="math/tex; mode=display">1 \rightarrow \mathbf{0} \rightarrow 0 \rightarrow 1 \rightarrow \mathbf{1}</script><div class="table-container"><table><thead><tr><th style="text-align:center">$a_{index}$</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td style="text-align:center">$a$</td><td>3</td><td><strong>0</strong></td><td>2</td><td>3</td><td>1</td></tr><tr><td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td><td><strong>0</strong></td><td>1</td><td>2</td><td>3</td><td>-</td></tr><tr><td style="text-align:center">$c:=count(a_i)$</td><td><strong>1</strong></td><td>2</td><td>3</td><td>4</td><td>-</td></tr><tr><td style="text-align:center">$b_{index}$</td><td><strong>1</strong></td><td>2</td><td>3</td><td>4</td><td>5</td></tr><tr><td style="text-align:center">$b$</td><td><strong>0</strong></td><td></td><td></td><td></td><td>3</td></tr></tbody></table></div><p>计算得到$b_1=1$, 同时不超过1的累加计数1需要减去1, 更新为0, 因为数字0找到了它的位置.</p><div class="table-container"><table><thead><tr><th style="text-align:center">$a_{index}$</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td style="text-align:center">$a$</td><td>3</td><td>0</td><td>2</td><td>3</td><td>1</td></tr><tr><td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td><td>0</td><td>1</td><td>2</td><td>3</td><td>-</td></tr><tr><td style="text-align:center">$c:=count(a_i)$</td><td><strong>0</strong></td><td>2</td><td>3</td><td>4</td><td>-</td></tr><tr><td style="text-align:center">$b_{index}$</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr><tr><td style="text-align:center">$b$</td><td>0</td><td></td><td></td><td></td><td>3</td></tr></tbody></table></div><p>反复这样计算后得到的排序结果为:</p><div class="table-container"><table><thead><tr><th style="text-align:center">$a_{index}$</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th></tr></thead><tbody><tr><td style="text-align:center">$a$</td><td>3</td><td>0</td><td>2</td><td>3</td><td>1</td></tr><tr><td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td><td>0</td><td>1</td><td>2</td><td>3</td><td>-</td></tr><tr><td style="text-align:center">$c:=count(a_i)$</td><td>1</td><td>2</td><td>3</td><td>4</td><td>-</td></tr><tr><td style="text-align:center">$b_{index}$</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr><tr><td style="text-align:center">$b$</td><td>0</td><td>1</td><td>2</td><td>3</td><td>3</td></tr></tbody></table></div><p>其实上面的操作中, “串线”和累加计数减去1是重复进行的, 可以用下面的代码来实现:</p><pre><code class="lang-Java">// b[c[a[i] - min]]表示b从1开始计数// b[c[a[i] - min] - 1]表示b从0开始计数for(int i = 0; i &lt; a.length; i ++){    b[c[a[i] - min] - 1] = a[i];    c[a[i] - min]--;}</code></pre><p>完整的实现代码如下所示:</p><pre><code class="lang-Java">public static int[] solution(int[] a) {    int max = getMax(a), min = getMin(a);    int s = max - min + 1;    int[] c = new int[s];    int[] b = new int[a.length];    for(int i = 0; i &lt; a.length; i ++) {        c[a[i] - min] ++;    }    for(int i = 1; i &lt; c.length; i ++) {        c[i] = c[i] + c[i - 1];    }    for(int i = 0; i &lt; a.length; i ++) {        b[c[a[i] - min] - 1] = a[i];        c[a[i] - min] --;    }    return b;}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 排序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Leetcode笔记(三)</title>
       <link href="/2019/09/11/leetcode-note-3/"/>
       <url>/2019/09/11/leetcode-note-3/</url>
@@ -20,9 +47,9 @@
       
         <tags>
             
-            <tag> Leetcode </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> Leetcode </tag>
             
         </tags>
       
@@ -47,9 +74,9 @@
       
         <tags>
             
-            <tag> Leetcode </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> Leetcode </tag>
             
         </tags>
       
@@ -74,9 +101,9 @@
       
         <tags>
             
-            <tag> Leetcode </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> Leetcode </tag>
             
         </tags>
       

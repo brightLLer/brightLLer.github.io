@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>librosa补充(一) | Zeroone</title>
-  <meta name="keywords" content=" librosa , signal processing , speech separation ">
-  <meta name="description" content="librosa补充(一) | Zeroone">
+  <title>计数排序 | Zeroone</title>
+  <meta name="keywords" content=" 算法 , 排序 ">
+  <meta name="description" content="计数排序 | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
 <meta property="og:type" content="website">
@@ -301,9 +301,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-librosa-additional" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-counting-sort" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">librosa补充(一)</h1>
+        <h1 class="article-title">计数排序</h1>
     
     <div class="article-meta">
         
@@ -311,30 +311,28 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="语音分离">语音分离</a>
+                <a href="javascript:" data-rel="算法">算法</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a href="javascript:" class="color3">librosa</a>
+            <a href="javascript:" class="color3">算法</a>
             
-            <a href="javascript:" class="color3">signal processing</a>
-            
-            <a href="javascript:" class="color3">speech separation</a>
+            <a href="javascript:" class="color3">排序</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-03 16:44:42'>2019-09-02 20:21</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-23 21:06:27'>2019-09-22 21:57</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:577</span>
+        <span>字数:892</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -364,7 +362,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#补充几个概念以及对部分API的理解"><span class="toc-text">补充几个概念以及对部分API的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#amplitude和magnitude的区别"><span class="toc-text">amplitude和magnitude的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#振幅，分贝-dB-和能量-power-之间的转换关系"><span class="toc-text">振幅，分贝(dB)和能量(power)之间的转换关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#librosa中xx-to-xx型的API"><span class="toc-text">librosa中xx_to_xx型的API</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#与基于比较的排序算法的区别"><span class="toc-text">与基于比较的排序算法的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法步骤"><span class="toc-text">算法步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一步"><span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二步"><span class="toc-text">第二步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三步"><span class="toc-text">第三步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第四步"><span class="toc-text">第四步</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -379,34 +377,396 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="补充几个概念以及对部分API的理解"><a href="#补充几个概念以及对部分API的理解" class="headerlink" title="补充几个概念以及对部分API的理解"></a>补充几个概念以及对部分API的理解</h1><blockquote>
-<p>注：时域信号在经过傅里叶变换转换之后一般为复数形式</p>
-</blockquote>
-<h2 id="amplitude和magnitude的区别"><a href="#amplitude和magnitude的区别" class="headerlink" title="amplitude和magnitude的区别"></a><strong>amplitude和magnitude的区别</strong></h2><ul>
-<li>peak amplitude, often shortened to amplitude, is the nonnegative value of the waveform’s peak (either positive or negative).(强调信号的峰值)</li>
-<li>instantaneous amplitude of x is the value of x(t) (either positive or negative) at time t.（瞬时幅度，信号x(t)在t处的值）</li>
-<li>instantaneous magnitude, or simply magnitude, of x is nonnegative and is given by |x(t)|.（瞬时幅度，信号x(t)的模）<br>需要特意强调的就是，magnitude指的是模，不过在多数情况下，amplitude和magnitude在fft中一般是同一个意思。</li>
-</ul>
-<h2 id="振幅，分贝-dB-和能量-power-之间的转换关系"><a href="#振幅，分贝-dB-和能量-power-之间的转换关系" class="headerlink" title="振幅，分贝(dB)和能量(power)之间的转换关系"></a><strong>振幅，分贝(dB)和能量(power)之间的转换关系</strong></h2><ul>
-<li>振幅：由于傅里叶变换之后得到的为复数T-F矩阵D，在python里，可以简单得到振幅的T-F矩阵和相位(幅角)的T-F矩阵：<pre><code>S = np.abs(D)
-P = np.angle(D)
-</code></pre></li>
-<li><p>分贝：librosa的官方文档中对分贝的计算公式定义如下：</p>
-<pre><code>S_db = 20 * np.log10(S / ref)
-</code></pre><p>其中ref的默认取值为1.0，不过文档似乎更习惯于用<code>ref = np.max(S)</code></p>
-</li>
-<li><p>能量：T-F矩阵中每个T-F单元的能量就是幅值取平方即可</p>
-<pre><code>S_power = S ** 2
-</code></pre><h2 id="librosa中xx-to-xx型的API"><a href="#librosa中xx-to-xx型的API" class="headerlink" title="librosa中xx_to_xx型的API"></a><strong>librosa中xx_to_xx型的API</strong></h2></li>
-<li><p><code>amplitude_to_db(S[, ref, amin, top_db])</code><br>该API是将幅值转换为分贝，这里的第一个参数S，按照librosa相关术语的描述，应该是一个实数T-F矩阵而不是复数T-F矩阵，但实际测试的时候发现API传入S和D的效果是一样的，源码内部实际上有一句<code>magnitude = np.abs(S)</code>，那么说明参数中的S实际上是被当成D来看的，D中的每个瞬时值被称为amplitude，不过从字面意义上来看，还是当成实数T-F矩阵S来看比较好，也就是说时域信号<code>y</code>经过STFT变换后得到<code>D</code>，先经过<code>S = np.abs(D)</code>之后再传入该API中的S，当然直接传入<code>D</code>也没有任何问题。此外该<code>amplitude_to_db(S)</code>与<code>power_to_db(S ** 2)</code>等价。</p>
-</li>
-<li><p><code>db_to_amplitude(S_db[, ref])</code><br>将分贝转换为幅值。这里的幅值是实数，用magnitude更合适，强调模S。</p>
-</li>
-<li><p><code>power_to_db(S[, ref, amin, top_db, ref_power])</code><br>能量转换为分贝，ref_power参数会在0.6.0版本起抛弃。</p>
-</li>
-<li><p><code>db_to_power(S_db[, ref])</code><br>分贝转换为能量。</p>
-</li>
-</ul>
+        <h3 id="与基于比较的排序算法的区别"><a href="#与基于比较的排序算法的区别" class="headerlink" title="与基于比较的排序算法的区别"></a>与基于比较的排序算法的区别</h3><p>一般的基于比较的排序算法的最好平均时间复杂度可以达到 $O(n\log{n})$ 的复杂度, 但是计数排序的时间复杂度可以达到$O(n)$. 但是计数排序在使用方面有个限制，即排序的数组中的元素必须在一定的范围内.</p>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><p>给定数组$a$</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$index$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$value$</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a><strong>第一步</strong></h4><p>假设代排序数组为$a$, 获取数组中最大和最小的元素, 分别记为 $\max{(a)}$ 和 $\min{(a)}$, 开辟数组$c$, 空间大小为: $\max{(a)}-\min{(a)} + 1$, 从给出的例子来看, 最大值和最小值分别为3和0, 所以开辟的数组大小为4;</p>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a><strong>第二步</strong></h4><p>$c$ 中记录$a$中每个元素出现的次数:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$index$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$value$</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a><strong>第三步</strong></h4><p>修改$c$, 让$c$中的每个元素$c_i$记录不超过$i$的元素的个数, 也就是当前元素累加前一个元素:</p>
+<script type="math/tex; mode=display">
+c_{i}=c_{i-1}+1</script><p>得到的结果为:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$index$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$value$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a><strong>第四步</strong></h4><p>根据数组$c$得到排序后的数组$b$.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$a_{index}$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$a$</td>
+<td><strong>3</strong></td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td><strong>3</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$c:=count(a_i)$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td><strong>5</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$b_{index}$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">$b$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><strong>3</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这是怎么确定$b_5$是$3$的呢?注意加粗字体部分，它们实际上是串联在一起的, 前5行自上往下串成一条线:</p>
+<script type="math/tex; mode=display">
+0 \rightarrow \mathbf{3} \rightarrow 3 \rightarrow 5 \rightarrow \mathbf{5}</script><p>注意数组$c$是累加的结果, 所以$b_5=3$ (注意上面串线加粗的$\mathbf{3}$和$\mathbf{5}$), 经过这一步计算后, 数组$c$会发生一些变化, 也就是不超过3的累加计数5需要减去1, 更新为4, 因为有一个3已经找到了它的位置.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$a_{index}$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$a$</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$c:=count(a_i)$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td><strong>4</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$b_{index}$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td style="text-align:center">$b$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>接下来采用同样的方法进行”串线”:</p>
+<script type="math/tex; mode=display">
+1 \rightarrow \mathbf{0} \rightarrow 0 \rightarrow 1 \rightarrow \mathbf{1}</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$a_{index}$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$a$</td>
+<td>3</td>
+<td><strong>0</strong></td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
+<td><strong>0</strong></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$c:=count(a_i)$</td>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$b_{index}$</td>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td style="text-align:center">$b$</td>
+<td><strong>0</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>计算得到$b_1=1$, 同时不超过1的累加计数1需要减去1, 更新为0, 因为数字0找到了它的位置.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$a_{index}$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$a$</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$c:=count(a_i)$</td>
+<td><strong>0</strong></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$b_{index}$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td style="text-align:center">$b$</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td></td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>反复这样计算后得到的排序结果为:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$a_{index}$</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$a$</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$c:=count(a_i)$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>-</td>
+</tr>
+<tr>
+<td style="text-align:center">$b_{index}$</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td style="text-align:center">$b$</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其实上面的操作中, “串线”和累加计数减去1是重复进行的, 可以用下面的代码来实现:</p>
+<pre><code class="lang-Java">// b[c[a[i] - min]]表示b从1开始计数
+// b[c[a[i] - min] - 1]表示b从0开始计数
+for(int i = 0; i &lt; a.length; i ++){
+    b[c[a[i] - min] - 1] = a[i];
+    c[a[i] - min]--;
+}
+</code></pre>
+<p>完整的实现代码如下所示:</p>
+<pre><code class="lang-Java">public static int[] solution(int[] a) {
+    int max = getMax(a), min = getMin(a);
+    int s = max - min + 1;
+    int[] c = new int[s];
+    int[] b = new int[a.length];
+    for(int i = 0; i &lt; a.length; i ++) {
+        c[a[i] - min] ++;
+    }
+    for(int i = 1; i &lt; c.length; i ++) {
+        c[i] = c[i] + c[i - 1];
+    }
+    for(int i = 0; i &lt; a.length; i ++) {
+        b[c[a[i] - min] - 1] = a[i];
+        c[a[i] - min] --;
+    }
+    return b;
+}
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -420,12 +780,12 @@ P = np.angle(D)
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>librosa补充(一)</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">577</span></p>
+    <p><span class="copy-title">文章标题:</span>计数排序</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">892</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-09-02, 20:21:23</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-03, 16:44:42</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/02/librosa-additional/" title="librosa补充(一)">https://blog.jtzhang.xyz/2019/09/02/librosa-additional/</a>
+    <p><span class="copy-title">发布时间:</span>2019-09-22, 21:57:11</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-23, 21:06:27</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/22/counting-sort/" title="计数排序">https://blog.jtzhang.xyz/2019/09/22/counting-sort/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
