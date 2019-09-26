@@ -335,7 +335,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-26 16:12:26'>2019-09-23 22:16</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-26 16:47:57'>2019-09-23 22:16</time>
         
     </div>
     <div class="article-meta">
@@ -433,7 +433,7 @@
 </div>
 <p>从h指数的定义不难看出, 它是一个简单的一次函数, 其横轴的意义为论文的编号/数目, 纵轴表示引用次数, 如下图中的蓝色直线所示, 例如点 $(5, 5)$ 就表示有$5$篇文章至少被引用了$5$次. 由于$ID = i + 1$, 所以点 $(i + 1, i + 1)$ 表示有 $i + 1\;(1\sim{i + 1})$ 篇文章至少被引用了 $i + 1$ 次.</p>
 <p><img src="/img/hindex.png"></p>
-<p>我们把数组中每篇文章的编号极其对应的引用次数也绘制到上图中(红色圆点), 由于是降序排列, 我们只要找到最大的$i$使得$ciations_{i} \geq i + 1$(或者$ciations_i &gt; i$)就可以了, 此时H指数的值为: $H = i + 1$.</p>
+<p>我们把数组中每篇文章的编号极其对应的引用次数也绘制到上图中(红色圆点), 由于是降序排列, 我们只要找到最大的$i$使得$citations_{i} \geq i + 1$(或者$citations_i &gt; i$)就可以了, 此时H指数的值为: $H = i + 1$.</p>
 <pre><code class="lang-Java">public int hIndex(int[] citations) {
     // 此处为升序排列
     Arrays.sort(citations);
@@ -522,7 +522,7 @@ h = arg\max_{k \leq s_k}{(k)}=3</script><p>可以采用<strong>从后往前扫�
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-23, 22:16:35</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-26, 16:12:26</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-26, 16:47:57</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/23/leetcode-note-4/" title="Leetcode笔记(四)">https://blog.jtzhang.xyz/2019/09/23/leetcode-note-4/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
