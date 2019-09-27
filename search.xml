@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Leetcode笔记(五)</title>
+      <link href="/2019/09/27/leetcode-note-5/"/>
+      <url>/2019/09/27/leetcode-note-5/</url>
+      
+        <content type="html"><![CDATA[<h3 id="存在重复元素III-220"><a href="#存在重复元素III-220" class="headerlink" title="存在重复元素III (220)"></a>存在重复元素III (220)</h3><p>给定一个整数数组，判断数组中是否有两个不同的索引 $i$ 和 $j$，使得 <code>nums [i]</code> 和 <code>nums [j]</code> 的差的绝对值最大为 $t$，并且 $i$ 和 $j$ 之间的差的绝对值最大为$k$.</p><pre><code>输入: nums = [1,2,3,1], k = 3, t = 0输出: true输入: nums = [1,0,1,1], k = 1, t = 2输出: true输入: nums = [1,5,9,1,5,9], k = 2, t = 3输出: false</code></pre><p>原题链接：<a href="https://leetcode-cn.com/problems/contains-duplicate-iii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/contains-duplicate-iii</a></p><h4 id="滑动窗口-平衡二叉搜索树"><a href="#滑动窗口-平衡二叉搜索树" class="headerlink" title="滑动窗口+平衡二叉搜索树"></a>滑动窗口+平衡二叉搜索树</h4><p>我们首先来看看题目给出的两个主要约束:</p><script type="math/tex; mode=display">|i - j| \leq k \\|n_i-n_j| \leq t</script><p>由于数组的索引$i$,$j$是有序的(要么$i$比较大, 要么$j$比较大, 两种情况有一个成立, 并且也是对称的),不妨假设$j \geq i$, 那么第一个约束条件就转换为了:</p><script type="math/tex; mode=display">i \leq j \leq i + k</script><p>仔细一看, 由于$j \in [i, i + k]$, 所以题目可以转换为在固定长度为$l = i + k - i + 1 = k + 1$的滑动窗口内, 是否存在两个数$n_i$和$n_j$, 使得 $|n_i - n_j| \leq t$的存在性问题.$i$随着数组的遍历从$0$开始. 这个约束不等式可以进一步拆分成下面两个:</p><script type="math/tex; mode=display">n_i - t \leq n_j < n_i \\n_i \leq n_j \leq n_i + t</script><p>从这两个不等式不难看出, 这是一个在以$n_i$为中心, $t$为半径的线段上搜索$n_j$是否存在的问题, $n_j$可以落在中心$n_i$的左半边 $[n_i-t, n_i)$ 或者右半边 $[n_i, n_i + t]$ 上, 当然, 这还需要满足的一个前提是滑动窗口的大小为$k + 1$.</p><p>对于搜索问题, 我们可以联想到哪些? 线性查找, 二分查找, 二叉搜索树, 哈希表?</p><ol><li>线性表, 线性表存在的问题在于, 滑动窗口每移动一次(即$i$前进一次), 就得遍历长度为$k + 1$的窗口内的所有元素, 时间复杂度为$O(nk)$;</li><li>二分查找, 然而数组不一定有序所以不能采用此方法;</li><li>哈希表, 哈希表可以高效增删元素, 但不适合这种范围查找.</li></ol><p>剩下二叉搜索树, 它的适用场景就体现出来了:</p><ul><li>能够动态地存储和删除数据, 符合“滑动窗口”元素是动态变化, 虽然它没有哈希表那么高效;</li><li>其顺序性能够帮助我们搜索落在 $[n_i - t, n_i + t]$ 这个区间内的元素.</li></ul><p>在JAVA中, <code>Set</code>有一个具体的子类<code>TreeSet</code>, 它是用红黑树实现的平衡二叉搜索树. 平衡二叉搜索树的主要特点在于:</p><ul><li>每个结点的值都比它的左子树上的所有结点的值大, 但比它的右子树上的所有结点的值小;</li><li>每个结点的平衡因子不会超过2, 也就是它的左右子树的高度差不会超过2.</li></ul><p><code>TreeSet</code>有两个有用的成员方法:</p><pre><code class="lang-Java">K ceilingKey(K key); // 返回大于key的所有数中最小的一个K floorKey(K key); // 返回小于key的所有数种最大的一个</code></pre><p>我们可以采用<strong>边构造二叉搜索树边查找</strong>的方法来实现整个算法.</p><ol><li>对于中心$n_i$的左半边 $[n_i-t, n_i)$, 可以用<code>ceilingKey(nums[i] - t)</code>查找是否存在这样的$n_j$;  </li><li>对于$n_i$的右半边 $[n_i, n_i + t]$, 可以用<code>floorKey(nums[i] + t)</code>查找是否存在这样的$n_j$;</li><li>否则直接将当前的<code>nums[i]</code>加入<code>TreeSet</code>. 需要注意的一点是, 由于滑动窗口大小固定为$k + 1$, 随着遍历的进行, $i$从0开始增大, 也就是滑动窗口开始向右扩张, 当扩张到$i=k$时就需要删除掉最开始加入<code>TreeSet</code>的元素.</li></ol><p>具体的实现代码如下:</p><pre><code class="lang-Java">public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {  TreeSet&lt;Long&gt; BST = new TreeSet&lt;Long&gt;();  for(int i = 0; i &lt; nums.length; i ++) {    Long ceiling = BST.ceiling((long) (nums[i] - t));    if(ceiling != null &amp;&amp; ceiling &lt;= nums[i])      return true;    Long floor = BST.floor((long) (nums[i] + t));    if(floor != null &amp;&amp; floor &gt;= nums[i])      return true;    BST.add((long) nums[i]);    if(i &gt;= k) {      BST.remove((long)(nums[i - k]));    }  }  return false;}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Leetcode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> Leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Leetcode笔记(四)</title>
       <link href="/2019/09/23/leetcode-note-4/"/>
       <url>/2019/09/23/leetcode-note-4/</url>
