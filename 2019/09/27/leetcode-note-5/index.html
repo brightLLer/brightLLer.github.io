@@ -158,7 +158,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="9">
-<input type="hidden" id="yelog_site_word_count" value="11.4k">
+<input type="hidden" id="yelog_site_word_count" value="12.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -343,12 +343,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-27 21:05:31'>2019-09-27 10:56</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-27 22:37:08'>2019-09-27 10:56</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.1k</span>
+        <span>字数:1.8k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -378,7 +378,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#存在重复元素III-220"><span class="toc-text">存在重复元素III (220)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动窗口-平衡二叉搜索树"><span class="toc-text">滑动窗口+平衡二叉搜索树</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#存在重复元素III-220"><span class="toc-text">存在重复元素III (220)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动窗口-平衡二叉搜索树"><span class="toc-text">滑动窗口+平衡二叉搜索树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#桶"><span class="toc-text">桶</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -416,7 +416,7 @@ n_i \leq n_j \leq n_i + t</script><p>从这两个不等式不难看出, 这是�
 <ol>
 <li>线性表, 线性表存在的问题在于, 滑动窗口每移动一次(即$i$前进一次), 就得遍历长度为$k + 1$的窗口内的所有元素, 时间复杂度为$O(nk)$;</li>
 <li>二分查找, 然而数组不一定有序所以不能采用此方法;</li>
-<li>哈希表, 哈希表可以高效增删元素, 但不适合这种范围查找.</li>
+<li>哈希表, 哈希表可以高效增删元素和定位一个具体元素, 但不适合这种范围查找(需要比较).</li>
 </ol>
 <p>剩下二叉搜索树, 它的适用场景就体现出来了:</p>
 <ul>
@@ -436,7 +436,7 @@ K floorKey(K key); // 返回小于key的所有数种最大的一个
 <ol>
 <li>对于中心$n_i$的左半边 $[n_i-t, n_i)$, 可以用<code>ceilingKey(nums[i] - t)</code>查找是否存在这样的$n_j$;  </li>
 <li>对于$n_i$的右半边 $[n_i, n_i + t]$, 可以用<code>floorKey(nums[i] + t)</code>查找是否存在这样的$n_j$;</li>
-<li>否则直接将当前的<code>nums[i]</code>加入<code>TreeSet</code>. 需要注意的一点是, 由于滑动窗口大小固定为$k + 1$, 随着遍历的进行, $i$从0开始增大, 也就是滑动窗口开始向右扩张, 当扩张到$i=k$时就需要删除掉最开始加入<code>TreeSet</code>的元素.</li>
+<li>否则直接将当前的<code>nums[i]</code>加入<code>TreeSet</code>. 需要注意的一点是, 由于滑动窗口大小固定为$k + 1$, 随着遍历的进行, $i$从0开始增大, 也就是滑动窗口开始向右扩张, 当扩张到$i=k$时就需要删除掉最开始加入<code>TreeSet</code>的元素<code>nums[i - k]</code>.</li>
 </ol>
 <p>具体的实现代码如下:</p>
 <pre><code class="lang-Java">public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
@@ -456,6 +456,52 @@ K floorKey(K key); // 返回小于key的所有数种最大的一个
   return false;
 }
 </code></pre>
+<ul>
+<li><p>时间复杂度：$O(n \log (\min(n,k)))$,<br>我们需要遍历这个长度为n的数组。对于每次遍历，在 BST 中<code>搜索</code>，<code>插入</code> 或者 <code>删除</code>, 都需要花费$O(\log \min(k, n))$ 的时间.</p>
+</li>
+<li><p>空间复杂度：$O(\min(n,k))$,<br>空间复杂度由 BST 的大小决定，其大小的上限由 $k$ 和 $n$ 共同决定.</p>
+</li>
+</ul>
+<h4 id="桶"><a href="#桶" class="headerlink" title="桶"></a>桶</h4><p>我们可以把数组种的数分配到一系列桶中, 设置每个桶的大小为$t$, 也就是得到了 $[0, t]$, $[t + 1, 2t + 1], …$ 这一组桶, 将元素 $n_i$放入编号为 $\frac{n_i}{t + 1}$ 的桶中, 可以注意到:</p>
+<ul>
+<li>同一个桶中的任意两个元素之差绝对不会超过$t$ (比如第一个桶, 最大值$t$和最小值$0$之差就为$t$);</li>
+<li>相邻桶之间的两个元素之差可能不会超过$t$;<br>还有一件值得注意的事，这个问题和桶排序的不同之处在于每次我们的桶里只需要包含最多一个元素就可以了，因为如果任意一个桶中包含了两个元素，那么这也就是意味着这两个元素是 足够接近的 了，这时候我们就直接得到答案了。因此，我们只需使用一个标签为桶序号的散列表就可以了。</li>
+</ul>
+<p>另外, 同样, 随着遍历的进行, 当 $i \geq k$时, 需要删除最开始存放<code>nums[i - k]</code>的桶<code>nums[i - k] / (t + 1)</code>, 这样就能保证遍历到第<code>i+1</code>个元素时，全部桶中元素的索引最小值是<code>i-k+1</code>.</p>
+<p>代码如下：</p>
+<pre><code class="lang-Java">// Get the ID of the bucket from element value x and bucket width w
+// In Java, `-3 / 5 = 0` and but we need `-3 / 5 = -1`.
+public long getID(long x, long w) {
+    return x &lt; 0 ? (x + 1) / w - 1 : x / w;
+}
+
+public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+    if (t &lt; 0) return false;
+    Map&lt;Long, Long&gt; d = new HashMap&lt;&gt;();
+    long w = (long)t + 1;
+    for (int i = 0; i &lt; nums.length; ++i) {
+        long m = getID(nums[i], w);
+        // check if bucket m is empty, each bucket may contain at most one element
+        if (d.containsKey(m))
+            return true;
+        // check the neighbor buckets for almost duplicate
+        if (d.containsKey(m - 1) &amp;&amp; Math.abs(nums[i] - d.get(m - 1)) &lt; w)
+            return true;
+        if (d.containsKey(m + 1) &amp;&amp; Math.abs(nums[i] - d.get(m + 1)) &lt; w)
+            return true;
+        // now bucket m is empty and no almost duplicate in neighbor buckets
+        d.put(m, (long)nums[i]);
+        if (i &gt;= k) d.remove(getID(nums[i - k], w));
+    }
+    return false;
+}
+</code></pre>
+<ul>
+<li><p>时间复杂度：$O(n)$,<br>对于这 $n$ 个元素中的任意一个元素来说，我们最多只需要在散列表中做三次<code>搜索</code>，一次<code>插入</code>和一次<code>删除</code>。这些操作是常量时间复杂度的.因此，整个算法的时间复杂度为 $O(n)$。</p>
+</li>
+<li><p>空间复杂度：$O(\min(n, k))$,<br>需要开辟的额外空间取决了散列表的大小，其大小跟它所包含的元素数量成线性关系。散列表的大小的上限同时由$n$和$k$决定。因此，空间复杂度为 $O(\min(n, k))$.</p>
+</li>
+</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -470,10 +516,10 @@ K floorKey(K key); // 返回小于key的所有数种最大的一个
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>Leetcode笔记(五)</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.8k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-09-27, 10:56:45</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-27, 21:05:31</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-27, 22:37:08</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/27/leetcode-note-5/" title="Leetcode笔记(五)">https://blog.jtzhang.xyz/2019/09/27/leetcode-note-5/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
