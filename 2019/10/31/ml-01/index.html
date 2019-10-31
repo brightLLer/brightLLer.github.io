@@ -347,7 +347,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-31 21:36:21'>2019-10-31 09:55</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-31 21:40:52'>2019-10-31 09:55</time>
         
     </div>
     <div class="article-meta">
@@ -475,7 +475,8 @@ l(\theta)&=\log{L(\theta)} \\
 <script type="math/tex; mode=display">
 \begin{aligned}
 \frac{\partial}{\partial{\theta_j}}l(\theta)&=\sum_{i=1}^m[y^{(i)}\frac{1}{g(\theta^Tx^{(i)})}g'(\theta^Tx^{(i)})+(1-y^{(i)})\frac{1}{1-g(\theta^Tx^{(i)})}(-g'(\theta^Tx^{(i)}))] \\
-&=\sum_{i=1}^m[y^{(i)}\frac{1}{g(\theta^Tx^{(i)})}g(\theta^Tx^{(i)})(1-g(\theta^Tx^{(i)}))\frac{\partial{(\theta^Tx^{(i)})}}{\theta_j}-(1-y^{(i)})\frac{1}{1-g(\theta^Tx^{(i)})}g(\theta^Tx^{(i)})(1-g(\theta^Tx^{(i)}))\frac{\partial{(\theta^Tx^{(i)})}}{\theta_j}] \\
+&=\sum_{i=1}^m[y^{(i)}\frac{1}{g(\theta^Tx^{(i)})}g(\theta^Tx^{(i)})(1-g(\theta^Tx^{(i)}))\frac{\partial{(\theta^Tx^{(i)})}}{\theta_j}-(1-y^{(i)})\frac{1}{1-g(\theta^Tx^{(i)})}g(\theta^Tx^{(i)})
+\\& (1-g(\theta^Tx^{(i)}))\frac{\partial{(\theta^Tx^{(i)})}}{\theta_j}] \\
 &=\sum_{i=1}^m[y^{(i)}(1-g(\theta^Tx^{(i)}))x^{(i)}_j-(1-y^{(i)})g(\theta^Tx^{(i)})x^{(i)}_j] \\
 &=\sum_{i=1}^m[y^{(i)}(1-g(\theta^Tx^{(i)}))-(1-y^{(i)})g(\theta^Tx^{(i)})]x^{(i)}_j \\
 &=\sum_{i=1}^m[y^{(i)}-g(\theta^Tx^{(i)})]x^{(i)}_j \\
@@ -506,7 +507,7 @@ p(y;\eta)=b(y)\exp(\eta^TT(y)-a(\eta))</script><p>$\eta$称为自然参数,$T(y)
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-10-31, 09:55:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-10-31, 21:36:21</p>
+    <p><span class="copy-title">最后更新:</span>2019-10-31, 21:40:52</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/10/31/ml-01/" title="机器学习复习(一)">https://blog.jtzhang.xyz/2019/10/31/ml-01/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
