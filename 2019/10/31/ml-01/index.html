@@ -158,7 +158,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="10">
-<input type="hidden" id="yelog_site_word_count" value="13.2k">
+<input type="hidden" id="yelog_site_word_count" value="13.5k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -347,12 +347,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-31 17:03:02'>2019-10-31 09:55</time>
+        创建时间:<time class="date" title='更新时间: 2019-10-31 21:34:45'>2019-10-31 09:55</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1k</span>
+        <span>字数:1.3k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -454,6 +454,8 @@ g(z)=\frac{1}{1+e^{(-z)}}</script></li>
 <script type="math/tex; mode=display">g'(z)=g(z)(1-g(z))</script></li>
 <li><p>模型假设</p>
 <script type="math/tex; mode=display">h_{\theta}(x)=g(\theta^Tx)=\frac{1}{1+e^{-\theta^Tx}}</script></li>
+<li><p>目标函数</p>
+<script type="math/tex; mode=display">J(\theta)=-\sum_{i=1}^m(y^{(i)}\log{[h_{\theta}(x^{(i)})]}+(1-y^{(i)})\log{[1-h_{\theta}(x^{(i)})]})</script></li>
 </ul>
 <h4 id="概率解释-1"><a href="#概率解释-1" class="headerlink" title="概率解释"></a>概率解释</h4><p>不同于线性回归，逻辑回归主要是用来解决分类问题，可以做出如下假设:</p>
 <script type="math/tex; mode=display">P(y=1|x;\theta)=h_{\theta}(x)</script><script type="math/tex; mode=display">P(y=0|x;\theta)=1-h_{\theta}(x)</script><p>或者换如下简洁的写法:</p>
@@ -468,7 +470,18 @@ L(\theta)&=L(\theta; X, y)=p(y|X; \theta) \\
 \begin{aligned}
 l(\theta)&=\log{L(\theta)} \\
 &=\sum_{i=1}^m(y^{(i)}\log{[h_{\theta}(x^{(i)})]}+(1-y^{(i)})\log{[1-h_{\theta}(x^{(i)})]}) \\
-\end{aligned}</script><h3 id="广义线性模型"><a href="#广义线性模型" class="headerlink" title="广义线性模型"></a>广义线性模型</h3><h4 id="指数族"><a href="#指数族" class="headerlink" title="指数族"></a>指数族</h4><script type="math/tex; mode=display">
+&=-J(\theta)
+\end{aligned}</script><p>极大似然函数对模型参数求偏导数（可以采用一个样本进行计算再求和，省去很多上下标计算）:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial}{\partial{\theta_j}}l(\theta)&=\sum_{i=1}^m[y^{(i)}\frac{1}{g(\theta^Tx^{(i)})}g'(\theta^Tx^{(i)})+(1-y^{(i)})\frac{1}{1-g(\theta^Tx^{(i)})}(-g'(\theta^Tx^{(i)}))] \\
+&=\sum_{i=1}^m[y^{(i)}\frac{1}{g(\theta^Tx^{(i)})}g(\theta^Tx^{(i)})(1-g(\theta^Tx^{(i)}))\frac{\partial{(\theta^Tx^{(i)})}}{\theta_j}-(1-y^{(i)})\frac{1}{1-g(\theta^Tx^{(i)})}g(\theta^Tx^{(i)})(1-g(\theta^Tx^{(i)}))\frac{\partial{(\theta^Tx^{(i)})}}{\theta_j}] \\
+&=\sum_{i=1}^m[y^{(i)}(1-g(\theta^Tx^{(i)}))x^{(i)}_j-(1-y^{(i)})g(\theta^Tx^{(i)})x^{(i)}_j] \\
+&=\sum_{i=1}^m[y^{(i)}(1-g(\theta^Tx^{(i)}))-(1-y^{(i)})g(\theta^Tx^{(i)})]x^{(i)}_j \\
+&=\sum_{i=1}^m[y^{(i)}-g(\theta^Tx^{(i)})]x^{(i)}_j \\
+&=\sum_{i=1}^m[y^{(i)}-h_{\theta}(x^{(i)})]x^{(i)}_j
+\end{aligned}</script><p>最大化似然函数, 则批量梯度上升法可以采用:$\theta<em>j=\theta_j+\alpha\sum</em>{i=1}^m[y^{(i)}-h_{\theta}(x^{(i)})]x^{(i)}_j$<br>(对于目标函数 $J(\theta)$ 而言则是梯度下降法)</p>
+<h3 id="广义线性模型"><a href="#广义线性模型" class="headerlink" title="广义线性模型"></a>广义线性模型</h3><h4 id="指数族"><a href="#指数族" class="headerlink" title="指数族"></a>指数族</h4><script type="math/tex; mode=display">
 p(y;\eta)=b(y)\exp(\eta^TT(y)-a(\eta))</script><p>$\eta$称为自然参数,$T(y)$ 称为充分统计量,线性回归和逻辑回归中, $T(y)=y$, $a(\eta)$ 称为对数分割函数.</p>
 <h4 id="广义线性模型的三个假设"><a href="#广义线性模型的三个假设" class="headerlink" title="广义线性模型的三个假设"></a>广义线性模型的三个假设</h4><ul>
 <li>$y|x;\theta \sim ExponentialFamily(\eta)$</li>
@@ -489,10 +502,10 @@ p(y;\eta)=b(y)\exp(\eta^TT(y)-a(\eta))</script><p>$\eta$称为自然参数,$T(y)
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>机器学习复习(一)</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-10-31, 09:55:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-10-31, 17:03:02</p>
+    <p><span class="copy-title">最后更新:</span>2019-10-31, 21:34:45</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/10/31/ml-01/" title="机器学习复习(一)">https://blog.jtzhang.xyz/2019/10/31/ml-01/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
