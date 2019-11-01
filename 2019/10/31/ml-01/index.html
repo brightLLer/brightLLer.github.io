@@ -216,15 +216,15 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">机器学习</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">hexo</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color2">3-hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">机器学习</a>
     </li>
     
     <div class="clearfix"></div>
@@ -347,7 +347,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-01 08:52:29'>2019-10-31 09:55</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-01 08:55:21'>2019-10-31 09:55</time>
         
     </div>
     <div class="article-meta">
@@ -504,7 +504,8 @@ P(y;\mu)&=\frac{1}{\sqrt{2\pi}}\exp(-\frac{(y-\mu)^2}{2}) \\
 h(x)=E[y|x]=\mu=\eta</script><p>第三个假设为：</p>
 <script type="math/tex; mode=display">
 h(x)=\eta=\theta^Tx</script><p>据此推导出了该广义线性模型，也就是线性回归的模型.</p>
-<h4 id="再议逻辑回归"><a href="#再议逻辑回归" class="headerlink" title="再议逻辑回归"></a>再议逻辑回归</h4><p>同理, 在二分类问题中常有$y\in{0, 1}$, 如果用逻辑回归来处理该二分类问题，可以用一个伯努利分布来表示, 也就是$y\sim Bernoulli(\phi)$，可以写成:</p>
+<h4 id="再议逻辑回归"><a href="#再议逻辑回归" class="headerlink" title="再议逻辑回归"></a>再议逻辑回归</h4><p>同理, 在二分类问题中常有</p>
+<script type="math/tex; mode=display">y\in \{0, 1\}</script><p>如果用逻辑回归来处理该二分类问题，可以用一个伯努利分布来表示, 也就是$y\sim Bernoulli(\phi)$，可以写成:</p>
 <script type="math/tex; mode=display">
 P(y=1;\phi)=\phi</script><script type="math/tex; mode=display">
 P(y=0;\phi)=1-\phi</script><p>或者</p>
@@ -543,7 +544,7 @@ h(x)=\frac{1}{1+e^{-\eta}}=\frac{1}{1+e^{-\theta^Tx}}</script><p>据此推导出
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.8k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-10-31, 09:55:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-01, 08:52:29</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-01, 08:55:21</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/10/31/ml-01/" title="机器学习复习(一)">https://blog.jtzhang.xyz/2019/10/31/ml-01/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -666,7 +667,7 @@ h(x)=\frac{1}{1+e^{-\eta}}=\frac{1}{1+e^{-\theta^Tx}}</script><p>据此推导出
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#hexo','#3-hexo',],
+            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#hexo','#3-hexo','#机器学习',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
