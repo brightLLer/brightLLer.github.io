@@ -111,7 +111,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(10)</small></div></li>
+    <li><div class="all active">全部文章<small>(11)</small></div></li>
     
         
             
@@ -139,6 +139,14 @@
     
         
             
+            <li><div data-rel="机器学习">机器学习<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
             <li><div data-rel="hexo">hexo<small>(1)</small></div>
                 
             </li>
@@ -157,8 +165,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="10">
-<input type="hidden" id="yelog_site_word_count" value="14.7k">
+<input type="hidden" id="yelog_site_posts_number" value="11">
+<input type="hidden" id="yelog_site_word_count" value="15.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -216,15 +224,15 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">机器学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">hexo</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color2">3-hexo</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">机器学习</a>
     </li>
     
     <div class="clearfix"></div>
@@ -237,7 +245,15 @@
     
     <nav id="title-list-nav">
         
-        <a  class=""
+        <a  class="机器学习 "
+           href="/2019/11/04/ml-02/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="机器学习复习(二)">机器学习复习(二)</span>
+            <span class="post-date" title="2019-11-04 16:19:55">2019/11/04</span>
+        </a>
+        
+        <a  class="机器学习 "
            href="/2019/10/31/ml-01/"
            data-tag="机器学习"
            data-author="" >
@@ -622,7 +638,7 @@ for(int i = 0; i &lt;= n; i ++){
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#hexo','#3-hexo','#机器学习',],
+            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');

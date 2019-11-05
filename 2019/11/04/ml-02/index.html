@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>计数排序 | Zeroone</title>
-  <meta name="keywords" content=" 算法 , 排序 ">
-  <meta name="description" content="计数排序 | Zeroone">
+  <title>机器学习复习(二) | Zeroone</title>
+  <meta name="keywords" content=" 机器学习 ">
+  <meta name="description" content="机器学习复习(二) | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
 <meta property="og:type" content="website">
@@ -345,9 +345,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-counting-sort" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ml-02" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">计数排序</h1>
+        <h1 class="article-title">机器学习复习(二)</h1>
     
     <div class="article-meta">
         
@@ -355,28 +355,26 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="算法">算法</a>
+                <a href="javascript:" data-rel="机器学习">机器学习</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a href="javascript:" class="color3">算法</a>
-            
-            <a href="javascript:" class="color3">排序</a>
+            <a href="javascript:" class="color5">机器学习</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-23 21:06:27'>2019-09-22 21:57</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-05 21:49:43'>2019-11-04 16:19</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:892</span>
+        <span>字数:1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -406,7 +404,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#与基于比较的排序算法的区别"><span class="toc-text">与基于比较的排序算法的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法步骤"><span class="toc-text">算法步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一步"><span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二步"><span class="toc-text">第二步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三步"><span class="toc-text">第三步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第四步"><span class="toc-text">第四步</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成学习"><span class="toc-text">生成学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本知识"><span class="toc-text">基本知识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高斯判别分析和逻辑回归的关系"><span class="toc-text">高斯判别分析和逻辑回归的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#朴素贝叶斯"><span class="toc-text">朴素贝叶斯</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -421,397 +419,47 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="与基于比较的排序算法的区别"><a href="#与基于比较的排序算法的区别" class="headerlink" title="与基于比较的排序算法的区别"></a>与基于比较的排序算法的区别</h3><p>一般的基于比较的排序算法的最好平均时间复杂度可以达到 $O(n\log{n})$ 的复杂度, 但是计数排序的时间复杂度可以达到$O(n)$. 但是计数排序在使用方面有个限制，即排序的数组中的元素必须在一定的范围内.</p>
-<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><p>给定数组$a$</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>$index$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$value$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a><strong>第一步</strong></h4><p>假设代排序数组为$a$, 获取数组中最大和最小的元素, 分别记为 $\max{(a)}$ 和 $\min{(a)}$, 开辟数组$c$, 空间大小为: $\max{(a)}-\min{(a)} + 1$, 从给出的例子来看, 最大值和最小值分别为3和0, 所以开辟的数组大小为4;</p>
-<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a><strong>第二步</strong></h4><p>$c$ 中记录$a$中每个元素出现的次数:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>$index$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$value$</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a><strong>第三步</strong></h4><p>修改$c$, 让$c$中的每个元素$c_i$记录不超过$i$的元素的个数, 也就是当前元素累加前一个元素:</p>
+        <h3 id="生成学习"><a href="#生成学习" class="headerlink" title="生成学习"></a>生成学习</h3><h4 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h4><p>线性回归, 逻辑回归和softmax回归都是判别式学习算法，也就是直接学习 $p(y|x;\theta)$, 生成学习的思路则不同，以分类问题为例，它分别对<strong>不同类别</strong>的<strong>特征分布</strong>进行建模，比如二分类，需要分别对 $p(x|y=0)$ 和 $p(x|y=1)$ 建模，更具体的说，生成学习算法需要对 $p(x|y)$ 和 $p(y)$ 建模.<br>接着运用贝叶斯定理, 得到:</p>
 <script type="math/tex; mode=display">
-c_{i}=c_{i-1}+1</script><p>得到的结果为:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>$index$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$value$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a><strong>第四步</strong></h4><p>根据数组$c$得到排序后的数组$b$.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td><strong>3</strong></td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td><strong>3</strong></td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td><strong>5</strong></td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td><strong>5</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><strong>3</strong></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>这是怎么确定$b_5$是$3$的呢?注意加粗字体部分，它们实际上是串联在一起的, 前5行自上往下串成一条线:</p>
+p(y|x)=\frac{p(x|y)p(y)}{p(x)}</script><p>各个术语说明如下:</p>
+<ul>
+<li><p>$p(y)$, 先验概率, “原因”的概率.</p>
+</li>
+<li><p>$p(x|y)$, 似然函数, $L(y|x)=C\cdot p(x|y)$, 产生<strong>数据</strong>$x$的可能称为似然, $y$就像是参数一样.</p>
+</li>
+<li><p>$p(y|x)$, 后验概率, 贝叶斯定理求的是结果到原因的概率，这里相当于在知道观测<strong>结果</strong>的条件下得到<strong>原因</strong>的概率.</p>
+</li>
+<li><p>$p(x)$, 证据因子, 用全概率公式求解, $p(x)=p(x|y=0)p(y=0)+p(x|y=1)p(y=1)$.</p>
+</li>
+</ul>
+<p>据此, 我们知道最大后验概率估计的方法为:</p>
 <script type="math/tex; mode=display">
-0 \rightarrow \mathbf{3} \rightarrow 3 \rightarrow 5 \rightarrow \mathbf{5}</script><p>注意数组$c$是累加的结果, 所以$b_5=3$ (注意上面串线加粗的$\mathbf{3}$和$\mathbf{5}$), 经过这一步计算后, 数组$c$会发生一些变化, 也就是不超过3的累加计数5需要减去1, 更新为4, 因为有一个3已经找到了它的位置.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td><strong>4</strong></td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>接下来采用同样的方法进行”串线”:</p>
+\arg\max_{y}p(y|x)=\arg\max_{y}\frac{p(x|y)p(y)}{p(x)} = \arg\max_{y} p(x|y)p(y)</script><p>此处由于我们求的最大值只跟 $y$ 有关, 相当于 $x$ 就是一个常量了, 可以直接把分母移除, 它对最后求出来的最大值没有任何影响. 与判别式模型不同, 我们不是最大化 $p(y|x)$, 而是最大化 $p(x|y)p(y)$ 也就是 $p(x,y)$ 这一联合概率. <strong>牢牢记住判别模型需要对 $p(x|y)$ 和 $p(y)$ 建模</strong>, 举个例子, 高斯判别分析 (GDA) 就是一个生成学习算法, 如果用它来做二分类, 那么可以进行如下建模:</p>
 <script type="math/tex; mode=display">
-1 \rightarrow \mathbf{0} \rightarrow 0 \rightarrow 1 \rightarrow \mathbf{1}</script><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td><strong>0</strong></td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td><strong>0</strong></td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td><strong>1</strong></td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td><strong>1</strong></td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td><strong>0</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>计算得到$b_1=1$, 同时不超过1的累加计数1需要减去1, 更新为0, 因为数字0找到了它的位置.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td><strong>0</strong></td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td>0</td>
-<td></td>
-<td></td>
-<td></td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>反复这样计算后得到的排序结果为:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>其实上面的操作中, “串线”和累加计数减去1是重复进行的, 可以用下面的代码来实现:</p>
-<pre><code class="lang-Java">// b[c[a[i] - min]]表示b从1开始计数
-// b[c[a[i] - min] - 1]表示b从0开始计数
-for(int i = 0; i &lt; a.length; i ++){
-    b[c[a[i] - min] - 1] = a[i];
-    c[a[i] - min]--;
-}
-</code></pre>
-<p>完整的实现代码如下所示:</p>
-<pre><code class="lang-Java">public static int[] solution(int[] a) {
-    int max = getMax(a), min = getMin(a);
-    int s = max - min + 1;
-    int[] c = new int[s];
-    int[] b = new int[a.length];
-    for(int i = 0; i &lt; a.length; i ++) {
-        c[a[i] - min] ++;
-    }
-    for(int i = 1; i &lt; c.length; i ++) {
-        c[i] = c[i] + c[i - 1];
-    }
-    for(int i = 0; i &lt; a.length; i ++) {
-        b[c[a[i] - min] - 1] = a[i];
-        c[a[i] - min] --;
-    }
-    return b;
-}
-</code></pre>
-
+y\sim Bernoulli(\phi)</script><script type="math/tex; mode=display">
+x|y=0\sim\mathcal N(\mu_0, \Sigma)</script><script type="math/tex; mode=display">
+x|y=1\sim\mathcal N(\mu_1, \Sigma)</script><p>也就是：</p>
+<script type="math/tex; mode=display">
+p(y)=\phi^y(1-\phi)^{1-y}</script><script type="math/tex; mode=display">
+p(x|y=0)=\frac{1}{(2\pi)^{\frac{n}{2}}|\Sigma|^{\frac{1}{2}}}\exp(-\frac{1}{2}(x-\mu_0)^T\Sigma^{-1}(x-\mu_0))</script><script type="math/tex; mode=display">
+p(x|y=1)=\frac{1}{(2\pi^{\frac{n}{2}})|\Sigma|^{\frac{1}{2}}}\exp(-\frac{1}{2}(x-\mu_1)^T\Sigma^{-1}(x-\mu_1))</script><p>接下来的计算方法就是极大似然估计了:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+l(\phi,\mu_0,\mu_1,\Sigma)&=\log\prod_{i=1}^mp(x^{(i)}, y^{(i)};\phi, \mu_0, \mu_1, \Sigma) \\
+&=\sum_{i=1}^m\log{p(x^{(i)}|y^{(i)};\mu_0,\mu_1,\Sigma)p(y^{(i)};\phi)}
+\end{aligned}</script><h4 id="高斯判别分析和逻辑回归的关系"><a href="#高斯判别分析和逻辑回归的关系" class="headerlink" title="高斯判别分析和逻辑回归的关系"></a>高斯判别分析和逻辑回归的关系</h4><p>实际上, GDA和Logistic回归存在如下关系:</p>
+<script type="math/tex; mode=display">
+p(y|x;\mu_0,\mu_1,\Sigma,\phi)=\frac{1}{1+\exp(-\theta^Tx)}</script><p>其中, $\theta$ 可以表示为 $\mu_0, \mu_1, \Sigma, \phi$的某种函数, 一般来说:</p>
+<ul>
+<li>GDA的假设比逻辑回归要强, 也就是如果特别肯定 $p(x|y)$ 是一个多变量的高斯分布，那么使用GDA的建模效果比逻辑回归要好, 特别在大规模的数据集上效果更为明显;</li>
+<li>逻辑回归的假设要弱一些, 但这也意味着它的鲁棒性和容错性强一些, 在多数情况下, 我们并无法确定 $x|y$ 会服从什么样的一个分布, 那么使用逻辑回归来解决会更好, 比方说 $x|y$ 服从泊松分布, 那么使用GDA进行建模肯定是比较差的，但是逻辑回归却很合适.</li>
+</ul>
+<h4 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h4><p>现在我们要建立一个用于垃圾邮件分类的模型, 这时候我们就要用到朴素贝叶斯了, 朴素贝叶斯也是一种生成学习算法, 按照前面提到的内容, 生成学习需要对 $p(x|y)$ 和 $p(y)$ 建模, 这里很明显:</p>
+<script type="math/tex; mode=display">
+y\sim Bernoulli(\phi_y)</script><p>因为垃圾邮件和非垃圾邮件可以分别用0和1来表示, 那 $x|y$ 服从的分布呢? 由于 $x$ 常常表示为独热编码, 因此 $x_j, j=1,…,|V|$ 的取值通常也是非0即1，那么可以假设:</p>
+<script type="math/tex; mode=display">
+x_j|y=0\sim Bernoulli(\phi_{j|y=0})</script><script type="math/tex; mode=display">
+x_j|y=1\sim Bernoulli(\phi_{j|y=1})</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -824,12 +472,12 @@ for(int i = 0; i &lt; a.length; i ++){
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>计数排序</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">892</span></p>
+    <p><span class="copy-title">文章标题:</span>机器学习复习(二)</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-09-22, 21:57:11</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-23, 21:06:27</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/22/counting-sort/" title="计数排序">https://blog.jtzhang.xyz/2019/09/22/counting-sort/</a>
+    <p><span class="copy-title">发布时间:</span>2019-11-04, 16:19:55</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-05, 21:49:43</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/04/ml-02/" title="机器学习复习(二)">https://blog.jtzhang.xyz/2019/11/04/ml-02/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
