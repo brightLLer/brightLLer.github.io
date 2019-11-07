@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="11">
-<input type="hidden" id="yelog_site_word_count" value="16.5k">
+<input type="hidden" id="yelog_site_word_count" value="17.1k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -369,12 +369,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-07 16:54:09'>2019-11-04 16:19</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-07 22:03:43'>2019-11-04 16:19</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.8k</span>
+        <span>字数:2.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -404,7 +404,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成学习"><span class="toc-text">生成学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本知识"><span class="toc-text">基本知识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高斯判别分析和逻辑回归的关系"><span class="toc-text">高斯判别分析和逻辑回归的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#朴素贝叶斯"><span class="toc-text">朴素贝叶斯</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成学习"><span class="toc-text">生成学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本知识"><span class="toc-text">基本知识</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#高斯判别分析和逻辑回归的关系"><span class="toc-text">高斯判别分析和逻辑回归的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#朴素贝叶斯"><span class="toc-text">朴素贝叶斯</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉普斯平滑"><span class="toc-text">拉普斯平滑</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -458,7 +458,7 @@ p(y|x;\mu_0,\mu_1,\Sigma,\phi)=\frac{1}{1+\exp(-\theta^Tx)}</script><p>其中, $
 <script type="math/tex; mode=display">
 y\sim Bernoulli(\phi_y)</script><p>也就是:</p>
 <script type="math/tex; mode=display">
-p(y)=\phi_y^y(1-\phi_y)^{1-y}</script><p>因为垃圾邮件和非垃圾邮件可以分别用0和1来表示, 那 $x|y$ 服从的分布呢? 由于 $x$ 常常表示为独热编码, 因此 $x$ 中的每一个分量$x_j, j=1,…,|V|$ 的取值通常也是非0即1，代表这个位置上的单词是否被取到, 那么可以假设:</p>
+p(y)=\phi_y^y(1-\phi_y)^{1-y}</script><p>因为垃圾邮件和非垃圾邮件可以分别用0和1来表示, 那 $x|y$ 服从的分布呢? 由于 $x$ 常常表示为独热编码, 因此 $x$ 中的每一个分量$x_j, j=1,…,n$ 的取值通常也是非0即1，代表这个位置上的单词是否被取到, 那么可以假设:</p>
 <script type="math/tex; mode=display">
 x_j|y=0\sim Bernoulli(\phi_{j|y=0})</script><script type="math/tex; mode=display">
 x_j|y=1\sim Bernoulli(\phi_{j|y=1})</script><p>那么可以得到:</p>
@@ -514,9 +514,44 @@ l(\phi_{j|y=0}, \phi_{j|y=1}, \phi_y)&=\log\prod_{i=1}^mp(x^{(i)},y^{(i)}) \\
 &=0
 \end{aligned}</script><p>也即是:</p>
 <script type="math/tex; mode=display">
-\sum_{i=1}^m(y^{(i)}-\phi_y)=0 \Longleftrightarrow \sum_{i=1}^my^{(i)}-m\phi_y=0</script><p>所以:</p>
+\sum_{i=1}^m(y^{(i)}-\phi_y)=0 \Longleftrightarrow \sum_{i=1}^my^{(i)}-m\phi_y=0</script><p>所以(注意观察，其实就是频率):</p>
 <script type="math/tex; mode=display">
-\phi_y=\frac{\sum_{i=1}^my^{(i)}}{m}=\frac{\sum_{i=1}^m1\{y^{(i)}=1\}}{m}</script>
+\phi_y=\frac{\sum_{i=1}^my^{(i)}}{m}=\frac{\sum_{i=1}^m1\{y^{(i)}=1\}}{m}</script><p>最后，如果来了一个新样本的特征向量 $x$, 直接采用贝叶斯公式和全概率公式计算就可以了:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+p(y=1|x)&=\frac{p(x|y=1)p(y=1)}{p(x)} \\
+&=\frac{p(x|y=1)p(y=1)}{\sum_yp(x,y)} \\
+&=\frac{p(x|y=1)p(y=1)}{\sum_yp(x|y)p(y)} \\
+&=\frac{p(x|y=1)p(y=1)}{p(x|y=1)p(y)+p(x|y=0)p(y=0)} \\
+&=\frac{(\prod_{j=1}^np(x_j|y=1))p(y=1)}{(\prod_{j=1}^np(x_j|y=1))p(y)+(\prod_{j=1}^np(x_j|y=0))p(y=0)}
+\end{aligned}</script><p>特别要注意的是, 如果 $x_j$ 不是二值化的，而是有$k, k \geq 2$个取值, 那么我们只要把 $p(x_j|y)$的建模从二项分布改成多项式分布, 对于连续型的取值, 也可以通过区间划分的方法转换为小规模的离散值的集合再应用多项式分布.</p>
+<h4 id="拉普斯平滑"><a href="#拉普斯平滑" class="headerlink" title="拉普斯平滑"></a>拉普斯平滑</h4><p>如果字典中的第 $j$ 个单词 $x_j$ 从来没有在训练集的样本中出现过, 那么通过训练集训练得到的参数:</p>
+<script type="math/tex; mode=display">
+1\{x_j = 1\} = 0 \Longrightarrow \phi_{j|y} = 0</script><p>这时候如果了来了一封包含单词 $x<em>j$ 的邮件，那么模型调用训练得到的参数 $\phi</em>{j|y}$ 进行预测:</p>
+<script type="math/tex; mode=display">
+\phi_{j|y} = 0\Longrightarrow p(x_j|y)=0 \Longrightarrow p(x|y)=0</script><p>从而得到:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+p(y|x)&=\frac{p(x|y)p(y)}{p(x)}
+=\frac{p(x|y)p(y)}{\sum_yp(x,y)}
+=\frac{p(x|y)p(y)}{\sum_yp(x|y)p(y)}
+=\frac{0}{0}
+\end{aligned}</script><p>这样的结果不是我们想要的，如果给定$m$个观测样本：</p>
+<script type="math/tex; mode=display">
+\{x_1,x_2,...,x_m\}</script><p>定义如下有 $k$ 个取值的多项式分布:</p>
+<script type="math/tex; mode=display">
+p(x_i=j)=\phi_j, j \in \{1, 2, ..., k\}</script><p>一般来是，其极大似然估计的结果为（注意观察，其实是频率）:</p>
+<script type="math/tex; mode=display">
+\phi_j=\frac{\sum_{i=1}^m1\{x_i=j\}}{m}</script><p>为了应对 $\phi_j$ 可能出现取值为0的情况，可以引入拉普拉斯平滑:</p>
+<script type="math/tex; mode=display">
+\phi_j=\frac{\sum_{i=1}^m1\{x_i=j\} + 1}{m + k}</script><p>注意 $\sum_{i=1}^m\phi_j=1$依然是成立的.回到垃圾邮件分类问题上来, 各个参数的求解结果根据拉普拉斯平滑修改为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\phi_{j|y=0}=\frac{\sum_{i=1}^m1\{(x^{(i)}_j=1)\;\text{and}\;(y^{(i)}=0)\}+1}{\sum_{i=1}^m1\{y^{(i)}=0\}+2}
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\phi_{j|y=1}=\frac{\sum_{i=1}^m1\{(x^{(i)}_j=1)\;\text{and}\;(y^{(i)}=1)\}+1}{\sum_{i=1}^m1\{y^{(i)}=1\}+2}
+\end{aligned}</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -530,10 +565,10 @@ l(\phi_{j|y=0}, \phi_{j|y=1}, \phi_y)&=\log\prod_{i=1}^mp(x^{(i)},y^{(i)}) \\
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>机器学习复习(二)</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.8k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.4k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-04, 16:19:55</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-07, 16:54:09</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-07, 22:03:43</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/04/ml-02/" title="机器学习复习(二)">https://blog.jtzhang.xyz/2019/11/04/ml-02/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
