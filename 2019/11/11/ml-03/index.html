@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>计数排序 | Zeroone</title>
-  <meta name="keywords" content=" 算法 , 排序 ">
-  <meta name="description" content="计数排序 | Zeroone">
+  <title>机器学习复习(三) | Zeroone</title>
+  <meta name="keywords" content=" 机器学习 ">
+  <meta name="description" content="机器学习复习(三) | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
 <meta property="og:type" content="website">
@@ -353,9 +353,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-counting-sort" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ml-03" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">计数排序</h1>
+        <h1 class="article-title">机器学习复习(三)</h1>
     
     <div class="article-meta">
         
@@ -363,28 +363,26 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="算法">算法</a>
+                <a href="javascript:" data-rel="机器学习">机器学习</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a href="javascript:" class="color3">算法</a>
-            
-            <a href="javascript:" class="color3">排序</a>
+            <a href="javascript:" class="color5">机器学习</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-23 21:06:27'>2019-09-22 21:57</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-11 22:22:55'>2019-11-11 09:52</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:892</span>
+        <span>字数:1.1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -414,7 +412,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#与基于比较的排序算法的区别"><span class="toc-text">与基于比较的排序算法的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法步骤"><span class="toc-text">算法步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一步"><span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二步"><span class="toc-text">第二步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三步"><span class="toc-text">第三步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第四步"><span class="toc-text">第四步</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机"><span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#间隔与支持向量"><span class="toc-text">间隔与支持向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉格朗日乘子法"><span class="toc-text">拉格朗日乘子法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-等式约束"><span class="toc-text">1. 等式约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-不等式约束"><span class="toc-text">2. 不等式约束</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -429,397 +427,95 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="与基于比较的排序算法的区别"><a href="#与基于比较的排序算法的区别" class="headerlink" title="与基于比较的排序算法的区别"></a>与基于比较的排序算法的区别</h3><p>一般的基于比较的排序算法的最好平均时间复杂度可以达到 $O(n\log{n})$ 的复杂度, 但是计数排序的时间复杂度可以达到$O(n)$. 但是计数排序在使用方面有个限制，即排序的数组中的元素必须在一定的范围内.</p>
-<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a>算法步骤</h3><p>给定数组$a$</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>$index$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$value$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a><strong>第一步</strong></h4><p>假设代排序数组为$a$, 获取数组中最大和最小的元素, 分别记为 $\max{(a)}$ 和 $\min{(a)}$, 开辟数组$c$, 空间大小为: $\max{(a)}-\min{(a)} + 1$, 从给出的例子来看, 最大值和最小值分别为3和0, 所以开辟的数组大小为4;</p>
-<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a><strong>第二步</strong></h4><p>$c$ 中记录$a$中每个元素出现的次数:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>$index$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$value$</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a><strong>第三步</strong></h4><p>修改$c$, 让$c$中的每个元素$c_i$记录不超过$i$的元素的个数, 也就是当前元素累加前一个元素:</p>
+        <h3 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h3><h4 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a><strong>间隔与支持向量</strong></h4><p>给定训练集</p>
+<script type="math/tex; mode=display">D=\{x^{(1)}, x^{(2)}, ..., x^{(m)}\}, y^{(i)} \in \{-1, 1\}</script><p>现在使用支持向量机进行分类,其划分超平面的秒速如下:</p>
 <script type="math/tex; mode=display">
-c_{i}=c_{i-1}+1</script><p>得到的结果为:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>$index$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$value$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a><strong>第四步</strong></h4><p>根据数组$c$得到排序后的数组$b$.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td><strong>3</strong></td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td><strong>3</strong></td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td><strong>5</strong></td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td><strong>5</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><strong>3</strong></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>这是怎么确定$b_5$是$3$的呢?注意加粗字体部分，它们实际上是串联在一起的, 前5行自上往下串成一条线:</p>
+w^Tx+b=0</script><p>注意 $w$ 是平面的法向量, $b$则是位移. 根据点到平面的距离公式, 样本点 $x$ 到平面 $(w, b)$ 的距离为:</p>
 <script type="math/tex; mode=display">
-0 \rightarrow \mathbf{3} \rightarrow 3 \rightarrow 5 \rightarrow \mathbf{5}</script><p>注意数组$c$是累加的结果, 所以$b_5=3$ (注意上面串线加粗的$\mathbf{3}$和$\mathbf{5}$), 经过这一步计算后, 数组$c$会发生一些变化, 也就是不超过3的累加计数5需要减去1, 更新为4, 因为有一个3已经找到了它的位置.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td><strong>4</strong></td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>接下来采用同样的方法进行”串线”:</p>
+r=\frac{|w^Tx+b|}{\left \| w\right \|}</script><p>因此, 如果能正确分类，则会满足:</p>
 <script type="math/tex; mode=display">
-1 \rightarrow \mathbf{0} \rightarrow 0 \rightarrow 1 \rightarrow \mathbf{1}</script><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td><strong>0</strong></td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td><strong>0</strong></td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td><strong>1</strong></td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td><strong>1</strong></td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td><strong>0</strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>计算得到$b_1=1$, 同时不超过1的累加计数1需要减去1, 更新为0, 因为数字0找到了它的位置.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td><strong>0</strong></td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td>0</td>
-<td></td>
-<td></td>
-<td></td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>反复这样计算后得到的排序结果为:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">$a_{index}$</th>
-<th>0</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$a$</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>3</td>
-<td>1</td>
-</tr>
-<tr>
-<td style="text-align:center">$c_{index}:=a_i-\min{(a)}$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$c:=count(a_i)$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>-</td>
-</tr>
-<tr>
-<td style="text-align:center">$b_{index}$</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td style="text-align:center">$b$</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>其实上面的操作中, “串线”和累加计数减去1是重复进行的, 可以用下面的代码来实现:</p>
-<pre><code class="lang-Java">// b[c[a[i] - min]]表示b从1开始计数
-// b[c[a[i] - min] - 1]表示b从0开始计数
-for(int i = 0; i &lt; a.length; i ++){
-    b[c[a[i] - min] - 1] = a[i];
-    c[a[i] - min]--;
-}
-</code></pre>
-<p>完整的实现代码如下所示:</p>
-<pre><code class="lang-Java">public static int[] solution(int[] a) {
-    int max = getMax(a), min = getMin(a);
-    int s = max - min + 1;
-    int[] c = new int[s];
-    int[] b = new int[a.length];
-    for(int i = 0; i &lt; a.length; i ++) {
-        c[a[i] - min] ++;
-    }
-    for(int i = 1; i &lt; c.length; i ++) {
-        c[i] = c[i] + c[i - 1];
-    }
-    for(int i = 0; i &lt; a.length; i ++) {
-        b[c[a[i] - min] - 1] = a[i];
-        c[a[i] - min] --;
-    }
-    return b;
-}
-</code></pre>
-
+\begin{equation}
+\begin{cases}
+w^Tx^{(i)} + b \geq +1,& y^{(i)} = +1\\
+w^Tx^{(i)} + b \leq -1,& y^{(i)} = -1
+\end{cases}
+\end{equation}</script><p>两个类别平面 $w^Tx^{(i)} + b = 1$ 和 $w^Tx^{(i)} + b = -1$上的点称为支持向量，两个异类支持向量到超平面的距离之和（也是两个类别平面的距离）称为间隔:</p>
+<script type="math/tex; mode=display">
+\gamma = \frac{|b-1-(b + 1)|}{\left \| w\right \|}=\frac{2}{\left \| w\right \|}</script><p>现在我们的目标是找到合适的 $w, b$ 使得间隔最大化，也就是:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\max_{w, b}\frac{2}{\left \| w\right \|} \\
+&\text{s.t.}\;\;y^{(i)}(w^Tx^{(i)}+b) \geq 1, i=1,2,...,m
+\end{aligned}</script><p>上面的写法等价于:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\min_{w, b}\frac{1}{2}\left \| w\right \|^2 \\
+&\text{s.t.}\;\;y^{(i)}(w^Tx^{(i)}+b) \geq 1, i=1,2,...,m
+\end{aligned}</script><p>这就是支持向量机的<strong>基本型</strong>.</p>
+<h4 id="拉格朗日乘子法"><a href="#拉格朗日乘子法" class="headerlink" title="拉格朗日乘子法"></a><strong>拉格朗日乘子法</strong></h4><h4 id="1-等式约束"><a href="#1-等式约束" class="headerlink" title="1. 等式约束"></a>1. 等式约束</h4><p>考虑如下等式约束问题:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\min f(x) \\
+& \text{s.t.}\;\;g(x)=0
+\end{aligned}</script><p>也就是寻找某个合适 $x$ 的取值使得目标函数 $f(x)$ 最小并且满足 约束曲面 $g(x)=0$ 的约束.<br>首先, 我们要记住如下结论:</p>
+<ul>
+<li>曲面上某点的<strong>梯度的方向</strong>总是和经过该点的<strong>等高线(的切线)方向</strong>正交/垂直.</li>
+<li>最优解一定存在于 $f(x)$ 与 $g(x)=0$ 的相切位置. (众所周知, 相离和相交一般不可能取得最优解)</li>
+</ul>
+<p>注意此处 $x$  为向量. 为了方便解释，我们假设它是一个二维向量. 由于 $g(x)=0$ 就是 $g(x)$ 的其中一条等高线, 依据上面的结论,</p>
+<ul>
+<li>在约束曲面上的某点 $x$ 处, $\nabla g(x)$ 正交于等高线 $g(x)=0$ 的切线.</li>
+<li>由于最优解存在于 $f(x)$ 与 $g(x)=0$相切的位置, 因此最优解 $x$ 处 $f(x)$ 与 $g(x)=0$ 的切线是同一条, 那么 $\nabla f(x)$ 同样正交于 $g(x)=0$ 的切线.</li>
+</ul>
+<p>因此, $\nabla f(x)$ 和 $\nabla g(x)$ 必定同向或者反向, 也就是存在 $\lambda \neq 0$ 使得:</p>
+<script type="math/tex; mode=display">
+\nabla f(x)+\lambda\nabla g(x)=0</script><p>这里 $\lambda$ 称为格朗日乘子, 定义拉格朗日函数：</p>
+<script type="math/tex; mode=display">
+L(x, \lambda)=f(x)+\lambda g(x)</script><p>可以发现</p>
+<script type="math/tex; mode=display">
+\nabla_xL(x,\lambda)=\nabla f(x)+\lambda\nabla g(x)=0</script><p>就是我们上面得到的式子, 同时,</p>
+<script type="math/tex; mode=display">
+\nabla_{\lambda}L(x,\lambda)=g(x)=0</script><p>恰好是约束条件.这样一来约束优化问题就转化为了无约束优化问题.</p>
+<h4 id="2-不等式约束"><a href="#2-不等式约束" class="headerlink" title="2. 不等式约束"></a>2. 不等式约束</h4><p>现在考虑不等式约束</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\min f(x) \\
+& \text{s.t.}\;\;g(x)\leq 0
+\end{aligned}</script><ul>
+<li>最优点落在 $g(x) &lt; 0$ 区域内, 那么不等式约束没有起到任何作用，相当于直接优化 $f(x)$, 相当于 $L(x, \lambda)$ 中取 $\lambda = 0$</li>
+<li>最优点落在 $g(x) = 0$上, 变回了等式约束问题, 但此时 $\nabla f(x)$ 和 $\nabla g(x)$ 的方向必定相反, 即 $\lambda &gt; 0$.</li>
+</ul>
+<p>再简单理一下, 就是:</p>
+<ul>
+<li>$g(x) &lt; 0$ 时 $\lambda = 0$</li>
+<li>$g(x) = 0$ 时 $\lambda &gt; 0$.</li>
+</ul>
+<p>那么原来的不等式约束优化可以转化为如下的优化问题:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&L(x, \lambda)=f(x)+\lambda g(x) \\
+&\text{s.t.}\;\;\begin{cases}
+g(x) \leq 0; \\
+\lambda \geq 0; \\
+\lambda g(x)=0.
+\end{cases}
+\end{aligned}</script><p>上述优化问题的约束也称为KKT条件. 现在将KKT条件推广到 $m$个等式约束和 $n$ 个不等式约束上, 可以得到如下优化问题:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\min f(x) \\
+& \text{s.t.}\;\;h_i(x) = 0\;\;(i=1,2,...,m)\\
+& \;\;\;\;\;\;\;g_j(x)\leq 0\;\;(j=1,2,...,n)
+\end{aligned}</script><p>引入拉格朗日乘子 $\lambda = (\lambda_1, \lambda_2, …, \lambda_m)^T$ 和 $\mu = (\mu_1, \mu_2,…,\mu_n)^T$, 可以得到如下拉格朗日函数:</p>
+<script type="math/tex; mode=display">
+L(x,\lambda,\mu)=f(x)+\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x)</script><p>其KKT条件( $j=1,2,…,n$ )为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\begin{cases}
+g_j(x) \leq 0; \\
+\mu_j \geq 0; \\
+\mu_jg_j(x)=0.
+\end{cases}
+\end{aligned}</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -832,12 +528,12 @@ for(int i = 0; i &lt; a.length; i ++){
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>计数排序</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">892</span></p>
+    <p><span class="copy-title">文章标题:</span>机器学习复习(三)</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-09-22, 21:57:11</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-23, 21:06:27</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/22/counting-sort/" title="计数排序">https://blog.jtzhang.xyz/2019/09/22/counting-sort/</a>
+    <p><span class="copy-title">发布时间:</span>2019-11-11, 09:52:53</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-11, 22:22:55</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/11/ml-03/" title="机器学习复习(三)">https://blog.jtzhang.xyz/2019/11/11/ml-03/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
