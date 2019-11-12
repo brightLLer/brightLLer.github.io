@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title>机器学习复习(三)</title>
+      <title>支持向量机</title>
       <link href="/2019/11/11/ml-03/"/>
       <url>/2019/11/11/ml-03/</url>
       
@@ -20,7 +20,7 @@
       
         <tags>
             
-            <tag> 机器学习 </tag>
+            <tag> 机器学习, SVM </tag>
             
         </tags>
       
@@ -29,7 +29,7 @@
     
     
     <entry>
-      <title>机器学习复习(二)</title>
+      <title>生成模型</title>
       <link href="/2019/11/04/ml-02/"/>
       <url>/2019/11/04/ml-02/</url>
       
@@ -54,7 +54,7 @@
     
     
     <entry>
-      <title>机器学习复习(一)</title>
+      <title>线性模型</title>
       <link href="/2019/10/31/ml-01/"/>
       <url>/2019/10/31/ml-01/</url>
       
