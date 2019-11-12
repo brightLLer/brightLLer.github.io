@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="12">
-<input type="hidden" id="yelog_site_word_count" value="18.1k">
+<input type="hidden" id="yelog_site_word_count" value="19k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -377,12 +377,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-11 22:22:55'>2019-11-11 09:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-12 22:31:36'>2019-11-11 09:52</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.1k</span>
+        <span>字数:1.9k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -412,7 +412,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机"><span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#间隔与支持向量"><span class="toc-text">间隔与支持向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉格朗日乘子法"><span class="toc-text">拉格朗日乘子法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-等式约束"><span class="toc-text">1. 等式约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-不等式约束"><span class="toc-text">2. 不等式约束</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机"><span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#间隔与支持向量"><span class="toc-text">间隔与支持向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉格朗日乘子法"><span class="toc-text">拉格朗日乘子法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-等式约束"><span class="toc-text">1. 等式约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-不等式约束"><span class="toc-text">2. 不等式约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#求解支持向量机"><span class="toc-text">求解支持向量机</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -507,7 +507,7 @@ g(x) \leq 0; \\
 & \;\;\;\;\;\;\;g_j(x)\leq 0\;\;(j=1,2,...,n)
 \end{aligned}</script><p>引入拉格朗日乘子 $\lambda = (\lambda_1, \lambda_2, …, \lambda_m)^T$ 和 $\mu = (\mu_1, \mu_2,…,\mu_n)^T$, 可以得到如下拉格朗日函数:</p>
 <script type="math/tex; mode=display">
-L(x,\lambda,\mu)=f(x)+\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x)</script><p>其KKT条件( $j=1,2,…,n$ )为:</p>
+L(x,\lambda,\mu)=f(x)+\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x)</script><p>由不等式约束引入的KKT条件( $j=1,2,…,n$ )为:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 \begin{cases}
@@ -515,6 +515,60 @@ g_j(x) \leq 0; \\
 \mu_j \geq 0; \\
 \mu_jg_j(x)=0.
 \end{cases}
+\end{aligned}</script><p>显然, 在满足KKT的情况下:</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x) \leq 0</script><p>那么:</p>
+<script type="math/tex; mode=display">
+L(x,\lambda,\mu) \leq f(x)+0=f(x)</script><p>反之, 如果KKT没有得到满足, 比如, 出现了 $h_i(x) \neq 0$ 或者 $g_i(x)&gt;0$, 就会可能出现：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x) \rightarrow \infty</script><p>此时就会有:</p>
+<script type="math/tex; mode=display">
+L(x,\lambda,\mu) \rightarrow \infty</script><p>据此，定义:</p>
+<script type="math/tex; mode=display">
+\theta_p(x)=\max_{\lambda,\mu:\mu_i>0}L(x,\lambda,\mu)=\begin{cases}
+f(x) & \text{KKT is satisfised}; \\
+\infty &  \text{otherwise}. \\
+\end{cases}</script><p>所以我们可以发现, 在满足KKT的条件下:</p>
+<script type="math/tex; mode=display">
+p=\min_x\theta_p(x)=\min_x\max_{\lambda,\mu:\mu_i>0}L(x,\lambda,\mu)=\min_xf(x)</script><p>也就是这种转换与我们原来求解的问题一致, 这一问题也成为<strong>主优化问题</strong>.与主优化问题相对应的，是它的对偶问题，我们首先定义:</p>
+<script type="math/tex; mode=display">
+\theta_D(\lambda,\mu)=\min_xL(x,\lambda,\mu)</script><p>那么对偶优化问题为:</p>
+<script type="math/tex; mode=display">
+d=\max_{\lambda,\mu:\mu_i>0}\theta_D(\lambda,\mu)=\max_{\lambda,\mu:\mu_i>0}\min_xL(x,\lambda,\mu)</script><p>一般情况下:</p>
+<script type="math/tex; mode=display">
+d \leq p</script><p>但是如果$f,g$为凸函数,$h$为仿射函数时(具体来说,$f,g$的二阶导数/$\text{Hessian}$ 矩阵半正定, $h$在线性变换的基础上加了截距项)时, 有:</p>
+<script type="math/tex; mode=display">
+d = p</script><p>那么,求解出对偶问题也就求解出了主问题.</p>
+<h3 id="求解支持向量机"><a href="#求解支持向量机" class="headerlink" title="求解支持向量机"></a>求解支持向量机</h3><p>回顾支持向量机的基本型，它可以写成如下形式:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\min_{w, b}f(w,b)=\min_{w,b}\frac{1}{2}\left \| w\right \|^2 \\
+&\text{s.t.}\;\; g_i(w)=1-y^{(i)}(w^Tx^{(i)}+b) \leq 0, i=1,2,...,m
+\end{aligned}</script><p>其拉格朗日函数为:</p>
+<script type="math/tex; mode=display">
+L(w,b,\alpha)=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b))</script><p>对应的对偶问题为:</p>
+<script type="math/tex; mode=display">
+d=\max_{\alpha:\alpha_i>0}\min_{w,b}L(w,b,\alpha)</script><p>因此,我先求 $L$ 对 $w$ 和 $b$ 的偏导数:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\frac{\partial{L}}{\partial{w}}=w-\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)}=\vec{0} \\
+&\frac{\partial{L}}{\partial{b}}=-\sum_{i=1}^m\alpha_iy^{(i)}=0
+\end{aligned}</script><p>也就是:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& w=\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)} \\
+& 0=\sum_{i=1}^m\alpha_iy^{(i)}
+\end{aligned}</script><p>代入原来的拉格朗日函数(注意 $a^Tb=b^Ta$)，得到:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+L(w,b,\alpha)&=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b)) \\
+&=\frac{1}{2}w^Tw+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b)) \\
+&=\frac{1}{2}(\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)})^T(\sum_{j=1}^m\alpha_jy^{(j)}x^{(j)})+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\alpha_iy^{(i)}(w^Tx^{(i)}+b) \\
+&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\alpha_iy^{(i)}w^Tx^{(i)}-\sum_{i=1}^m\alpha_iy^{(i)}b \\
+&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\alpha_iy^{(i)}\sum_{j=1}^m\alpha_jy^{(j)}x^{(j)T}x^{(i)}-0 \\
+&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(j)T}x^{(i)} \\
+&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)} \\
+&=\sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}
 \end{aligned}</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -529,10 +583,10 @@ g_j(x) \leq 0; \\
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>机器学习复习(三)</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.1k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.9k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-11, 09:52:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-11, 22:22:55</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-12, 22:31:36</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/11/ml-03/" title="机器学习复习(三)">https://blog.jtzhang.xyz/2019/11/11/ml-03/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
