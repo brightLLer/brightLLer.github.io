@@ -115,7 +115,7 @@
     
         
             
-            <li><div data-rel="算法">算法<small>(1)</small></div>
+            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
                 
             </li>
             
@@ -123,7 +123,7 @@
     
         
             
-            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
+            <li><div data-rel="算法">算法<small>(1)</small></div>
                 
             </li>
             
@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="12">
-<input type="hidden" id="yelog_site_word_count" value="19k">
+<input type="hidden" id="yelog_site_word_count" value="19.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -200,15 +200,15 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">Leetcode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">算法</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">排序</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -275,7 +275,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/27/leetcode-note-5/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(五)">Leetcode笔记(五)</span>
             <span class="post-date" title="2019-09-27 10:56:45">2019/09/27</span>
@@ -283,7 +283,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/23/leetcode-note-4/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(四)">Leetcode笔记(四)</span>
             <span class="post-date" title="2019-09-23 22:16:35">2019/09/23</span>
@@ -299,7 +299,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/11/leetcode-note-3/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(三)">Leetcode笔记(三)</span>
             <span class="post-date" title="2019-09-11 17:05:26">2019/09/11</span>
@@ -307,7 +307,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/10/leetcode-note-2/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(二)">Leetcode笔记(二)</span>
             <span class="post-date" title="2019-09-10 21:10:47">2019/09/10</span>
@@ -315,7 +315,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/09/leetcode-note-1/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(一)">Leetcode笔记(一)</span>
             <span class="post-date" title="2019-09-09 22:03:38">2019/09/09</span>
@@ -383,12 +383,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-12 22:40:59'>2019-11-11 09:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-13 21:03:55'>2019-11-11 09:52</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.9k</span>
+        <span>字数:2.5k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -545,7 +545,7 @@ d=\max_{\lambda,\mu:\mu_i>0}\theta_D(\lambda,\mu)=\max_{\lambda,\mu:\mu_i>0}\min
 d \leq p</script><p>但是如果$f,g$为凸函数,$h$为仿射函数时(具体来说,$f,g$的二阶导数/$\text{Hessian}$ 矩阵半正定, $h$在线性变换的基础上加了截距项)时, 有:</p>
 <script type="math/tex; mode=display">
 d = p</script><p>那么,求解出对偶问题也就求解出了主问题.</p>
-<h3 id="求解支持向量机"><a href="#求解支持向量机" class="headerlink" title="求解支持向量机"></a>求解支持向量机</h3><p>回顾支持向量机的基本型，它可以写成如下形式:</p>
+<h3 id="求解支持向量机"><a href="#求解支持向量机" class="headerlink" title="求解支持向量机"></a><strong>求解支持向量机</strong></h3><p>回顾支持向量机的基本型，它可以写成如下形式:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 &\min_{w, b}f(w,b)=\min_{w,b}\frac{1}{2}\left \| w\right \|^2 \\
@@ -559,12 +559,25 @@ d=\max_{\alpha:\alpha_i>0}\min_{w,b}L(w,b,\alpha)</script><p>因此,我先求 $L
 \begin{aligned}
 &\frac{\partial{L}}{\partial{w}}=w-\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)}=\vec{0} \\
 &\frac{\partial{L}}{\partial{b}}=-\sum_{i=1}^m\alpha_iy^{(i)}=0
-\end{aligned}</script><p>也就是:</p>
+\end{aligned}</script><blockquote>
+<blockquote>
+<p>矩阵求导术备注(注意 $a^Tb=b^Ta$):</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+d\left\| w\right\|^2&=d(w^Tw) \\
+&=d(w^T)w+w^Tdw \\
+&=(dw)^Tw+w^Tdw \\
+&=w^Tdw+w^Tdw \\
+&=2w^Tdw \\
+&=(\frac{\partial{w^Tw}}{\partial{w}})^Tdw
+\end{aligned}</script></blockquote>
+</blockquote>
+<p>也就是:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 & w=\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)} \\
 & 0=\sum_{i=1}^m\alpha_iy^{(i)}
-\end{aligned}</script><p>代入原来的拉格朗日函数(注意 $a^Tb=b^Ta$)，得到:</p>
+\end{aligned}</script><p>代入原来的拉格朗日函数，得到:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 L(w,b,\alpha)&=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b)) \\
@@ -574,8 +587,45 @@ L(w,b,\alpha)&=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w
 &=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\alpha_iy^{(i)}\sum_{j=1}^m\alpha_jy^{(j)}x^{(j)T}x^{(i)}-0 \\
 &=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(j)T}x^{(i)} \\
 &=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)} \\
-&=\sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}
-\end{aligned}</script>
+&=\sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)} \\
+\end{aligned}</script><p>因此，支持向量机的对偶问题为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& \max_{\alpha:\alpha_i>0} \sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}\\
+& \text{s.t.}\;\;\sum_{i=1}^m \alpha_iy^{(i)}=0, \\
+& \;\;\;\;\;\;\;\;\alpha_i \geq 0, \\
+& \;\;\;\;\;\;\;\;i=1,2,...,m
+\end{aligned}</script><p>此时 $\alpha$ 未知，但是如果求出了 $\alpha$, 就能代回原来的模型得到:</p>
+<script type="math/tex; mode=display">
+f(x)=w^Tx+b=\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)T}x+b</script><p>$x$ 代表当前输入模型中的样本. 上述过程的KKT条件为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\begin{cases}
+g_i(x) =1-y^{(i)}f(x^{(i)})\leq 0; \\
+\alpha_i \geq 0; \\
+\alpha_ig_i(x)=\alpha_i(1-y^{(i)}f(x^{(i)}))=0.
+\end{cases}
+\end{aligned}</script><p>注意最后一个约束: $\alpha_i(1-y^{(i)}f(x^{(i)}))=0$ :</p>
+<ul>
+<li>如果 $\alpha_i=0$，那么对应样本 $(x^{(i)},y^{(i)})$ 不会在求和中出现, 也就不会出现在模型 $f(x)$ 的求解中.</li>
+<li>如果 $1-y^{(i)}f(x^{(i)})=0$, 也就是 $y^{(i)}(w^Tx^{(i)}+b)=1$, 那么样本 $(x^{(i)},y^{(i)})$ 出现在最大间隔边界(分类边界)上, 这个样本就是支持向量.</li>
+</ul>
+<p>因此，支持向量机的一个重要性质是: <strong>训练完成后, 大部分样本都不需要保留，最终模型只和支持向量有关.</strong></p>
+<p>求解对偶问题, 可以采用SMO算法, 其基本思路是: 固定 $\alpha_i$ 之外的虽有参数，然后求 $\alpha_i$ 上的极值. 具体来说:<br>由于</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^m\alpha_iy^{(i)}=0</script><p>随机选取一对变量 $\alpha_i$ 和 $\alpha_j$, 固定其它参数, 得到:</p>
+<script type="math/tex; mode=display">
+\alpha_iy^{(i)}+\alpha_jy^{(j)}=-\sum_{k\neq i,j}\alpha_ky^{(k)}=c \;(c\text{看成常数})</script><p>所以</p>
+<script type="math/tex; mode=display">
+\alpha_j=\frac{c-\alpha_iy^{(i)}}{y^{(j)}}</script><p>将其代回原来的对偶问题后会发现变成了一个只关于 $\alpha_i$ 的单变量二次规划问题. 且仅有的约束是 $\alpha_i \geq 0$.<br>给定支持向量 $(x^{(s)}, y^{(s)})$, 并定义支持向量的下标集:</p>
+<script type="math/tex; mode=display">
+S = \{i|\alpha_i>0,i=1,2,...,.\}</script><p>我们可以得到:</p>
+<script type="math/tex; mode=display">
+y^{(s)}(\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)T}x^{(s)}+b)=1\Longleftrightarrow y^{(s)}(\sum_{i \in S}\alpha_iy^{(i)}x^{(i)T}x^{(s)}+b)=1</script><p>这是因为非支持向量的 $\alpha_i=0$, 因此可以较少的计算量得到:</p>
+<script type="math/tex; mode=display">
+b=\frac{1}{y^{(s)}}-\sum_{i \in S}\alpha_iy^{(i)}x^{(i)T}x^{(s)}</script><p>这里的输入样本只用到了任意一个支持向量 $(x^{(s)}, y^{(s)})$, 为了提高鲁棒性，可以采用多个支持向量并计算平均值:</p>
+<script type="math/tex; mode=display">
+b=\frac{1}{|S|}\sum_{s \in S}(\frac{1}{y^{(s)}}-\sum_{i \in S}\alpha_iy^{(i)}x^{(i)T}x^{(s)})</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -589,10 +639,10 @@ L(w,b,\alpha)&=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>支持向量机</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.9k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.5k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-11, 09:52:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-12, 22:40:59</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-13, 21:03:55</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/11/ml-03/" title="支持向量机">https://blog.jtzhang.xyz/2019/11/11/ml-03/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -715,7 +765,7 @@ L(w,b,\alpha)&=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
+            'data': ['#Leetcode','#算法','#排序','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
