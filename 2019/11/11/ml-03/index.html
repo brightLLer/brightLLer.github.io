@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="12">
-<input type="hidden" id="yelog_site_word_count" value="21k">
+<input type="hidden" id="yelog_site_word_count" value="21.1k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -228,15 +228,15 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">SVM</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">hexo</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color2">3-hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">SVM</a>
     </li>
     
     <div class="clearfix"></div>
@@ -383,12 +383,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-14 11:27:07'>2019-11-11 09:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-14 20:40:09'>2019-11-11 09:52</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:3.9k</span>
+        <span>字数:4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -723,6 +723,7 @@ y^{(i)}f(x^{(i)}) \geq 1-\xi_i, \\
 <li>$\alpha_i &lt; C$, 则 $\mu_i &gt; 0$, 那么必定有 $\xi_i = 0$, 所以样本就恰好落在最大间隔边界上</li>
 <li>$\alpha_i=C$, 则 $\mu_i=0$, 若 $0&lt;\xi_i\leq1$, 那么样本落在最大间隔边界内部, 若 $\xi_i &gt; 1$, 样本分类错误.</li>
 </ul>
+<p>最后, 简单提一提支持向量回归SVR, 传统回归模型通常基于模型输出 $f(x)$ 和 真实标签 $y$ 之间的差别来计算损失, 而SVR通常则是容忍 $f(x)$ 与 $y$ 之间有 $\epsilon$ 的偏差, 当 $|f(x)-y|&gt;\epsilon$ 时才计算损失, 这就构建了一个宽度为 $2\epsilon$ 的间隔带, 若训练样本落入间隔带中，则认为预测时正确的. </p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -737,10 +738,10 @@ y^{(i)}f(x^{(i)}) \geq 1-\xi_i, \\
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>支持向量机</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">3.9k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">4k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-11, 09:52:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-14, 11:27:07</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-14, 20:40:09</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/11/ml-03/" title="支持向量机">https://blog.jtzhang.xyz/2019/11/11/ml-03/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -863,7 +864,7 @@ y^{(i)}f(x^{(i)}) \geq 1-\xi_i, \\
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
+            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#hexo','#3-hexo','#SVM',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
