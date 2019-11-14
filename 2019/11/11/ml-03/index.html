@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="12">
-<input type="hidden" id="yelog_site_word_count" value="20.2k">
+<input type="hidden" id="yelog_site_word_count" value="21k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -383,12 +383,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-13 22:22:16'>2019-11-11 09:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-14 11:27:07'>2019-11-11 09:52</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:3.1k</span>
+        <span>字数:3.9k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -418,7 +418,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机"><span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#间隔与支持向量"><span class="toc-text">间隔与支持向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉格朗日乘子法"><span class="toc-text">拉格朗日乘子法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-等式约束"><span class="toc-text">1. 等式约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-不等式约束"><span class="toc-text">2. 不等式约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#求解支持向量机"><span class="toc-text">求解支持向量机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核函数"><span class="toc-text">核函数</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机"><span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#间隔与支持向量"><span class="toc-text">间隔与支持向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉格朗日乘子法"><span class="toc-text">拉格朗日乘子法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-等式约束"><span class="toc-text">1. 等式约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-不等式约束"><span class="toc-text">2. 不等式约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#求解支持向量机"><span class="toc-text">求解支持向量机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核函数"><span class="toc-text">核函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#软间隔与正则化"><span class="toc-text">软间隔与正则化</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -554,7 +554,7 @@ d = p</script><p>那么,求解出对偶问题也就求解出了主问题.</p>
 <script type="math/tex; mode=display">
 L(w,b,\alpha)=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b))</script><p>对应的对偶问题为:</p>
 <script type="math/tex; mode=display">
-d=\max_{\alpha:\alpha_i>0}\min_{w,b}L(w,b,\alpha)</script><p>因此,我先求 $L$ 对 $w$ 和 $b$ 的偏导数:</p>
+d=\max_{\alpha:\alpha_i>0}\min_{w,b}L(w,b,\alpha)</script><p>因此,先求 $L$ 对 $w$ 和 $b$ 的偏导数:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 &\frac{\partial{L}}{\partial{w}}=w-\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)}=\vec{0} \\
@@ -658,7 +658,72 @@ f(x)&=w^T\phi(x)+b \\
 <script type="math/tex; mode=display">
 \text{线性核:}\;\kappa(x^{(i)},x^{(j)})=x^{(i)T}x^{(j)} \\
 \text{多项式核:}\;\kappa(x^{(i)},x^{(j)})=(x^{(i)T}x^{(j)})^d \\
-\text{高斯核:}\;\kappa(x^{(i)},x^{(j)})=\exp(-\frac{\left\|x^{(i)}-x^{(j)}\right\|^2}{2\sigma^2})\;(\sigma>0为高斯核的带宽) \\</script>
+\text{高斯核:}\;\kappa(x^{(i)},x^{(j)})=\exp(-\frac{\left\|x^{(i)}-x^{(j)}\right\|^2}{2\sigma^2})\;(\sigma>0为高斯核的带宽) \\</script><h3 id="软间隔与正则化"><a href="#软间隔与正则化" class="headerlink" title="软间隔与正则化"></a><strong>软间隔与正则化</strong></h3><p>为了防止缓解支持向量机的过拟合问题, 应该允许它在一些样本上出错, 由此引入了“软间隔”的概念. 而前面讲的都是”硬间隔”, “软间隔”在设计上满足下面两点:</p>
+<ul>
+<li>允许某些样本不满足: $y^{(i)}(w^Tx^{(i)}+b)\geq1$</li>
+<li>在最大化间隔的同时, 不满足约束的样本应该尽可能少.</li>
+</ul>
+<p>据此，可以将原来的优化目标重写为:</p>
+<script type="math/tex; mode=display">
+\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^ml_{0/1}(y^{(i)}(w^Tx^{(i)}+b)-1)</script><p>此处 $l_{0/1}$ 是一个”0/1损失函数”:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+l_{0/1}(z)=\begin{cases}
+1, & \text{if}\;z < 0; \\
+0, & \text{otherwise.}
+\end{cases}
+\end{aligned}</script><p>当约束被违背 $y^{(i)}(w^Tx^{(i)}+b) &lt; 1$, 目标就该是计算损失, 但是0/1损失函数不连续, 我们更喜欢用hinge损失来替代, hinge损失函数是凸且连续的:</p>
+<script type="math/tex; mode=display">
+l_{hinge}(z)=\max(0,1-z)</script><p>那么优化目标又变成了:</p>
+<script type="math/tex; mode=display">
+\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\max(0,1-y^{(i)}(w^Tx^{(i)}+b))</script><p>引入松弛变量 $\xi_i\geq0$, 上式可以重写为:</p>
+<script type="math/tex; mode=display">
+\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\xi_i</script><p>由于允许一部分样本出错，原来的两个分类边界可以做出一定的退让:</p>
+<script type="math/tex; mode=display">
+y^{(i)}(w^Tx^{(i)}+b)=1-\xi_i \\
+y^{(i)}(w^Tx^{(i)}+b)=\xi_i-1</script><p>于是完整的优化问题变成了:</p>
+<script type="math/tex; mode=display">
+\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\xi_i \\
+\text{s.t.}\;y^{(i)}(w^Tx^{(i)}+b)\geq1-\xi_i \\
+\;\;\xi_i\geq0,i=1,2,...,m</script><p>因此该问题的拉格朗日函数为:</p>
+<script type="math/tex; mode=display">
+L(w,b,\xi,\alpha,\mu)=\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\xi_i+\sum_{i=1}^m\alpha_i(1-\xi_i-y^{(i)}(w^Tx^{(i)}+b))-\sum_{i=1}^m\mu_i\xi_i</script><p>求 $L$ 对 $w,b,\xi_i$ 的偏导数:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\frac{\partial{L}}{\partial{w}}=w-\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)}=\vec{0} \\
+&\frac{\partial{L}}{\partial{b}}=-\sum_{i=1}^m\alpha_iy^{(i)}=0 \\
+&\frac{\partial{L}}{\partial{\xi_i}}=C-\alpha_i-\mu_i=0
+\end{aligned}</script><p>求得:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&w=\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)} \\
+&0=\sum_{i=1}^m\alpha_iy^{(i)} \\
+&C=\alpha_i+\mu_i
+\end{aligned}</script><p>显然 $0\leq\alpha_i=C-\mu_i \leq C + 0 = C$, 上面几个式子代入回格朗日函数得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& \max_{\alpha:\alpha_i>0} \sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}\\
+& \text{s.t.}\;\;\sum_{i=1}^m \alpha_iy^{(i)}=0, \\
+& \;\;\;\;\;\;\;\;0\leq \alpha_i \leq C, \\
+& \;\;\;\;\;\;\;\;i=1,2,...,m
+\end{aligned}</script><p>同样地，软间隔支持向量机的KKT条件为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\begin{cases}
+y^{(i)}f(x^{(i)}) \geq 1-\xi_i, \\
+\xi_i \geq 0,\\
+\alpha_i\geq0, \\
+\alpha_i(1-\xi_i-y^{(i)}f(x^{(i)}))=0,\\
+\mu_i\geq0, \\
+\mu_i\xi_i=0
+\end{cases}
+\end{aligned}</script><ul>
+<li>$\alpha_i=0$, 对应样本对 $f(x)$ 求解没有影响;</li>
+<li>$\alpha_i &gt; 0$, $y^{(i)}f(x^{(i)})=1-\xi_i$, 样本为支持向量, 落在分类边界上(但不一定是最大间隔边界，因为引入了松弛变量)</li>
+<li>$\alpha_i &lt; C$, 则 $\mu_i &gt; 0$, 那么必定有 $\xi_i = 0$, 所以样本就恰好落在最大间隔边界上</li>
+<li>$\alpha_i=C$, 则 $\mu_i=0$, 若 $0&lt;\xi_i\leq1$, 那么样本落在最大间隔边界内部, 若 $\xi_i &gt; 1$, 样本分类错误.</li>
+</ul>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -672,10 +737,10 @@ f(x)&=w^T\phi(x)+b \\
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>支持向量机</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">3.1k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">3.9k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-11, 09:52:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-13, 22:22:16</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-14, 11:27:07</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/11/ml-03/" title="支持向量机">https://blog.jtzhang.xyz/2019/11/11/ml-03/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
