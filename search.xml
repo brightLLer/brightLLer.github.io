@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>决策树</title>
+      <link href="/2019/11/18/ml-04/"/>
+      <url>/2019/11/18/ml-04/</url>
+      
+        <content type="html"><![CDATA[<h3 id="决策树基础"><a href="#决策树基础" class="headerlink" title="决策树基础"></a>决策树基础</h3><p>关于决策树，需要注意如下几点:</p><ul><li>决策树的非叶子结点对应一个属性测试</li><li>决策树的叶子结点对应一个决策结果</li><li>决策树的每个结点都存放着样本集的一个子集，代表划分到这个结点上的样本有多少个.</li></ul><p>决策树的生成算法采用简单直观的”分而治之”策略：<br><img src="/img/decisionTree.png" style="height:450px;width:630px;"></p><p>从算法的伪代码中可以看出递归结束的三个条件:</p><ul><li><strong>当前结点</strong>所包含的样本全部属于同一类别C，<strong>无需划分</strong>, 当前结点标记为叶结点, 类别标记为<strong>C</strong>;</li><li><strong>当前属性集</strong>为空, 或者所有样本在所有属性上取值相同，<strong>无法划分</strong>, 当前结点标记为叶节点, 类别标记为<strong>该节点的多数类</strong>;</li><li><strong>当前结点</strong>包含的样本集合为空，<strong>无法划分</strong>, 当前结点标记为叶节点, 类别标记为<strong>该节点父节点的多数类</strong>.</li></ul><h3 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h3><h4 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h4><p>从决策树的生成算法种可以看出，如何选择最优划分属性是比较关键的一步. “信息熵”通常可以用来度量样本集合的纯度/不确定性, 假设当前样本集合 $D$ 中第 $k$ 类样本所占的比例为为 $p_k (k=1,2,…,K)$, 那么 $D$ 的信息熵定义为:</p><script type="math/tex; mode=display">\text{Ent}(D)=-\sum_{k=1}^Kp_k\log_2p_k</script><p>$\text{Ent}(D)$ 的值越小, 则 $D$ 的不确定性也越小，纯度就越高. 如下是出自西瓜书的一份西瓜数据集:<br><img src="/img/watermelon.png" style="height:450px;width:560px;"></p><p>决策树的根节点存放着整个样本数据集 $D$，由于数据集中只存在两个类别，也就是 $K=2$ ,从表格中可以得知正类所占据的比例为: $p_1=\frac{8}{17}$, 负类所占据的比例为: $p_2=\frac{9}{17}$, 所以 $D$ 的信息熵为:</p><script type="math/tex; mode=display">\text{Ent}(D)=-\sum_{k=1}^2p_k\log_2p_k=-(\frac{8}{17}\log_2\frac{8}{17}+\frac{9}{17}\log_2\frac{9}{17})=0.998</script><p>假设离散属性 $a$ 有 $V$ 个不同的取值：</p><script type="math/tex; mode=display">\{a^1, a^2, ..., a^V\}</script><p>若使用 $a$ 的上述 $V$ 个不同的取值对 $D$ 进行划分, 那么可以产生如下 $V$ 个划分集, 或者说产生 $V$ 个分支结点:</p><script type="math/tex; mode=display">\{D^1, D^2, ..., D^V\}</script><p>并赋予这 $V$ 个分支结点相关权重为: $\frac{|D^v|}{|D|}$, 表示样本数越多的分支结点的影响越大. 据此定义处属性 $a$ 对样本集 $D$ 进行划分所得到的信息增益:</p><script type="math/tex; mode=display">\text{Gain}(D,a)=\text{Ent}(D)-\sum_{v=1}^V\frac{|D^v|}{|D|}\text{Ent}(D^v)</script><p>一般而言，信息增益越大，说明使用属性 $a$ 来进行划分所获得纯度提升越大，不确定性降得越小:</p><script type="math/tex; mode=display">a_*=\arg\max_{a \in A}\text{Gain}(D,a)</script><p>著名的<strong>ID3算法</strong>使用的就是信息增益为准则来划分属性的. 可以看到, 西瓜数据集的初始属性集为:</p><script type="math/tex; mode=display">A=\{\text{色泽}, \text{根蒂}, \text{敲声}, \text{纹理}, \text{脐部}, \text{触感}\}</script><p>也就是我们要分别计算这6个属性的信息增益, 然后从中挑选出信息增益最大的那个. 例如假设当前待计算的属性 $a$ 为色泽 $(V=3)$, 那么:</p><script type="math/tex; mode=display">a^1=青绿,a^2=乌黑,a^3=浅白</script><p>对应划分出3个子数据集为:</p><script type="math/tex; mode=display">\begin{aligned}&D^1=\{1,4,6,10,13,17\},|D^1|=6,p_1=\frac{3}{6}, p_2=\frac{3}{6}\\&D^2=\{2,3,7,8,9,15\},|D^2|=6,p_1=\frac{4}{6},p_2=\frac{2}{6}\\&D^3=\{5,11,12,14,16\},|D^3|=5,p_1=\frac{1}{5},p_2=\frac{4}{5} \\\end{aligned}</script><p>于是，这3个数据子集的信息熵为:</p><script type="math/tex; mode=display">\text{Ent}(D^1)=-\sum_{k=1}^2p_k\log_2p_k=-(\frac{3}{6}\log_2\frac{3}{6}+\frac{3}{6}\log_2\frac{3}{6})=1.000 \\\text{Ent}(D^2)=-\sum_{k=1}^2p_k\log_2p_k=-(\frac{4}{6}\log_2\frac{4}{6}+\frac{2}{6}\log_2\frac{2}{6})=0.918 \\\text{Ent}(D^3)=-\sum_{k=1}^2p_k\log_2p_k=-(\frac{1}{5}\log_2\frac{1}{5}+\frac{4}{5}\log_2\frac{4}{5})=0.722</script><p>由此可以得出属性”色泽”的信息增益为:</p><script type="math/tex; mode=display">\begin{aligned}\text{Gain}(D,\text{色泽})&=\text{Ent}(D)-\sum_{v=1}^3\frac{|D^v|}{|D|}\text{Ent}(D^v) \\&=0.998-(\frac{6}{17}\times1.000+\frac{6}{17}\times0.918+\frac{5}{17}\times0.722) \\&=0.109\end{aligned}</script><p>同理，我们可以得到其它5个属性的信息增益为:</p><script type="math/tex; mode=display">\text{Gain}(D,\text{根蒂})=0.143 \\\text{Gain}(D,\text{敲声})=0.141 \\\text{Gain}(D,\text{纹理})=0.381 \\\text{Gain}(D,\text{脐部})=0.289 \\\text{Gain}(D,\text{触感})=0.006 \\</script><p>那么最优划分属性为:</p><script type="math/tex; mode=display">a_*=\arg\max_{a \in A}\text{Gain}(D,a)=\text{纹理}</script><p>划分完后我们可以得到如下的一棵树:<br><img src="/img/Treedivide1.png" style="height:150px;width:550px;"></p><p>然后，决策树学习算法可以对每一个分支结点做进一步划分，比如以分支结点 $D^1$ (“纹理=清晰”)为例，可用属性集:</p><script type="math/tex; mode=display">A/\{纹理\}=\{\text{色泽}, \text{根蒂}, \text{敲声}, \text{脐部}, \text{触感}\}</script><p>接着，基于 $D^1$ 计算出各个属性的信息增益:</p><script type="math/tex; mode=display">\text{Gain}(D^1,\text{色泽})=0.043 \\\text{Gain}(D^1,\text{根蒂})=0.458 \\\text{Gain}(D^1,\text{敲声})=0.331 \\\text{Gain}(D^1,\text{脐部})=0.458 \\\text{Gain}(D^1,\text{触感})=0.458 \\</script><p>这里”根蒂”,”脐部”,”触感”三个属性均取得了最大的信息增益，因此可以任意挑选一个作为划分属性.类似的，对其它分支结点都可以进行上述操作, 最终得到的决策树如下图所示:<br><img src="/img/CompleteTree.png" style="height:400px;width:580px;"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>支持向量机</title>
       <link href="/2019/11/11/ml-03/"/>
       <url>/2019/11/11/ml-03/</url>
