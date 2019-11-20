@@ -131,7 +131,7 @@
     
         
             
-            <li><div data-rel="机器学习">机器学习<small>(4)</small></div>
+            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
                 
             </li>
             
@@ -139,7 +139,7 @@
     
         
             
-            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
+            <li><div data-rel="机器学习">机器学习<small>(4)</small></div>
                 
             </li>
             
@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="13">
-<input type="hidden" id="yelog_site_word_count" value="23.6k">
+<input type="hidden" id="yelog_site_word_count" value="23.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -212,14 +212,6 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">机器学习</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">SVM</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">librosa</a>
     </li>
     
@@ -229,6 +221,14 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">speech separation</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">机器学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">SVM</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -389,12 +389,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-19 22:11:44'>2019-11-18 15:45</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-20 11:25:28'>2019-11-18 15:45</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.5k</span>
+        <span>字数:2.8k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -424,7 +424,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树基础"><span class="toc-text">决策树基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#划分选择"><span class="toc-text">划分选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益"><span class="toc-text">信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-text">增益率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基尼指数"><span class="toc-text">基尼指数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树剪枝"><span class="toc-text">决策树剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#预剪枝"><span class="toc-text">预剪枝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后剪枝"><span class="toc-text">后剪枝</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树基础"><span class="toc-text">决策树基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#划分选择"><span class="toc-text">划分选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益"><span class="toc-text">信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增益率"><span class="toc-text">增益率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基尼指数"><span class="toc-text">基尼指数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决策树剪枝"><span class="toc-text">决策树剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#预剪枝"><span class="toc-text">预剪枝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后剪枝"><span class="toc-text">后剪枝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理连续和缺失值"><span class="toc-text">处理连续和缺失值</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -532,9 +532,16 @@ a_*=\arg\max_{a \in A}\text{Gini_index}(D,a)</script><h3 id="决策树剪枝"><a
 \{10,16\}, \text{坏瓜}</script><p>测试集中只有编号为 ${4,5,8,11,12}$ 的样本被分类正确, 验证精度为 $\frac{5}{7}\times100\%=71.4\%$，因此应该用”脐部”进行划分. 后面的叶节点的划分也类似，见如下图中的分析.<br><img src="/img/precut.png" style="height:230px;width:520px;"></p>
 </li>
 </ul>
-<h3 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h3><p>与预剪枝相反, 后剪枝是先<strong>从训练集中生成一棵完整的决策树</strong> 然后 <strong>自底向上</strong> 对所有非叶子结点进行考察, 若将该结点对应的子树替换为叶结点能带来泛化性能的提升，则将子树替换为叶结点.</p>
+<h4 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h4><p>与预剪枝相反, 后剪枝是先<strong>从训练集中生成一棵完整的决策树</strong> 然后 <strong>自底向上</strong> 对所有非叶子结点进行考察, 若将该结点对应的子树替换为叶结点能带来泛化性能的提升，则将子树替换为叶结点.</p>
 <p>我们先将上一节中的决策树的6号结点替换为叶结点, 替换后的叶结点包含7和15两个训练样本，将该结点的类别标记为好瓜, 并可以计算出验证精度提高至 $57.1\%$, 于是后剪枝策略决定剪枝. 用同样的方法考察5,2,3,1号结点, 最后得到剪枝后的决策树如下所示:<br><img src="/img/CompleteTree3.png" style="height:300px;width:630px;"></p>
-
+<h3 id="处理连续和缺失值"><a href="#处理连续和缺失值" class="headerlink" title="处理连续和缺失值"></a>处理连续和缺失值</h3><p>前面讨论的都是基于离散属性生成决策树，如果一个属性是连续的，那么就应该离散化技术来处理连续属性，本节中要介绍的技术是二分法，这种方法正是C4.5算法中采用的机制.</p>
+<p>同样给定数据集 $D$ 和连续属性 $a$, 如果 $a$ 在 $D$ 上出现了 $n$ 个不同的取值, 那么第一步就是将这 $n$ 个数按从小到大进行排序:</p>
+<script type="math/tex; mode=display">
+\{a^1,a^2,...,a^n\}</script><p>然后是确定二分点, 二分点由排列后的集合中相邻两个数据点所确定:</p>
+<script type="math/tex; mode=display">
+T_a=\big \{ \frac{a^i+a^{i+1}}{2}|1\leq i\leq n-1\big\}</script><p>也就是会产生一个包含有 $n-1$ 划分点的集合, 取任意划分点 $t \in T_a$, 那么该划分点可以将原始数据集 $D$ 划分为 $D^{-}_t$ 和  $D^{+}_t$ 左右两个部分 (分别表示小于 $t$ 和 大于 $t$ 的部分). 我们只需要取能够使得信息增益最大的划分点就可以了:</p>
+<script type="math/tex; mode=display">
+\text{Gain}(D,a)=\max_{t \in T_a}\text{Gain}(D,a,t)=\max_{t \in T_a}[\text{Ent}(D)-\sum_{\lambda \in \{-,+\}}\frac{|D^{\lambda}_t|}{|D|}\text{Ent}(D_t^{\lambda})]</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -548,10 +555,10 @@ a_*=\arg\max_{a \in A}\text{Gini_index}(D,a)</script><h3 id="决策树剪枝"><a
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>决策树</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">2.5k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.8k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-18, 15:45:02</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-19, 22:11:44</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-20, 11:25:28</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/18/ml-04/" title="决策树">https://blog.jtzhang.xyz/2019/11/18/ml-04/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -674,7 +681,7 @@ a_*=\arg\max_{a \in A}\text{Gini_index}(D,a)</script><h3 id="决策树剪枝"><a
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#算法','#排序','#Leetcode','#机器学习','#SVM','#librosa','#signal processing','#speech separation','#hexo','#3-hexo',],
+            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
