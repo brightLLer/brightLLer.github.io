@@ -115,7 +115,7 @@
     
         
             
-            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
+            <li><div data-rel="算法">算法<small>(1)</small></div>
                 
             </li>
             
@@ -123,7 +123,7 @@
     
         
             
-            <li><div data-rel="算法">算法<small>(1)</small></div>
+            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
                 
             </li>
             
@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="13">
-<input type="hidden" id="yelog_site_word_count" value="24.3k">
+<input type="hidden" id="yelog_site_word_count" value="25.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -200,15 +200,15 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">Leetcode</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">算法</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">排序</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -283,7 +283,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/27/leetcode-note-5/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(五)">Leetcode笔记(五)</span>
             <span class="post-date" title="2019-09-27 10:56:45">2019/09/27</span>
@@ -291,7 +291,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/23/leetcode-note-4/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(四)">Leetcode笔记(四)</span>
             <span class="post-date" title="2019-09-23 22:16:35">2019/09/23</span>
@@ -307,7 +307,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/11/leetcode-note-3/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(三)">Leetcode笔记(三)</span>
             <span class="post-date" title="2019-09-11 17:05:26">2019/09/11</span>
@@ -315,7 +315,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/10/leetcode-note-2/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(二)">Leetcode笔记(二)</span>
             <span class="post-date" title="2019-09-10 21:10:47">2019/09/10</span>
@@ -323,7 +323,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/09/leetcode-note-1/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(一)">Leetcode笔记(一)</span>
             <span class="post-date" title="2019-09-09 22:03:38">2019/09/09</span>
@@ -389,12 +389,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-20 21:48:30'>2019-11-18 15:45</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-21 11:20:15'>2019-11-18 15:45</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:3.2k</span>
+        <span>字数:4.1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -523,14 +523,10 @@ a_*=\arg\max_{a \in A}\text{Gini_index}(D,a)</script><h3 id="决策树剪枝"><a
 <h4 id="预剪枝"><a href="#预剪枝" class="headerlink" title="预剪枝"></a>预剪枝</h4><p><strong>预剪枝</strong> 指的是在 <strong>决策树生成过程中</strong> , 对每个结点在划分前进行评估，如果当前结点的划分不能带来泛化性能的提升，则应该立即停止划分，并将当前结点标记为叶子结点.</p>
 <p>使用信息增益准则，如果选取属性”脐部”来划分训练集，就会产生3个分支. 接着，评估是否应该进行这个划分.</p>
 <ul>
-<li><p>若不进行划分, 所有样本都位于1号结点(根节点)上，根据决策树生成算法，类别标记为多数类，由于训练集中恰好正负类各占一半，假设我们将1号结点标记为正类，也就是好瓜，使用这个单结点决策树进行测试，只有编号4, 5, 8的样本分类正确，所以验证精度只有 $\frac{3}{7}\times100\%=42.9\%$.</p>
-</li>
-<li><p>若进行划分, 图中的2, 3, 4号结点分别包含的训练样本(用多数类标记类别)为:</p>
-<script type="math/tex; mode=display">
+<li>若进行划分, 图中的2, 3, 4号结点分别包含的训练样本(用多数类标记类别)为:<script type="math/tex; mode=display">
 \{1,2,3,14\}, \text{好瓜} \\
 \{6,7,15,17\}, \text{好瓜} \\
-\{10,16\}, \text{坏瓜}</script><p>测试集中只有编号为 ${4,5,8,11,12}$ 的样本被分类正确, 验证精度为 $\frac{5}{7}\times100\%=71.4\%$，因此应该用”脐部”进行划分. 后面的叶节点的划分也类似，见如下图中的分析.<br><img src="/img/precut.png" style="height:230px;width:520px;"></p>
-</li>
+\{10,16\}, \text{坏瓜}</script>测试集中只有编号为 ${4,5,8,11,12}$ 的样本被分类正确, 验证精度为 $\frac{5}{7}\times100\%=71.4\%$，因此应该用”脐部”进行划分. 后面的叶节点的划分也类似，见如下图中的分析.<br><img src="/img/precut.png" style="height:230px;width:520px;"></li>
 </ul>
 <h4 id="后剪枝"><a href="#后剪枝" class="headerlink" title="后剪枝"></a>后剪枝</h4><p>与预剪枝相反, 后剪枝是先<strong>从训练集中生成一棵完整的决策树</strong> 然后 <strong>自底向上</strong> 对所有非叶子结点进行考察, 若将该结点对应的子树替换为叶结点能带来泛化性能的提升，则将子树替换为叶结点.</p>
 <p>我们先将上一节中的决策树的6号结点替换为叶结点, 替换后的叶结点包含7和15两个训练样本，将该结点的类别标记为好瓜, 并可以计算出验证精度提高至 $57.1\%$, 于是后剪枝策略决定剪枝. 用同样的方法考察5,2,3,1号结点, 最后得到剪枝后的决策树如下所示:<br><img src="/img/CompleteTree3.png" style="height:300px;width:630px;"></p>
@@ -562,7 +558,61 @@ D = D^{-}_{0.381} \cup D^{+}_{0.381}</script><p>那么可以计算出:</p>
 &=0.262 \\
 \end{aligned}</script><p>所以属性”密度”的信息增益为 $0.262$ , 对应于划分点 $0.381$ . 同理, 另一个连续属性”含糖率”也可以采用同样的方法计算出其信息增益为 $0.349$ , 对应于划分点 $0.126$ . 其它属性仍然为离散属性，采用之前的方法计算即可, 最终选取”纹理”作为根节点划分属性, 并递归进行得到如下的一棵决策树.</p>
 <p><img src="/img/CompleteTree4.png" style="height:250px;width:450px;"></p>
-<h4 id="缺失值"><a href="#缺失值" class="headerlink" title="缺失值"></a>缺失值</h4>
+<h4 id="缺失值"><a href="#缺失值" class="headerlink" title="缺失值"></a>缺失值</h4><p>有时候我们会碰到数据集中某些样本的某些属性值缺失的情况, 如果仅仅使用无缺失值的样本进行学习, 对数据信息是极大的浪费. 考虑如下的西瓜数据集:</p>
+<p><img src="/img/watermelon3.png" style="height:450px;width:600px;"></p>
+<p>可以看到仅有 ${4,7,14,16}$ 这4个样本的信息是完全的. 现在有如下两个问题待解决:</p>
+<ul>
+<li>如何在属性值缺失的情况下进行划分属性的选择?</li>
+<li>给定划分属性, 若样本在该属性的值上缺失, 应该如何对样本进行划分?</li>
+</ul>
+<p>令 $\tilde{D}$ 表示 $D$ 中在属性 $a$ 上没有缺失值的样本子集. 问题1可以直接用 $\tilde{D}$ 来解决. 假设 $a$ 有 $V$ 个可取值</p>
+<script type="math/tex; mode=display">
+\{a^1, a^2,..., a^V\}</script><p>并将 $\tilde{D}$ 划分为:</p>
+<script type="math/tex; mode=display">
+\{\tilde{D}^1, \tilde{D}^2,...,\tilde{D}^V\}</script><p>有假设 $\tilde{D}$ 中的样本有 $K$ 个类别, 这 $K$ 个类别将 $\tilde{D}$ 划分为</p>
+<script type="math/tex; mode=display">
+\{\tilde{D}_{1}, \tilde{D}_{2},...,\tilde{D}_{K}\}</script><p>很明显:</p>
+<script type="math/tex; mode=display">
+\tilde{D}=\bigcup_{k=1}^K\tilde{D}_k=\bigcup_{v=1}^V\tilde{D}^v</script><p>对属性 $a$, 用 $\rho$ 表示无缺失值的样本比例, $\tilde{p}_k$ 表示无缺失值样本中第 $k$ 类所占的比例, $\tilde{r}_v$ 表示无缺失样本中在属性 $a$ 上取值 $a^v$ 的样本所占的比例. 那么:</p>
+<script type="math/tex; mode=display">
+\rho = \frac{|\tilde{D}|}{|D|}</script><script type="math/tex; mode=display">
+\tilde{p}_k=\frac{|\tilde{D}_k|}{|\tilde{D}|}</script><script type="math/tex; mode=display">
+\tilde{r}_v=\frac{|\tilde{D}^v|}{|\tilde{D}|}</script><p>显然可知:</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^K{\tilde{p}_k}=\sum_{v=1}^V{\tilde{r}_v}=1</script><p>据此, 我们将信息增益的计算式推广为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\text{Gain}(D,a)&=\rho\times \text{Gain}(\tilde{D},a) \\
+&=\rho\times(\text{Ent}(\tilde{D})-\sum_{v=1}^V\tilde{r}_v\text{Ent}(\tilde{D}^v))
+\end{aligned}</script><p>其中:</p>
+<script type="math/tex; mode=display">
+\text{Ent}(\tilde{D})=-\sum_{k=1}^K\tilde{p}_k\log_2\tilde{p}_k</script><p>接下来我们要解决问题2:</p>
+<ul>
+<li>若样本 $x$ 在划分属性 $a$ 上的取值已知, 就直接划分进对应子节点即可, 样本权值相当于为 $1$;</li>
+<li>若样本 $x$ 在划分属性 $a$ 上的取值未知, 则将 $x$ 同时划分进该划分属性的所有子节点, 且将样本的权值调整为 $\tilde{r}_v\times 1$, 这其实就是让同一个样本以不同的概率划分到不同的子节点中去.</li>
+</ul>
+<p>回到上面的西瓜数据集, 对于属性”色泽”而言, 无缺失值的样本为:</p>
+<script type="math/tex; mode=display">
+\{2,3,4,6,7,8,9,10,11,12,14,15,16,17\}</script><p>其中正类和负类所占的比例各自为: $\tilde{p}_1=\frac{6}{14}$ 和 $\tilde{p}_2=\frac{8}{14}$, 由此可得出(色泽)无缺失数据集 $\tilde{D}$ 的信息熵为:</p>
+<script type="math/tex; mode=display">
+\text{Ent}(\tilde{D})=-\sum_{k=1}^2\tilde{p}_k\log_2{\tilde{p}_k}=-(\frac{6}{14}\log_2\frac{6}{14}+\frac{8}{14}\log_2\frac{8}{14})=0.985</script><p>又令 $\tilde{D}^1$, $\tilde{D}^2$, $\tilde{D}^3$ 分别代表属性”色泽”上取值为”青绿”, “乌黑”以及”浅白”的无缺失值数据集的样本子集, 那么:</p>
+<script type="math/tex; mode=display">
+\text{Ent}(\tilde{D}^1)=-(\frac{2}{4}\log_2\frac{2}{4}+\frac{2}{4}\log_2\frac{2}{4})=1.000 \\
+\text{Ent}(\tilde{D}^2)=-(\frac{4}{6}\log_2\frac{4}{6}+\frac{2}{6}\log_2\frac{2}{6})=0.918 \\
+\text{Ent}(\tilde{D}^3)=-(\frac{0}{4}\log_2\frac{0}{4}+\frac{4}{4}\log_2\frac{4}{4})=0.000 \\</script><p>所以无缺失样本子集 $\tilde{D}$ 上属性”色泽”的信息增益为:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\text{Gain}(\tilde{D}, 色泽)&=\text{Ent}(\tilde{D})-\sum_{v=1}^V\tilde{r}_v\text{Ent}(\tilde{D}^v) \\
+&=0.985-(\frac{4}{14}\times1.000+\frac{6}{14}\times0.918+\frac{4}{14}\times0.000) \\
+&=0.306
+\end{aligned}</script><p>因此, 在整个样本集上 $D$ 上的信息增益为:</p>
+<script type="math/tex; mode=display">
+\text{Gain}(D, 色泽)=\rho\times\text{Gain}(\tilde{D}, 色泽)=\frac{14}{17}\times0.306=0.252</script><p>同理, 其它属性也可以采用相同方法计算其信息增益, 最终得到属性”纹理”获得最大信息增益, 并划分出”清晰”,”稍糊”和”模糊”三个分支, 在”纹理”上取值明确的样本中:</p>
+<script type="math/tex; mode=display">
+\text{清晰}:\{1,2,3,4,5,6,15\} \\
+\text{稍糊}:\{7,9,13,14,17\} \\
+\text{模糊}:\{11,12,16\}</script><p>而编号 $8$ 和 $10$ 在属性”纹理”上取值缺失, 以 $8$ 号样本为例, 它同时进入上面的三个子结点, 但权重需要分别调整为 $\frac{7}{15}$, $\frac{5}{15}$, $\frac{3}{15}$.</p>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -576,10 +626,10 @@ D = D^{-}_{0.381} \cup D^{+}_{0.381}</script><p>那么可以计算出:</p>
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>决策树</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">3.2k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">4.1k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-18, 15:45:02</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-20, 21:48:30</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-21, 11:20:15</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/18/ml-04/" title="决策树">https://blog.jtzhang.xyz/2019/11/18/ml-04/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -702,7 +752,7 @@ D = D^{-}_{0.381} \cup D^{+}_{0.381}</script><p>那么可以计算出:</p>
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#Leetcode','#算法','#排序','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
+            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
