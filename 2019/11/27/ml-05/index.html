@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>支持向量机 | Zeroone</title>
-  <meta name="keywords" content=" 机器学习 , SVM ">
-  <meta name="description" content="支持向量机 | Zeroone">
+  <title>集成学习 | Zeroone</title>
+  <meta name="keywords" content=" 机器学习 ">
+  <meta name="description" content="集成学习 | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
 <meta property="og:type" content="website">
@@ -373,9 +373,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-ml-03" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ml-05" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">支持向量机</h1>
+        <h1 class="article-title">集成学习</h1>
     
     <div class="article-meta">
         
@@ -392,19 +392,17 @@
             
             <a href="javascript:" class="color5">机器学习</a>
             
-            <a href="javascript:" class="color4">SVM</a>
-            
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-14 20:40:09'>2019-11-11 09:52</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-28 10:27:58'>2019-11-27 09:59</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:4k</span>
+        <span>字数:2.1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -434,7 +432,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#支持向量机"><span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#间隔与支持向量"><span class="toc-text">间隔与支持向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拉格朗日乘子法"><span class="toc-text">拉格朗日乘子法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-等式约束"><span class="toc-text">1. 等式约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-不等式约束"><span class="toc-text">2. 不等式约束</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#求解支持向量机"><span class="toc-text">求解支持向量机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核函数"><span class="toc-text">核函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#软间隔与正则化"><span class="toc-text">软间隔与正则化</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting"><span class="toc-text">Boosting</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -449,297 +447,140 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h3><h4 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a><strong>间隔与支持向量</strong></h4><p>给定训练集</p>
-<script type="math/tex; mode=display">D=\{x^{(1)}, x^{(2)}, ..., x^{(m)}\}, y^{(i)} \in \{-1, 1\}</script><p>现在使用支持向量机进行分类,其划分超平面的秒速如下:</p>
-<script type="math/tex; mode=display">
-w^Tx+b=0</script><p>注意 $w$ 是平面的法向量, $b$则是位移. 根据点到平面的距离公式, 样本点 $x$ 到平面 $(w, b)$ 的距离为:</p>
-<script type="math/tex; mode=display">
-r=\frac{|w^Tx+b|}{\left \| w\right \|}</script><p>因此, 如果能正确分类，若 $y^{(i)}=+1$, 则有 $w^Tx^{(i)} + b &gt; 0$, 若 $y^{(i)}=-1$, 则有 $w^Tx^{(i)} + b &lt; 0$, 令:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-\begin{cases}
-w^Tx^{(i)} + b \geq +1,& y^{(i)} = +1\\
-w^Tx^{(i)} + b \leq -1,& y^{(i)} = -1
-\end{cases}
-\end{equation}</script><p>两个类别平面 $w^Tx^{(i)} + b = 1$ 和 $w^Tx^{(i)} + b = -1$上的点称为支持向量，两个异类支持向量到超平面的距离之和（也是两个类别平面的距离）称为间隔:</p>
-<script type="math/tex; mode=display">
-\gamma = \frac{|b-1-(b + 1)|}{\left \| w\right \|}=\frac{2}{\left \| w\right \|}</script><p>现在我们的目标是找到合适的 $w, b$ 使得间隔最大化，也就是:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&\max_{w, b}\frac{2}{\left \| w\right \|} \\
-&\text{s.t.}\;\;y^{(i)}(w^Tx^{(i)}+b) \geq 1, i=1,2,...,m
-\end{aligned}</script><p>上面的写法等价于:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&\min_{w, b}\frac{1}{2}\left \| w\right \|^2 \\
-&\text{s.t.}\;\;y^{(i)}(w^Tx^{(i)}+b) \geq 1, i=1,2,...,m
-\end{aligned}</script><p>这就是支持向量机的<strong>基本型</strong>.</p>
-<h4 id="拉格朗日乘子法"><a href="#拉格朗日乘子法" class="headerlink" title="拉格朗日乘子法"></a><strong>拉格朗日乘子法</strong></h4><h4 id="1-等式约束"><a href="#1-等式约束" class="headerlink" title="1. 等式约束"></a>1. 等式约束</h4><p>考虑如下等式约束问题:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&\min f(x) \\
-& \text{s.t.}\;\;g(x)=0
-\end{aligned}</script><p>也就是寻找某个合适 $x$ 的取值使得目标函数 $f(x)$ 最小并且满足 约束曲面 $g(x)=0$ 的约束.<br>首先, 我们要记住如下结论:</p>
+        <p>根据个体学习器的生成方式，目前的集成学习大致可以分为两类：</p>
 <ul>
-<li>曲面上某点的<strong>梯度的方向</strong>总是和经过该点的<strong>等高线(的切线)方向</strong>正交/垂直.</li>
-<li>最优解一定存在于 $f(x)$ 与 $g(x)=0$ 的相切位置. (众所周知, 相离和相交一般不可能取得最优解)</li>
+<li>个体学习器之间存在强依赖关系, 必须串行生成的序列化方法, 如Boosting;</li>
+<li>个体学习器之间不存在强依赖关系, 可同时生成的并行化方法, 如随机森林和Bagging.</li>
 </ul>
-<p>注意此处 $x$  为向量. 为了方便解释，我们假设它是一个二维向量. 由于 $g(x)=0$ 就是 $g(x)$ 的其中一条等高线, 依据上面的结论,</p>
-<ul>
-<li>在约束曲面上的某点 $x$ 处, $\nabla g(x)$ 正交于等高线 $g(x)=0$ 的切线.</li>
-<li>由于最优解存在于 $f(x)$ 与 $g(x)=0$相切的位置, 因此最优解 $x$ 处 $f(x)$ 与 $g(x)=0$ 的切线是同一条, 那么 $\nabla f(x)$ 同样正交于 $g(x)=0$ 的切线.</li>
-</ul>
-<p>因此, $\nabla f(x)$ 和 $\nabla g(x)$ 必定同向或者反向, 也就是存在 $\lambda \neq 0$ 使得:</p>
+<p>集成学习最简单的方法是简单的投票法, 假设$f$ 为真实的函数, 如果假设基分类器的错误率为 $\epsilon$, 那么对于每个基分类器 $h_i$ 有(相当于计算频率):</p>
 <script type="math/tex; mode=display">
-\nabla f(x)+\lambda\nabla g(x)=0</script><p>这里 $\lambda$ 称为格朗日乘子, 定义拉格朗日函数：</p>
+P(h_i(x)\neq f(x))=\epsilon</script><p>基于简单投票法结合 $T$ 个分类器, 若有超过半数的基分类器正确, 则集成分类就是正确的:</p>
 <script type="math/tex; mode=display">
-L(x, \lambda)=f(x)+\lambda g(x)</script><p>可以发现</p>
+H(x)=\text{sign}\big(\sum_{i=1}^Th_i(x)\big)</script><h4 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h4><p>Boosting族最著名的方法是AdaBoost, 它有多种推导的方式，以”加性模型”(基学习器的线性组合)为例, 设</p>
 <script type="math/tex; mode=display">
-\nabla_xL(x,\lambda)=\nabla f(x)+\lambda\nabla g(x)=0</script><p>就是我们上面得到的式子, 同时,</p>
+y^{(i)}\in\{-1,1\}</script><p>那么基学习器的线性组合为:</p>
 <script type="math/tex; mode=display">
-\nabla_{\lambda}L(x,\lambda)=g(x)=0</script><p>恰好是约束条件.这样一来约束优化问题就转化为了无约束优化问题.</p>
-<h4 id="2-不等式约束"><a href="#2-不等式约束" class="headerlink" title="2. 不等式约束"></a>2. 不等式约束</h4><p>现在考虑不等式约束</p>
+H(x)=\sum_{i=1}^T\alpha_th_t(x)</script><blockquote>
+<blockquote>
+<p>条件数学期望:</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_{x\sim P_1,y\sim P_2}[y|x]=\sum_yy\cdot p(y|x) \\
+\mathbb{E}_{x\sim P_1,y\sim P_2}[g(y)|x]=\sum_yg(y)\cdot p(y|x)</script></blockquote>
+</blockquote>
+<p>我们需要最小化经验/训练指数损失（与泛化损失相对, 此处 $D$ 是一个数据/概率分布, 显然 $x \sim D$, 真实函数 $f(x)$ 相当于前面条件期望中的 $y$, 取值为 $-1$ 和 $1$, 服从一个二项分布, 在公式中省略不写, 只写出 $X \sim D$):</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-&\min f(x) \\
-& \text{s.t.}\;\;g(x)\leq 0
-\end{aligned}</script><ul>
-<li>最优点落在 $g(x) &lt; 0$ 区域内, 那么不等式约束没有起到任何作用，相当于直接优化 $f(x)$, 相当于 $L(x, \lambda)$ 中取 $\lambda = 0$</li>
-<li>最优点落在 $g(x) = 0$上, 变回了等式约束问题, 但此时 $\nabla f(x)$ 和 $\nabla g(x)$ 的方向必定相反, 即 $\lambda &gt; 0$.</li>
-</ul>
-<p>再简单理一下, 就是:</p>
-<ul>
-<li>$g(x) &lt; 0$ 时 $\lambda = 0$</li>
-<li>$g(x) = 0$ 时 $\lambda &gt; 0$.</li>
-</ul>
-<p>那么原来的不等式约束优化可以转化为如下的优化问题:</p>
+l_{exp}(H|D)&=\mathbb{E}_{x\sim D}[e^{-f(x)H(x)}|x] \\
+&=\sum_{f(x)}p(f(x)|x)e^{-f(x)H(x)} \\
+&=p(f(x)=1|x)e^{-H(x)}+p(f(x)=-1|x)e^{H(x)}
+\end{aligned}</script><p>可以首先对指数损失求偏导数并置0:</p>
+<script type="math/tex; mode=display">
+\frac{\partial{l_{exp}(H|D)}}{\partial{H(x)}}=-p(f(x)=1|x)e^{-H(x)}+p(f(x)=-1|x)e^{H(x)}=0</script><p>也就是</p>
+<script type="math/tex; mode=display">
+H(x)=\frac{1}{2}\ln\frac{p(f(x)=1|x)}{p(f(x)=-1|x)}</script><p>因此, 有</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-&L(x, \lambda)=f(x)+\lambda g(x) \\
-&\text{s.t.}\;\;\begin{cases}
-g(x) \leq 0; \\
-\lambda \geq 0; \\
-\lambda g(x)=0.
+\text{sign}(H(x))&=\text{sign}(\frac{1}{2}\ln\frac{p(f(x)=1|x)}{p(f(x)=-1|x)}) \\
+&=\begin{cases}
+1, & p(f(x)=1|x) > p(f(x)=-1|x) \\
+-1, & p(f(x)=1|x) < p(f(x)=-1|x)
+\end{cases} \\
+&=\mathop{\arg\min}_{y \in \{-1, 1\}}P(f(x)=y|x)
+\end{aligned}</script><p>在Adaboost中, 第一个基分类器 $h_1$ 是使用原始数据分布生成的, 此后迭代生成 $h_t$ 和 $\alpha_t$, <strong>当基分类器 $h_t$ 基于分布 $D_t$ 产生后, 该基分类器的权重应该使得 $\alpha_th_t$ 最小化损失函数</strong>, 从数学期望(理想的角度)来看, $h_t(x)$ 是可以取到 $+1$ 或者 $-1$ 的. (前面的是让 $H(x)=\sum_t\alpha_th_t$ 使得损失最小化)</p>
+<script type="math/tex; mode=display">
+l_{exp}(\alpha_th_t|D_t)=E_{x\sim D_t}[e^{-f(x)\alpha_th_t(x)}|x]</script><p>由于</p>
+<script type="math/tex; mode=display">
+f(x)h_t(x)=\begin{cases}
+1, & f(x)=h_t(x) \\
+-1, & f(x) \neq h_t(x) \\
+\end{cases}</script><p>所以</p>
+<script type="math/tex; mode=display">
+e^{-\alpha_tf(x)h_t(x)}=\begin{cases}
+e^{-\alpha_t}, & f(x)=h_t(x) \\
+e^{\alpha_t}, & f(x) \neq h_t(x) \\
+\end{cases}</script><p>可以用指示函数将上面的公式写成:</p>
+<script type="math/tex; mode=display">
+e^{-\alpha_tf(x)h_t(x)}=e^{-\alpha_t}\cdot\mathbb{I}(f(x)=h_t(x))+e^{\alpha_t}\cdot\mathbb{I}(f(x)\neq h_t(x))</script><blockquote>
+<blockquote>
+<p>一般情况下,</p>
+<script type="math/tex; mode=display">
+y=\begin{cases}
+a && \text{p} \\
+b && \lnot\text{p}
 \end{cases}
-\end{aligned}</script><p>上述优化问题的约束也称为KKT条件. 现在将KKT条件推广到 $m$个等式约束和 $n$ 个不等式约束上, 可以得到如下优化问题:</p>
+=a\cdot\mathbb{I}(\text{p})+b\cdot\mathbb{I}(\lnot\text{p})</script></blockquote>
+</blockquote>
+<p>因此</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-&\min f(x) \\
-& \text{s.t.}\;\;h_i(x) = 0\;\;(i=1,2,...,m)\\
-& \;\;\;\;\;\;\;g_j(x)\leq 0\;\;(j=1,2,...,n)
-\end{aligned}</script><p>引入拉格朗日乘子 $\lambda = (\lambda_1, \lambda_2, …, \lambda_m)^T$ 和 $\mu = (\mu_1, \mu_2,…,\mu_n)^T$, 可以得到如下拉格朗日函数:</p>
+l_{exp}(\alpha_th_t|D_t)&=\mathbb{E}_{x\sim D_t}[e^{-f(x)\alpha_th_t(x)}|x] \\
+&=\mathbb{E}_{x\sim D_t}[e^{-\alpha_t}\cdot\mathbb{I}(f(x)=h_t(x))+e^{\alpha_t}\cdot\mathbb{I}(f(x)\neq h_t(x))] \\
+&=e^{-\alpha_t}P_{x\sim D_t}(f(x)=h_t(x)|x)+e^{\alpha_t}P_{x\sim D_t}(f(x)\neq h_t(x)) \\
+&=e^{-\alpha_t}(1-\epsilon_t)+e^{\alpha_t}\epsilon_t \\
+\end{aligned}</script><p>我们前面已经定义过分类误差: $P_{x\sim D_t}(h_t(x)\neq f(x))=\epsilon_t$, 求指数函数损失对权重的导数并置0:</p>
 <script type="math/tex; mode=display">
-L(x,\lambda,\mu)=f(x)+\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x)</script><p>由不等式约束引入的KKT条件( $j=1,2,…,n$ )为:</p>
+\frac{\partial{l_{exp}(\alpha_th_t|D_t)}}{\partial(\alpha_t)}=-e^{-\alpha_t}(1-\epsilon_t)+e^{\alpha_t}\epsilon_t=0</script><p>求得权重的更新公式</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-\begin{cases}
-g_j(x) \leq 0; \\
-\mu_j \geq 0; \\
-\mu_jg_j(x)=0.
-\end{cases}
-\end{aligned}</script><p>显然, 在满足KKT的情况下:</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x) \leq 0</script><p>那么:</p>
-<script type="math/tex; mode=display">
-L(x,\lambda,\mu) \leq f(x)+0=f(x)</script><p>反之, 如果KKT没有得到满足, 比如, 出现了 $h_i(x) \neq 0$ 或者 $g_i(x)&gt;0$, 就会可能出现：</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^m\lambda_ih_i(x)+\sum_{j=1}^n\mu_jg_j(x) \rightarrow \infty</script><p>此时就会有:</p>
-<script type="math/tex; mode=display">
-L(x,\lambda,\mu) \rightarrow \infty</script><p>据此，定义:</p>
-<script type="math/tex; mode=display">
-\theta_p(x)=\max_{\lambda,\mu:\mu_i>0}L(x,\lambda,\mu)=\begin{cases}
-f(x) & \text{KKT is satisfised}; \\
-\infty &  \text{otherwise}. \\
-\end{cases}</script><p>所以我们可以发现, 在满足KKT的条件下:</p>
-<script type="math/tex; mode=display">
-p=\min_x\theta_p(x)=\min_x\max_{\lambda,\mu:\mu_i>0}L(x,\lambda,\mu)=\min_xf(x)</script><p>也就是这种转换与我们原来求解的问题一致, 这一问题也成为<strong>主优化问题</strong>.与主优化问题相对应的，是它的对偶问题，我们首先定义:</p>
-<script type="math/tex; mode=display">
-\theta_D(\lambda,\mu)=\min_xL(x,\lambda,\mu)</script><p>那么对偶优化问题为:</p>
-<script type="math/tex; mode=display">
-d=\max_{\lambda,\mu:\mu_i>0}\theta_D(\lambda,\mu)=\max_{\lambda,\mu:\mu_i>0}\min_xL(x,\lambda,\mu)</script><p>一般情况下:</p>
-<script type="math/tex; mode=display">
-d \leq p</script><p>但是如果$f,g$为凸函数,$h$为仿射函数时(具体来说,$f,g$的二阶导数/$\text{Hessian}$ 矩阵半正定, $h$在线性变换的基础上加了截距项)时, 有:</p>
-<script type="math/tex; mode=display">
-d = p</script><p>那么,求解出对偶问题也就求解出了主问题.</p>
-<h3 id="求解支持向量机"><a href="#求解支持向量机" class="headerlink" title="求解支持向量机"></a><strong>求解支持向量机</strong></h3><p>回顾支持向量机的基本型，它可以写成如下形式:</p>
+\alpha_t=\frac{1}{2}\ln\big(\frac{1-\epsilon_t}{\epsilon_t}\big)</script><p>在Adaboost算法中, (无论是否施加权重), 下一轮的基分类器 $h<em>t$ 都能纠正 $H</em>{t-1}$ 的一些错误, 理想情况下应该可以纠正全部错误, 也就是最小化 (注意到理想情况下 $f^2(x)=h^2(x)=1$)</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-&\min_{w, b}f(w,b)=\min_{w,b}\frac{1}{2}\left \| w\right \|^2 \\
-&\text{s.t.}\;\; g_i(w)=1-y^{(i)}(w^Tx^{(i)}+b) \leq 0, i=1,2,...,m
-\end{aligned}</script><p>其拉格朗日函数为:</p>
-<script type="math/tex; mode=display">
-L(w,b,\alpha)=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b))</script><p>对应的对偶问题为:</p>
-<script type="math/tex; mode=display">
-d=\max_{\alpha:\alpha_i>0}\min_{w,b}L(w,b,\alpha)</script><p>因此,先求 $L$ 对 $w$ 和 $b$ 的偏导数:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&\frac{\partial{L}}{\partial{w}}=w-\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)}=\vec{0} \\
-&\frac{\partial{L}}{\partial{b}}=-\sum_{i=1}^m\alpha_iy^{(i)}=0
+l_{exp}(H_{t-1}+h_t|D)&=\mathbb{E}_{x\sim D}[e^{-f(x)(H_{t-1}(x)+h_t(x))}|x] \\
+&=\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}e^{-f(x)h_t(x)}|x] \\
+&\approx\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}\big(1-f(x)h_t(x)+\frac{f^2(x)h_t^2(x)}{2}\big)|x] \\
+&=\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}\big(1-f(x)h_t(x)+\frac{1}{2}\big)|x]
 \end{aligned}</script><blockquote>
 <blockquote>
-<p>矩阵求导术备注(注意 $a^Tb=b^Ta$):</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-d\left\| w\right\|^2&=d(w^Tw) \\
-&=d(w^T)w+w^Tdw \\
-&=(dw)^Tw+w^Tdw \\
-&=w^Tdw+w^Tdw \\
-&=2w^Tdw \\
-&=(\frac{\partial{w^Tw}}{\partial{w}})^Tdw
-\end{aligned}</script></blockquote>
+<p>注意 $e^x$ 的泰勒展开式为: $e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+…+\frac{x^n}{n!}+….$</p>
 </blockquote>
-<p>也就是:</p>
+</blockquote>
+<p>所以理想的基学习器为:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-& w=\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)} \\
-& 0=\sum_{i=1}^m\alpha_iy^{(i)}
-\end{aligned}</script><p>代入原来的拉格朗日函数，得到:</p>
+h_t(x)&=\mathop{\arg\min}_hl_{exp}(H_{t-1}+h|D) \\
+&=\mathop{\arg\min}_h\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}\big(1-f(x)h_t(x)+\frac{1}{2}\big)|x] \\
+&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}f(x)h_t(x)|x] \\
+&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D}\big[\frac{e^{-f(x)H_{t-1}(x)}f(x)h_t(x)}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}|x\big] \\
+&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D}\big[\frac{e^{-f(x)H_{t-1}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}f(x)h_t(x)|x\big] \\
+&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D}\big[\frac{e^{-f(x)H_{t-1}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}f(x)h_t(x)\big]
+\end{aligned}</script><p>上面公式的最后一行和倒数第二行的区别在于最后一行不把 $f(x)$ 当成随机变量（二项分布）, 而当成 $x$ 的函数, 而倒数第二行相当于把 $f(x)$ 当成了另外一个随机变量, 比如假设为 $y$, 因此前者(倒数第一行)是一般的数学期望, 后者是条件数学期望, 理解方式不同但它们是可以等价的, 注意到:</p>
+<script type="math/tex; mode=display">
+\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]</script><p>是一个常数, 令 $D_t$ 表示一个分布:</p>
+<script type="math/tex; mode=display">
+D_t(x)=\frac{D(x)e^{-f(x)H_{t-1}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}</script><p>根据数学期望的定义, 等价于:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-L(w,b,\alpha)&=\frac{1}{2}\left \| w\right \|^2+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b)) \\
-&=\frac{1}{2}w^Tw+\sum_{i=1}^m\alpha_i(1-y^{(i)}(w^Tx^{(i)}+b)) \\
-&=\frac{1}{2}(\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)})^T(\sum_{j=1}^m\alpha_jy^{(j)}x^{(j)})+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\alpha_iy^{(i)}(w^Tx^{(i)}+b) \\
-&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\alpha_iy^{(i)}w^Tx^{(i)}-\sum_{i=1}^m\alpha_iy^{(i)}b \\
-&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\alpha_iy^{(i)}\sum_{j=1}^m\alpha_jy^{(j)}x^{(j)T}x^{(i)}-0 \\
-&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(j)T}x^{(i)} \\
-&=\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}+\sum_{i=1}^m\alpha_i-\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)} \\
-&=\sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)} \\
-\end{aligned}</script><p>因此，支持向量机的对偶问题为:</p>
+h_t(x)
+&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D}\big[\frac{e^{-f(x)H_{t-1}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}f(x)h_t(x)\big] \\
+&=\mathop{\arg\max}_h\sum_{x}D(x)\frac{e^{-f(x)H_{t-1}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}f(x)h_t(x) \\
+&=\mathop{\arg\max}_h\sum_{x}D_t(x)f(x)h_t(x) \\
+&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D_t}[f(x)h_t(x)]
+\end{aligned}</script><p>理想情况下, 有</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-& \max_{\alpha:\alpha_i>0} \sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}\\
-& \text{s.t.}\;\;\sum_{i=1}^m \alpha_iy^{(i)}=0, \\
-& \;\;\;\;\;\;\;\;\alpha_i \geq 0, \\
-& \;\;\;\;\;\;\;\;i=1,2,...,m
-\end{aligned}</script><p>此时 $\alpha$ 未知，但是如果求出了 $\alpha$, 就能代回原来的模型得到:</p>
-<script type="math/tex; mode=display">
-f(x)=w^Tx+b=\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)T}x+b</script><p>$x$ 代表当前输入模型中的样本. 上述过程的KKT条件为:</p>
+f(x)h(x)&=1\cdot\mathbb{I}(f(x)=h_t(x))+(-1)\cdot\mathbb{I}(f(x)\neq h_t(x)) \\
+&=1-\mathbb{I}(f(x)\neq h_t(x))+(-1)\cdot\mathbb{I}(f(x)\neq h_t(x)) \\
+&=1-2\mathbb{I}(f(x)\neq h_t(x))
+\end{aligned}</script><p>所以又有:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-\begin{cases}
-g_i(x) =1-y^{(i)}f(x^{(i)})\leq 0; \\
-\alpha_i \geq 0; \\
-\alpha_ig_i(x)=\alpha_i(1-y^{(i)}f(x^{(i)}))=0.
-\end{cases}
-\end{aligned}</script><p>注意最后一个约束: $\alpha_i(1-y^{(i)}f(x^{(i)}))=0$ :</p>
-<ul>
-<li>如果 $\alpha_i=0$，那么对应样本 $(x^{(i)},y^{(i)})$ 不会在求和中出现, 也就不会出现在模型 $f(x)$ 的求解中.</li>
-<li>如果 $1-y^{(i)}f(x^{(i)})=0$, 也就是 $y^{(i)}(w^Tx^{(i)}+b)=1$, 那么样本 $(x^{(i)},y^{(i)})$ 出现在最大间隔边界(分类边界)上, 这个样本就是支持向量.</li>
-</ul>
-<p>因此，支持向量机的一个重要性质是: <strong>训练完成后, 大部分样本都不需要保留，最终模型只和支持向量有关.</strong></p>
-<p>求解对偶问题, 可以采用SMO算法, 其基本思路是: 固定 $\alpha_i$ 之外的虽有参数，然后求 $\alpha_i$ 上的极值. 具体来说:<br>由于</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^m\alpha_iy^{(i)}=0</script><p>随机选取一对变量 $\alpha_i$ 和 $\alpha_j$ (重复进行直至对偶问题的目标函数收敛，也就是尽可能增大), 固定其它参数, 得到:</p>
-<script type="math/tex; mode=display">
-\alpha_iy^{(i)}+\alpha_jy^{(j)}=-\sum_{k\neq i,j}\alpha_ky^{(k)}=c \;(c\text{看成常数})</script><p>所以</p>
-<script type="math/tex; mode=display">
-\alpha_j=\frac{c-\alpha_iy^{(i)}}{y^{(j)}}</script><p>将其代回原来的对偶问题后会发现变成了一个只关于 $\alpha_i$ 的单变量二次规划问题. 且仅有的约束是 $\alpha_i \geq 0$.<br>给定支持向量 $(x^{(s)}, y^{(s)})$, 并定义支持向量的下标集:</p>
-<script type="math/tex; mode=display">
-S = \{i|\alpha_i>0,i=1,2,...,.\}</script><p>我们可以得到:</p>
-<script type="math/tex; mode=display">
-y^{(s)}(\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)T}x^{(s)}+b)=1\Longleftrightarrow y^{(s)}(\sum_{i \in S}\alpha_iy^{(i)}x^{(i)T}x^{(s)}+b)=1</script><p>这是因为非支持向量的 $\alpha_i=0$, 因此可以较少的计算量得到:</p>
-<script type="math/tex; mode=display">
-b=\frac{1}{y^{(s)}}-\sum_{i \in S}\alpha_iy^{(i)}x^{(i)T}x^{(s)}</script><p>这里的输入样本只用到了任意一个支持向量 $(x^{(s)}, y^{(s)})$, 为了提高鲁棒性，可以采用多个支持向量并计算平均值:</p>
-<script type="math/tex; mode=display">
-b=\frac{1}{|S|}\sum_{s \in S}(\frac{1}{y^{(s)}}-\sum_{i \in S}\alpha_iy^{(i)}x^{(i)T}x^{(s)})</script><h3 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a><strong>核函数</strong></h3><p>由于原始样本空间的数据不一定线性可分（例如”异或”问题）, 这时候就需要将原始样本 $x$ 映射到高维空间，得到 $\phi(x)$，这时候特征空间中划分超平面所对应的模型为:</p>
-<script type="math/tex; mode=display">
-f(x)=w^T\phi(x)+b</script><p>我们求解的优化问题变成了:</p>
+h_t(x)&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D_t}[f(x)h_t(x)] \\
+&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D_t}[1-2\mathbb{I}(f(x)\neq h_t(x))] \\
+&=\mathop{\arg\min}_h\mathbb{E}_{x\sim D_t}[\mathbb{I}(f(x)\neq h_t(x))]
+\end{aligned}</script><p>可以看到理想的 $h<em>t$ 在分布 $D_t$ 下最小化分类误差, 弱分类器将基于分布 $D_t$ 进行训练, 且分类误差要小于 $0.5$. 接下来考虑 $D</em>{t+1}(x)$ 和 $D_t(x)$ 的关系:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-& \min_{w,b}\frac{1}{2}\left\|w\right\|^2 \\
-& \text{s.t.}\;y^{(i)}(w^T\phi(x^{(i)})+b)\geq1,i=1,2,...,m
-\end{aligned}</script><p>其对偶优化问题为:</p>
+D_{t+1}(x)&=\frac{D(x)e^{-f(x)H_{t}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t}(x)}]} \\
+&=\frac{D(x)e^{-f(x)(H_{t-1}(x)+\alpha_th_t(x))}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t}(x)}]} \\
+&=\frac{D(x)e^{-f(x)H_{t-1}(x)}e^{-f(x)\alpha_th_t(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t}(x)}]} \\
+&=\frac{D(x)e^{-f(x)H_{t-1}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}\cdot \frac{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t}(x)}]} \cdot e^{-f(x)\alpha_th_t(x)} \\
+&= D_t(x)\cdot e^{-f(x)\alpha_th_t(x)} \cdot \frac{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t}(x)}]}
+\end{aligned}</script><p>定义规范化因子:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-& \max_{\alpha:\alpha_i>0} \sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}\phi(x^{(i)})^T\phi(x^{(j)})\\
-& \text{s.t.}\;\;\sum_{i=1}^m \alpha_iy^{(i)}=0, \\
-& \;\;\;\;\;\;\;\;\alpha_i \geq 0, \\
-& \;\;\;\;\;\;\;\;i=1,2,...,m
-\end{aligned}</script><p>通常情况下, $\phi(x^{(i)})^T\phi(x^{(j)})$ 的计算代价比较大，因为所映射的高维空间的维数比较高，甚至可能是无穷维，因此，我们可以定义如下的一个函数（称为核函数）:</p>
-<script type="math/tex; mode=display">
-\kappa(x^{(i)},x^{(j)})=<\phi(x^{(i)}), \phi(x^{(j)})>=\phi(x^{(i)})^T\phi(x^{(j)})</script><p>那么对偶问题可以重写为:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-& \max_{\alpha:\alpha_i>0} \sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}\kappa(x^{(i)},x^{(j)})\\
-& \text{s.t.}\;\;\sum_{i=1}^m \alpha_iy^{(i)}=0, \\
-& \;\;\;\;\;\;\;\;\alpha_i \geq 0, \\
-& \;\;\;\;\;\;\;\;i=1,2,...,m
-\end{aligned}</script><p>求解出来的结果为:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f(x)&=w^T\phi(x)+b \\
-&=\sum_{i=1}^m\alpha_iy^{(i)}\phi(x^{(i)})^T\phi(x)+b \\
-&=\sum_{i=1}^m\alpha_iy^{(i)}\kappa(x^{(i)},x)+b
-\end{aligned}</script><p>也就是模型最优解可以通过训练样本的核函数展开,这个展式称为”支持向量展式”。那么应该如何寻找核函数 $\kappa(·,·)$ 呢, 这里需要记住一个小结论: <strong>核函数所对应的核矩阵 $K=[\kappa(x^{(i)},x^{(j)})],i,j=1,…,m$ 总是对称且半正定的.</strong> 下面是几种常见的核函数:</p>
-<script type="math/tex; mode=display">
-\text{线性核:}\;\kappa(x^{(i)},x^{(j)})=x^{(i)T}x^{(j)} \\
-\text{多项式核:}\;\kappa(x^{(i)},x^{(j)})=(x^{(i)T}x^{(j)})^d \\
-\text{高斯核:}\;\kappa(x^{(i)},x^{(j)})=\exp(-\frac{\left\|x^{(i)}-x^{(j)}\right\|^2}{2\sigma^2})\;(\sigma>0为高斯核的带宽) \\</script><h3 id="软间隔与正则化"><a href="#软间隔与正则化" class="headerlink" title="软间隔与正则化"></a><strong>软间隔与正则化</strong></h3><p>为了防止缓解支持向量机的过拟合问题, 应该允许它在一些样本上出错, 由此引入了“软间隔”的概念. 而前面讲的都是”硬间隔”, “软间隔”在设计上满足下面两点:</p>
-<ul>
-<li>允许某些样本不满足: $y^{(i)}(w^Tx^{(i)}+b)\geq1$</li>
-<li>在最大化间隔的同时, 不满足约束的样本应该尽可能少.</li>
-</ul>
-<p>据此，可以将原来的优化目标重写为:</p>
-<script type="math/tex; mode=display">
-\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^ml_{0/1}(y^{(i)}(w^Tx^{(i)}+b)-1)</script><p>此处 $l_{0/1}$ 是一个”0/1损失函数”:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-l_{0/1}(z)=\begin{cases}
-1, & \text{if}\;z < 0; \\
-0, & \text{otherwise.}
-\end{cases}
-\end{aligned}</script><p>当约束被违背 $y^{(i)}(w^Tx^{(i)}+b) &lt; 1$, 目标就该是计算损失, 但是0/1损失函数不连续, 我们更喜欢用hinge损失来替代, hinge损失函数是凸且连续的:</p>
-<script type="math/tex; mode=display">
-l_{hinge}(z)=\max(0,1-z)</script><p>那么优化目标又变成了:</p>
-<script type="math/tex; mode=display">
-\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\max(0,1-y^{(i)}(w^Tx^{(i)}+b))</script><p>引入松弛变量 $\xi_i\geq0$, 上式可以重写为:</p>
-<script type="math/tex; mode=display">
-\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\xi_i</script><p>由于允许一部分样本出错，原来的两个分类边界可以做出一定的退让:</p>
-<script type="math/tex; mode=display">
-y^{(i)}(w^Tx^{(i)}+b)=1-\xi_i \\
-y^{(i)}(w^Tx^{(i)}+b)=\xi_i-1</script><p>于是完整的优化问题变成了:</p>
-<script type="math/tex; mode=display">
-\min_{w,b}\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\xi_i \\
-\text{s.t.}\;y^{(i)}(w^Tx^{(i)}+b)\geq1-\xi_i \\
-\;\;\xi_i\geq0,i=1,2,...,m</script><p>因此该问题的拉格朗日函数为:</p>
-<script type="math/tex; mode=display">
-L(w,b,\xi,\alpha,\mu)=\frac{1}{2}\left\|w\right\|^2+C\sum_{i=1}^m\xi_i+\sum_{i=1}^m\alpha_i(1-\xi_i-y^{(i)}(w^Tx^{(i)}+b))-\sum_{i=1}^m\mu_i\xi_i</script><p>求 $L$ 对 $w,b,\xi_i$ 的偏导数:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&\frac{\partial{L}}{\partial{w}}=w-\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)}=\vec{0} \\
-&\frac{\partial{L}}{\partial{b}}=-\sum_{i=1}^m\alpha_iy^{(i)}=0 \\
-&\frac{\partial{L}}{\partial{\xi_i}}=C-\alpha_i-\mu_i=0
-\end{aligned}</script><p>求得:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-&w=\sum_{i=1}^m\alpha_iy^{(i)}x^{(i)} \\
-&0=\sum_{i=1}^m\alpha_iy^{(i)} \\
-&C=\alpha_i+\mu_i
-\end{aligned}</script><p>显然 $0\leq\alpha_i=C-\mu_i \leq C + 0 = C$, 上面几个式子代入回格朗日函数得到：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-& \max_{\alpha:\alpha_i>0} \sum_{i=1}^m\alpha_i-\frac{1}{2}\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy^{(i)}y^{(j)}x^{(i)T}x^{(j)}\\
-& \text{s.t.}\;\;\sum_{i=1}^m \alpha_iy^{(i)}=0, \\
-& \;\;\;\;\;\;\;\;0\leq \alpha_i \leq C, \\
-& \;\;\;\;\;\;\;\;i=1,2,...,m
-\end{aligned}</script><p>同样地，软间隔支持向量机的KKT条件为:</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\begin{cases}
-y^{(i)}f(x^{(i)}) \geq 1-\xi_i, \\
-\xi_i \geq 0,\\
-\alpha_i\geq0, \\
-\alpha_i(1-\xi_i-y^{(i)}f(x^{(i)}))=0,\\
-\mu_i\geq0, \\
-\mu_i\xi_i=0
-\end{cases}
-\end{aligned}</script><ul>
-<li>$\alpha_i=0$, 对应样本对 $f(x)$ 求解没有影响;</li>
-<li>$\alpha_i &gt; 0$, $y^{(i)}f(x^{(i)})=1-\xi_i$, 样本为支持向量, 落在分类边界上(但不一定是最大间隔边界，因为引入了松弛变量)</li>
-<li>$\alpha_i &lt; C$, 则 $\mu_i &gt; 0$, 那么必定有 $\xi_i = 0$, 所以样本就恰好落在最大间隔边界上</li>
-<li>$\alpha_i=C$, 则 $\mu_i=0$, 若 $0&lt;\xi_i\leq1$, 那么样本落在最大间隔边界内部, 若 $\xi_i &gt; 1$, 样本分类错误.</li>
-</ul>
-<p>最后, 简单提一提支持向量回归SVR, 传统回归模型通常基于模型输出 $f(x)$ 和 真实标签 $y$ 之间的差别来计算损失, 而SVR通常则是容忍 $f(x)$ 与 $y$ 之间有 $\epsilon$ 的偏差, 当 $|f(x)-y|&gt;\epsilon$ 时才计算损失, 这就构建了一个宽度为 $2\epsilon$ 的间隔带, 若训练样本落入间隔带中，则认为预测时正确的. </p>
+Z_t&=\frac{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t}(x)}]} \\
+&=\frac{\sum_{i=1}^me^{-f(x^{(i)})H_{t-1}(x^{(i)})}}{\sum_{i=1}^me^{-f(x^{(i)})H_{t}(x^{(i)})}}
+\end{aligned}</script><p>所有东西理清楚后, 我们再来看一下算法的伪代码 (初始分布为均匀分布, 由于算法截取自西瓜书, 其样本表示为 $x_i$ 而不是 $x^{(i)}$)，如下所示:</p>
+<p><img src="/img/Adaboost.png" style="height:450px;width:600px;"></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -753,12 +594,12 @@ y^{(i)}f(x^{(i)}) \geq 1-\xi_i, \\
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>支持向量机</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">4k</span></p>
+    <p><span class="copy-title">文章标题:</span>集成学习</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.1k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-11-11, 09:52:53</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-14, 20:40:09</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/11/ml-03/" title="支持向量机">https://blog.jtzhang.xyz/2019/11/11/ml-03/</a>
+    <p><span class="copy-title">发布时间:</span>2019-11-27, 09:59:23</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-28, 10:27:58</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/27/ml-05/" title="集成学习">https://blog.jtzhang.xyz/2019/11/27/ml-05/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
