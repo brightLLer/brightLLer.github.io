@@ -397,7 +397,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-28 21:44:52'>2019-11-27 09:59</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-28 22:11:58'>2019-11-27 09:59</time>
         
     </div>
     <div class="article-meta">
@@ -521,7 +521,7 @@ l_{exp}(\alpha_th_t|D_t)&=\mathbb{E}_{x\sim D_t}[e^{-f(x)\alpha_th_t(x)}|x] \\
 <script type="math/tex; mode=display">
 \frac{\partial{l_{exp}(\alpha_th_t|D_t)}}{\partial(\alpha_t)}=-e^{-\alpha_t}(1-\epsilon_t)+e^{\alpha_t}\epsilon_t=0</script><p>求得权重的更新公式</p>
 <script type="math/tex; mode=display">
-\alpha_t=\frac{1}{2}\ln\big(\frac{1-\epsilon_t}{\epsilon_t}\big)</script><p>在Adaboost算法中, (无论是否施加权重), 下一轮的基分类器 $h<em>t$ 都能纠正 $H</em>{t-1}$ 的一些错误, 理想情况下应该可以纠正全部错误, 也就是最小化 (注意到理想情况下 $f^2(x)=h^2(x)=1$)</p>
+\alpha_t=\frac{1}{2}\ln\big(\frac{1-\epsilon_t}{\epsilon_t}\big)</script><p>在Adaboost算法中, (无论是否施加权重), 下一轮的基分类器 $h_t$ 都能纠正之前的基分类器犯下的一些错误, 理想情况下应该可以纠正全部错误, 也就是最小化 (注意到理想情况下 $f^2(x)=h^2(x)=1$)</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 l_{exp}(H_{t-1}+h_t|D)&=\mathbb{E}_{x\sim D}[e^{-f(x)(H_{t-1}(x)+h_t(x))}|x] \\
@@ -566,7 +566,7 @@ f(x)h(x)&=1\cdot\mathbb{I}(f(x)=h_t(x))+(-1)\cdot\mathbb{I}(f(x)\neq h_t(x)) \\
 h_t(x)&=\mathop{\arg\max}_h\mathbb{E}_{x\sim D_t}[f(x)h_t(x)] \\
 &=\mathop{\arg\max}_h\mathbb{E}_{x\sim D_t}[1-2\mathbb{I}(f(x)\neq h_t(x))] \\
 &=\mathop{\arg\min}_h\mathbb{E}_{x\sim D_t}[\mathbb{I}(f(x)\neq h_t(x))]
-\end{aligned}</script><p>可以看到理想的 $h<em>t$ 在分布 $D_t$ 下最小化分类误差, 弱分类器将基于分布 $D_t$ 进行训练, 且分类误差要小于 $0.5$. 接下来考虑 $D</em>{t+1}(x)$ 和 $D_t(x)$ 的关系:</p>
+\end{aligned}</script><p>可以看到理想的 $h_t$ 在分布 $D_t$ 下最小化分类误差, 弱分类器将基于分布 $D_t$ 进行训练, 且分类误差要小于 $0.5$. 接下来考虑前后两次迭代的数据分布的关系:</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 D_{t+1}(x)&=\frac{D(x)e^{-f(x)H_{t}(x)}}{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t}(x)}]} \\
@@ -610,7 +610,7 @@ H(x)=\mathop{\arg\max}_{\{0,1\}}\big\{\sum_{t=1}^T\mathbb{I}(h_t(x)=0), \sum_{t=
     <p><span class="copy-title">文章字数:</span><span class="post-count">2.6k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-27, 09:59:23</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-28, 21:44:52</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-28, 22:11:58</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/27/ml-05/" title="集成学习">https://blog.jtzhang.xyz/2019/11/27/ml-05/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
