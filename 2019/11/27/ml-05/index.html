@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="14">
-<input type="hidden" id="yelog_site_word_count" value="28k">
+<input type="hidden" id="yelog_site_word_count" value="28.3k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -397,12 +397,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-28 22:11:58'>2019-11-27 09:59</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-02 09:53:30'>2019-11-27 09:59</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.6k</span>
+        <span>字数:2.9k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -432,7 +432,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting"><span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bagging"><span class="toc-text">Bagging</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting"><span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bagging"><span class="toc-text">Bagging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随机森林"><span class="toc-text">随机森林</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -593,6 +593,21 @@ Z_t&=\frac{\mathbb{E}_{x\sim D}[e^{-f(x)H_{t-1}(x)}]}{\mathbb{E}_{x\sim D}[e^{-f
 <p>比如以二分类为例, 就是</p>
 <script type="math/tex; mode=display">
 H(x)=\mathop{\arg\max}_{\{0,1\}}\big\{\sum_{t=1}^T\mathbb{I}(h_t(x)=0), \sum_{t=1}^T\mathbb{I}(h_t(x)=1)\big\}</script><p>与标准的AdaBoost只只用于二分类任务不同, Bagging能不经修改地用于多分类和回归任务. 从偏差-方差的角度看, <strong>Bagging主要关注降低方差, 因此它在不剪枝决策树, 神经网络等易受样本扰动的学习器上效用更为明显.</strong></p>
+<h4 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h4><p>随机森林RF是 <strong>Bagging的一个扩展变体</strong>. 其特点在于:</p>
+<ul>
+<li>以决策树为基学习器构建Bagging集成;</li>
+<li>在决策树训练过程中引入随机属性选择.</li>
+</ul>
+<p>随机森林的引入随机属性和传统决策树的区别在于:</p>
+<ul>
+<li>传统决策树是在当前结点的属性集合中(设有 $d$ 个属性)中选择一个最优属性;</li>
+<li>RF中则是从基决策树的每个结点的属性集合中随机选择一个包含 $k$ 的属性子集, 在从子集中挑选出一个最优属性来划分, 一般情况下, 推荐 $k = \log_2d$.</li>
+</ul>
+<p>随机森林对比Bagging的优势在于:</p>
+<ul>
+<li>不仅有样本扰动 (自助采样), 还有属性扰动, 提高了最终的泛化性能;</li>
+<li>训练效率高, bagging用”确定型”决策树为基学习器时要对结点的全部属性进行考察, 而RF使用的”随机型”决策树则只需要考察一个属性子集.</li>
+</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -607,10 +622,10 @@ H(x)=\mathop{\arg\max}_{\{0,1\}}\big\{\sum_{t=1}^T\mathbb{I}(h_t(x)=0), \sum_{t=
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>集成学习</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">2.6k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.9k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-27, 09:59:23</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-28, 22:11:58</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-02, 09:53:30</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/27/ml-05/" title="集成学习">https://blog.jtzhang.xyz/2019/11/27/ml-05/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
