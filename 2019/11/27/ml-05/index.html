@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="14">
-<input type="hidden" id="yelog_site_word_count" value="28.3k">
+<input type="hidden" id="yelog_site_word_count" value="28.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -397,12 +397,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-02 09:53:30'>2019-11-27 09:59</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-02 11:31:16'>2019-11-27 09:59</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.9k</span>
+        <span>字数:3.5k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -432,7 +432,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting"><span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bagging"><span class="toc-text">Bagging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随机森林"><span class="toc-text">随机森林</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Boosting"><span class="toc-text">Boosting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bagging"><span class="toc-text">Bagging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随机森林"><span class="toc-text">随机森林</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结合策略"><span class="toc-text">结合策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#平均法"><span class="toc-text">平均法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#投票法"><span class="toc-text">投票法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#学习法"><span class="toc-text">学习法</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -608,6 +608,52 @@ H(x)=\mathop{\arg\max}_{\{0,1\}}\big\{\sum_{t=1}^T\mathbb{I}(h_t(x)=0), \sum_{t=
 <li>不仅有样本扰动 (自助采样), 还有属性扰动, 提高了最终的泛化性能;</li>
 <li>训练效率高, bagging用”确定型”决策树为基学习器时要对结点的全部属性进行考察, 而RF使用的”随机型”决策树则只需要考察一个属性子集.</li>
 </ul>
+<h3 id="结合策略"><a href="#结合策略" class="headerlink" title="结合策略"></a>结合策略</h3><h4 id="平均法"><a href="#平均法" class="headerlink" title="平均法"></a>平均法</h4><ul>
+<li>简单平均法: $H(x)=\frac{1}{T}\sum_{i=1}^Th_i(x)$</li>
+<li>加权平均法: $H(x)=\sum_{i=1}^Tw_ih_i(x)$</li>
+</ul>
+<p>后者的权重参数 $w_i$ 需要学习, 如果集成规模大, 参数变多, 会引发过拟合, 一般而言, 个体学习器性能差异较大时宜使用加权平均, 否则简单平均更好.</p>
+<h4 id="投票法"><a href="#投票法" class="headerlink" title="投票法"></a>投票法</h4><ul>
+<li>绝对多数投票法</li>
+</ul>
+<p>给定类别标记</p>
+<script type="math/tex; mode=display">
+\{c_1, c_2,..., c_N\}</script><p>基学习器 $h_i$ 预测出来的结果 (投票数) 为:</p>
+<script type="math/tex; mode=display">
+(h_i^1(x), h_i^2(x), ..., h_i^N(x))</script><p>当一个所有基学习器在某个类别上的总投票超过所有的票数的一半是则达成预测, 否则拒绝预测:</p>
+<script type="math/tex; mode=display">
+H(x)=\left\{\begin{array}{ll}{c_{j},} & {\text { if } \sum_{i=1}^{T} h_{i}^{j}(x)>0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(x)} \\ {\text { reject, }} & {\text { otherwise. }}\end{array}\right.</script><ul>
+<li><p>相对多数投票法</p>
+<script type="math/tex; mode=display">
+H(x)=c_{\arg \max } \sum_{i=1}^{T} h_{i}^{j}(x)</script><p>缺点在于不提供拒绝预测的选项, 是绝对多数投票的退化版.</p>
+</li>
+<li><p>加权投票法</p>
+<script type="math/tex; mode=display">
+H(x)=c_{\arg \max } \sum_{i=1}^{T} w_{i} h_{i}^{j}(x)</script><p>其中 $w_i \geq 0$, $\sum_iw_i=1$.</p>
+</li>
+</ul>
+<p>$h_i^j(x)$ 的值可以是类标记 ${0,1}$, 也可以是类概率 $[0, 1]$ (后验概率 $P(c_j|x)$).</p>
+<h4 id="学习法"><a href="#学习法" class="headerlink" title="学习法"></a>学习法</h4><p>当训练数据比较多时, 可以使用另外一种强大的结合策略, 称为”学习法”, 学习法中的个体学习器称为初级学习器, 用于结合的学习器称为次级学习器. 学习法的代表是stacking算法, 其主要思路是:</p>
+<ul>
+<li>从初始训练集中训练出初级学习器;</li>
+<li>初级学习器的输出作为新样本的特征, 初级学习器输入的样本的标签作为新样本的标签, 构建新数据集并训练次级学习器.</li>
+</ul>
+<p>算法的伪代码如下:</p>
+<p><img src="/img/stacking.png" style="width=220px;height:460px;"></p>
+<p>为了减少过拟合的风险, 可以将初始训练集 $D$ 划分为 $k$ 折 $D_1, D_2, …, D_k$,</p>
+<ul>
+<li>令测试集为第 $j$ 折测试集 $D_j$</li>
+<li>令训练集为 $\overline{D}_j=D-D_j$</li>
+</ul>
+<p>第 $t$ 个初级学习器在 $\overline{D}_j$ 上学习得到,<br>对</p>
+<script type="math/tex; mode=display">
+\forall x^{(i)} \in D_j</script><p>令</p>
+<script type="math/tex; mode=display">
+z^{(i)}_t=h_t^{(j)}(x^{(i)})</script><p>得到新数据集的样本特征为</p>
+<script type="math/tex; mode=display">
+z^{(i)}=\{z^{(i)}_{1};z^{(i)}_{2};...;z^{(i)}_{T}\}</script><p>样本标签依旧为 $y^{(i)}$, 交叉训练结束后得到完整的次级训练集为</p>
+<script type="math/tex; mode=display">
+D'=\{(z^{(i)},y^{(i)})\}_{i=1}^m</script><p>然后 $D’$ 用于训练次级学习器.</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -622,10 +668,10 @@ H(x)=\mathop{\arg\max}_{\{0,1\}}\big\{\sum_{t=1}^T\mathbb{I}(h_t(x)=0), \sum_{t=
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>集成学习</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">2.9k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">3.5k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-27, 09:59:23</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-02, 09:53:30</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-02, 11:31:16</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/27/ml-05/" title="集成学习">https://blog.jtzhang.xyz/2019/11/27/ml-05/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
