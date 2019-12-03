@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Review -- XGboost</title>
+      <link href="/2019/12/02/ml-06/"/>
+      <url>/2019/12/02/ml-06/</url>
+      
+        <content type="html"><![CDATA[<p>参考博客: <a href="https://cloud.tencent.com/developer/article/1513111" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1513111</a></p><h3 id="XGboost的目标函数"><a href="#XGboost的目标函数" class="headerlink" title="XGboost的目标函数"></a>XGboost的目标函数</h3><p>同大多数机器学习模型的目标函数一样, 包括训练损失和正则化项两个部分:</p><script type="math/tex; mode=display">obj=\sum_{i=1}^ml(y^{(i)},\hat{y}^{(i)})+\sum_{k=1}^K\Omega(f_k)</script><p>$l$ 是训练损失, 可以是平方损失, 也可以是逻辑回归损失. 后面的正则化项指出了树的复杂度. $K$ 表示树的数目, 注意: XGboost也是一个加法模型, 其对一个样本的预测得分是所有树的打分之和:</p><script type="math/tex; mode=display">\hat{y}^{(i)}=\sum_{k=1}^Kf_k(x^{(i)})</script><p>那么我们可以轻易地得到第 $t$ 次迭代的公式:</p><script type="math/tex; mode=display">\hat{y}^{(i)}_t=\sum_{k=1}^{t-1}f_k(x^{(i)})+f_t(x^{(i)})=\hat{y}^{(i)}_{t-1}+f_t(x^{(i)})</script><p>因此, 第 $t$ 次迭代的目标函数可以写成:</p><script type="math/tex; mode=display">\begin{aligned}obj_t&=\sum_{i=1}^ml(y^{(i)},\hat{y}_t^{(i)})+\sum_{k=1}^t\Omega(f_k) \\&=\sum_{i=1}^ml(y^{(i)},\hat{y}^{(i)}_{t-1}+f_t(x^{(i)}))+\sum_{k=1}^t\Omega(f_k) \\&=\sum_{i=1}^ml(y^{(i)},\hat{y}^{(i)}_{t-1}+f_t(x^{(i)}))+\Omega(f_t) + \sum_{k=1}^{t-1}\Omega(f_k) \\&=\sum_{i=1}^ml(y^{(i)},\hat{y}^{(i)}_{t-1}+f_t(x^{(i)}))+\Omega(f_t) + \text{const} \\\end{aligned}</script><p>上式中唯一的变量就是第 $t$ 棵树 $f_t$, 其它的例如:</p><script type="math/tex; mode=display">y^{(i)}\text{是标签, 是一个常量.} \\\hat{y}^{(i)}_{t-1}\text{是前}t-1{棵树的预测打分, 也是已经计算出来的结果, 是一个常量.}  \\\sum_{k=1}^{t-1}\Omega(f_k)\text{是前}t-1{棵树的复杂度, 已经构造完毕, 是一个常量.} \\</script><blockquote><blockquote><p>泰勒公式的二阶展开式</p><script type="math/tex; mode=display">f(x + \Delta x)\approx f(x) + f'(x)\Delta x + \frac{1}{2}f''(x)\Delta x^2</script></blockquote></blockquote><p>看一下 $l(y^{(i)},\hat{y}^{(i)}<em>{t-1}+f_t(x^{(i)}))$, $y^{(i)}$ 是一个常量, $\hat{y}^{(i)}</em>{t-1}$ 相当于泰勒展开式中的 $x$, $f_t(x^{(i)})$ 相当于泰勒展开式中的 $\Delta x$, 因此</p><script type="math/tex; mode=display">\begin{aligned}l(y^{(i)},\hat{y}^{(i)}_{t-1}+f_t(x^{(i)}))&=l(y^{(i)},\hat{y}^{(i)}_{t-1})+\frac{\partial{l}}{\partial{\hat{y}^{(i)}_{t-1}}}f_t(x^{(i)})+\frac{1}{2}\frac{\partial{l}}{\partial^2{\hat{y}^{(i)}_{t-1}}}f^2_t(x^{(i)}) \\&=l(y^{(i)},\hat{y}^{(i)}_{t-1})+g^{(i)}f_t(x^{(i)})+\frac{1}{2}h^{(i)}f^2_t(x^{(i)})\end{aligned}</script><p>其中,</p><script type="math/tex; mode=display">g^{(i)}=\frac{\partial{l}}{\partial{\hat{y}^{(i)}_{t-1}}} \\h^{(i)}=\frac{\partial{l}}{\partial^2{\hat{y}^{(i)}_{t-1}}}</script><p>代回原来的目标函数:</p><script type="math/tex; mode=display">\begin{aligned}obj_t&=\sum_{i=1}^ml(y^{(i)},\hat{y}_t^{(i)})+\sum_{k=1}^t\Omega(f_k) \\&=\sum_{i=1}^m[l(y^{(i)},\hat{y}^{(i)}_{t-1})+g^{(i)}f_t(x^{(i)})+\frac{1}{2}h^{(i)}f^2_t(x^{(i)})]+\Omega(f_t) + \text{const} \\\end{aligned}</script><p>去掉所有不影响优化的常量后, 得到最终的目标函数为:</p><script type="math/tex; mode=display">\begin{aligned}obj_t&=\sum_{i=1}^m[g^{(i)}f_t(x^{(i)})+\frac{1}{2}h^{(i)}f^2_t(x^{(i)})]+\Omega(f_t) \\\end{aligned}</script><h3 id="定义XGboost中的树结构"><a href="#定义XGboost中的树结构" class="headerlink" title="定义XGboost中的树结构"></a>定义XGboost中的树结构</h3><h4 id="树的定义式"><a href="#树的定义式" class="headerlink" title="树的定义式"></a>树的定义式</h4><ul><li>叶子结点的权重向量 $w$ ;</li><li>样本到叶子节点的映射关系 $q$, 假设一棵树有 $N$ 个叶子节点.</li></ul><p>其中,</p><script type="math/tex; mode=display">q: \mathbb{R}^d\rightarrow\{1,2,...,N\}</script><p>在此基础上, 一棵树可以表达为:</p><script type="math/tex; mode=display">f_t(x)=w_{q(x)}</script><p>比如, 假设有一棵树, 它有3个叶子结点, 叶子结点的权重向量为 $[2, 0.1, -1]^T$ , 给定样本 $x^{(1)}$, 它被分到了第一个叶子结点上, 那么 $q(x^{(1)})=1$, 从而得到打分为:</p><script type="math/tex; mode=display">f_t(x^{(1)})=w_{q(x)}=w_1=2</script><h4 id="树的复杂度"><a href="#树的复杂度" class="headerlink" title="树的复杂度"></a>树的复杂度</h4><ul><li>叶子结点的数量;</li><li>叶子结点的权重向量的 $L_2$ 范数.</li></ul><p>因此</p><script type="math/tex; mode=display">\Omega(f_t)=\gamma N+\frac{1}{2}\lambda\sum_{j=1}^Nw_j^2</script><p>如果还是拿上面的例子, 一棵3个叶子结点的树的叶子权重向量为 $[2, 0.1, -1]^T$ , 那么它的复杂度为:</p><script type="math/tex; mode=display">\Omega=3\gamma + \frac{1}{2}\lambda(4+0.01+1)=3\gamma+2.505\lambda</script><h4 id="叶子结点分组"><a href="#叶子结点分组" class="headerlink" title="叶子结点分组"></a>叶子结点分组</h4><p>叶子结点分组就是将划分到同一个叶子节点上的所有样本归类到同一个样本子集上, 也就是说<strong>一个叶子结点和一个样本子集一一对应</strong>, 如果用 $I_j$ 表示第 $j$ 个叶子节点对应的样本子集, 那么:</p><script type="math/tex; mode=display">I_j=\{i|q(x^{(i)})=j\}</script><p>由于分组后各个叶子结点上的样本数的总和其实就是数据集的大小, 所以:</p><script type="math/tex; mode=display">\sum_{i=1}^m=\sum_{j=1}^N\sum_{i \in I_j}</script><p>代回原来的目标函数:</p><script type="math/tex; mode=display">\begin{aligned}obj_t&=\sum_{i=1}^m[g^{(i)}f_t(x^{(i)})+\frac{1}{2}h^{(i)}f^2_t(x^{(i)})]+\Omega(f_t) \\&=\sum_{i=1}^m[g^{(i)}w_{q(x^{(i)})}+\frac{1}{2}h^{(i)}w^2_{q(x^{(i)})}]+\gamma N+\frac{1}{2}\lambda\sum_{j=1}^Nw_j^2 \\&=\sum_{j=1}^N\sum_{i \in I_j}[g^{(i)}w_{q(x^{(i)})}+\frac{1}{2}h^{(i)}w^2_{q(x^{(i)})}]+\gamma N+\frac{1}{2}\lambda\sum_{j=1}^Nw_j^2 \\&=\sum_{j=1}^N[\sum_{i \in I_j}g^{(i)}w_{q(x^{(i)})}+\frac{1}{2}\sum_{i \in I_j}h^{(i)}w^2_{q(x^{(i)})}]+\gamma N+\frac{1}{2}\lambda\sum_{j=1}^Nw_j^2 \\&=\sum_{j=1}^N[\sum_{i \in I_j}g^{(i)}w_j+\frac{1}{2}\sum_{i \in I_j}h^{(i)}w^2_j]+\gamma N+\frac{1}{2}\lambda\sum_{j=1}^Nw_j^2 \\&=\sum_{j=1}^N[(\sum_{i \in I_j}g^{(i)})w_j+\frac{1}{2}(\sum_{i \in I_j}h^{(i)})w^2_j]+\gamma N+\frac{1}{2}\lambda\sum_{j=1}^Nw_j^2 \\&=\sum_{j=1}^N[G^{(j)}w_j+\frac{1}{2}H^{(j)}w^2_j]+\gamma N+\frac{1}{2}\lambda\sum_{j=1}^Nw_j^2 \\\end{aligned}</script><p>其中</p><script type="math/tex; mode=display">G^{(j)}=\sum_{i \in I_j}g^{(i)} \\H^{(j)}=\sum_{i \in I_j}h^{(i)} \\</script><p>分别代表叶子结点 $j$ 的所有样本的一阶偏导数之和与二阶偏导数之和. 进一步整理可以得到:</p><script type="math/tex; mode=display">obj_t = \sum_{j=1}^N[G^{(j)}w_j+\frac{1}{2}(H^{(j)}+\lambda)w^2_j]+\gamma N</script><h4 id="树结构打分"><a href="#树结构打分" class="headerlink" title="树结构打分"></a>树结构打分</h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>集成学习</title>
       <link href="/2019/11/27/ml-05/"/>
       <url>/2019/11/27/ml-05/</url>
@@ -147,9 +172,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -174,9 +199,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -228,9 +253,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -255,9 +280,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -282,9 +307,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
