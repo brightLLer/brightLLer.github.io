@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>降维</title>
+      <link href="/2019/12/04/ml-07/"/>
+      <url>/2019/12/04/ml-07/</url>
+      
+        <content type="html"><![CDATA[<h3 id="MDS算法"><a href="#MDS算法" class="headerlink" title="MDS算法"></a>MDS算法</h3><p>假设样本集 $X \in \mathbb{R}^{d\times m}$, $m$ 个样本在原始空间的距离矩阵为 $D \in \mathbb{R}^{m\times m}$, 其中第 $i$ 行第 $j$ 列的元素 $dist_{ij}$ 表示样本 $x^{(i)}$ 到 $x^{(j)}$ 的距离, 现在的目标是获得样本在 $d’$ 维空间的表示 $Z \in \mathbb{R}^{d’\times m}$, 其中 $d’ \leq d$, 且要让样本在 $d’$ 维空间的距离与原始空间的距离相等：</p><script type="math/tex; mode=display">\|z^{(i)}-z^{(j)}\|=dist_{ij}</script><p>设降维后的样本内积矩阵 $B=Z^TZ\in\mathbb{R}^{m\times m}$, $b_{ij}=z^{(i)T}z^{(j)}$, 有:</p><script type="math/tex; mode=display">\begin{aligned}dist^2_{ij}&=\|z^{(i)}-z^{(j)}\|^2 \\&=(z^{(i)}-z^{(j)})^T(z^{(i)}-z^{(j)}) \\&=(z^{(i)T}-z^{(j)T})(z^{(i)}-z^{(j)}) \\&=z^{(i)T}z^{(i)}-z^{(i)T}z^{(j)}-z^{(j)T}z^{(i)}-z^{(j)T}z^{(j)} \\&=\|z^{(i)}\|^2+\|z^{(j)}\|^2-2z^{(i)T}z^{(j)} \\&=b_{ii}+b_{jj}-2b_{ij}\end{aligned}</script><p>假设降维后的样本集 $Z$ 被中心化, 即 $\sum_{i=1}^mz^{(i)}=\mathbf{0}$, 那么矩阵B的行与列之和均为0:</p><script type="math/tex; mode=display">\sum_{i=1}^mb_{ij}=\sum_{i=1}^mz^{(i)T}z^{(j)}=z^{(j)}\sum_{i=1}^mz^{(i)T}=z^{(j)}\cdot\mathbf{0}^T=0</script><p>同理, 也有:</p><script type="math/tex; mode=display">\sum_{j=1}^mb_{ij}=0</script><p>因此:</p><script type="math/tex; mode=display">\begin{aligned}\sum_{i=1}^mdist^2_{ij}&=\sum_{i=1}^m(b_{ii}+b_{jj}-2b_{ij}) \\&=\sum_{i=1}^mb_{ii}+\sum_{i=1}^mb_{jj}-2\sum_{i=1}^mb_{ij} \\&=\text{tr}(B)+b_{jj}\sum_{i=1}^m\cdot1-2\cdot 0 \\&=\text{tr}(B)+mb_{jj}\end{aligned}</script><p>同理可得:</p><script type="math/tex; mode=display">\sum_{j=1}^mdist^2_{ij}=\text{tr}(B)+mb_{ii}</script><p>又有:</p><script type="math/tex; mode=display">\begin{aligned}\sum_{i=1}^m\sum_{j=1}^mdist^2_{ij}&=\sum_{i=1}^m\sum_{j=1}^m(b_{ii}+b_{jj}-2b_{ij}) \\&=\sum_{i=1}^m\sum_{j=1}^mb_{ii}+\sum_{i=1}^m\sum_{j=1}^mb_{jj}-2\sum_{i=1}^m\sum_{j=1}^mb_{ij} \\&=\sum_{j=1}^m(\sum_{i=1}^mb_{ii})+\sum_{i=1}^m(\sum_{j=1}^mb_{jj})-2\sum_{i=1}^m(\sum_{j=1}^mb_{ij}) \\&=m\text{tr}(B)+m\text{tr}(B)-0 \\&=2m\text{tr}(B)\end{aligned}</script><p>令</p><script type="math/tex; mode=display">\begin{aligned}& dist^2_{i.}=\frac{1}{m}\sum_{j=1}^mdist^2_{ij} \\& dist^2_{.j}=\frac{1}{m}\sum_{i=1}^mdist^2_{ij} \\& dist^2_{..}=\frac{1}{m^2}\sum_{i=1}^m\sum_{j=1}^mdist^2_{ij}\end{aligned}</script><p>所以</p><script type="math/tex; mode=display">\begin{aligned}dist^2_{i.}&=\frac{1}{m}\sum_{j=1}^mdist^2_{ij} \\&=\frac{1}{m}(\text{tr}(B)+mb_{ii}) \\&=\frac{1}{m}\text{tr}(B)+b_{ii}\end{aligned} \\\begin{aligned}dist^2_{.j}&=\frac{1}{m}\sum_{i=1}^mdist^2_{ij} \\&=\frac{1}{m}(\text{tr}(B)+mb_{jj}) \\&=\frac{1}{m}\text{tr}(B)+b_{jj}\end{aligned} \\\begin{aligned}dist^2_{..}&=\frac{1}{m^2}\sum_{i=1}^m\sum_{j=1}^mdist^2_{ij} \\&=\frac{1}{m^2}2m\text{tr}(B) \\&=\frac{2}{m}\text{tr}(B)\end{aligned} \\</script><p>所以:</p><script type="math/tex; mode=display">b_{ii}=dist^2_{i.}-\frac{1}{m}\text{tr}(B)=dist^2_{i.}-\frac{1}{2}dist^2_{..} \\b_{jj}=dist^2_{.j}-\frac{1}{m}\text{tr}(B)=dist^2_{.j}-\frac{1}{2}dist^2_{..}</script><p>又由于:</p><script type="math/tex; mode=display">dist_{ij}^2=b_{ii}+b_{jj}-2b_{ij}</script><p>由此可得到:</p><script type="math/tex; mode=display">\begin{aligned}b_{ij}&=-\frac{1}{2}(dist_{ij}^2-b_{ii}-b_{jj}) \\&=-\frac{1}{2}(dist_{ij}^2-dist^2_{i.}-dist^2_{.j}+dist^2_{..})\end{aligned}</script><p>因此给出了原始的样本距离矩阵 $D$ 后, 可以使用上述公式求解降维后的样本内积矩阵 $B$.<br>接着求解样本的降维表示可以采用如下流程:</p><ul><li>对 $B$ 进行特征值分解, $B=V\Lambda V^T$, 其中 $\Lambda=\text{diag}(\lambda_1,\lambda_2,…,\lambda_d)$, 且 $\lambda_1 \geq \lambda_2 \geq … \geq \lambda_d$, $V$为特征向量矩阵;</li><li>从特征值中挑出最大的 $d’\;(d’ \leq d)$ 个构成对角矩阵 $\tilde{\Lambda}$, 对应的特征向量矩阵为 $\tilde{V}$;</li><li>得到原始数据集的降维表示: $Z=\tilde{\Lambda}^{\frac{1}{2}}\tilde{V}^T \in \mathbb{R}^{d’\times m}$.</li></ul><p>这就是MDS算法, 其伪代码描述为:</p><p><img src="/img/MDS.png" style="width:600px;height:210px;"></p><h3 id="线性变换"><a href="#线性变换" class="headerlink" title="线性变换"></a>线性变换</h3><p>给出原始数据集 $X \in \mathbb{R}^{d\times m}$ 和变换矩阵 $W \in \mathbb{R}^{d\times d’}$, 可以得到降维后的表示为 $Z=W^TX$.</p><h3 id="主成成分分析"><a href="#主成成分分析" class="headerlink" title="主成成分分析"></a>主成成分分析</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>XGboost</title>
       <link href="/2019/12/02/ml-06/"/>
       <url>/2019/12/02/ml-06/</url>
@@ -172,9 +197,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -199,9 +224,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -253,9 +278,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -280,9 +305,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -307,9 +332,9 @@
       
         <tags>
             
-            <tag> 算法 </tag>
-            
             <tag> Leetcode </tag>
+            
+            <tag> 算法 </tag>
             
         </tags>
       
