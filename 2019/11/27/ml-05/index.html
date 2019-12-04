@@ -115,14 +115,6 @@
     
         
             
-            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
-                
-            </li>
-            
-        
-    
-        
-            
             <li><div data-rel="算法">算法<small>(1)</small></div>
                 
             </li>
@@ -131,7 +123,7 @@
     
         
             
-            <li><div data-rel="机器学习">机器学习<small>(6)</small></div>
+            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
                 
             </li>
             
@@ -140,6 +132,14 @@
         
             
             <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="机器学习">机器学习<small>(6)</small></div>
                 
             </li>
             
@@ -200,10 +200,6 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">Leetcode</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">算法</a>
     </li>
     
@@ -212,7 +208,7 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">机器学习</a>
+        <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -228,15 +224,19 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">机器学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">SVM</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">hexo</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color2">3-hexo</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">SVM</a>
     </li>
     
     <div class="clearfix"></div>
@@ -253,7 +253,7 @@
            href="/2019/12/02/ml-06/"
            data-tag="机器学习"
            data-author="" >
-            <span class="post-title" title="Review -- XGboost">Review -- XGboost</span>
+            <span class="post-title" title="XGboost">XGboost</span>
             <span class="post-date" title="2019-12-02 20:52:36">2019/12/02</span>
         </a>
         
@@ -299,7 +299,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/27/leetcode-note-5/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(五)">Leetcode笔记(五)</span>
             <span class="post-date" title="2019-09-27 10:56:45">2019/09/27</span>
@@ -307,7 +307,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/23/leetcode-note-4/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(四)">Leetcode笔记(四)</span>
             <span class="post-date" title="2019-09-23 22:16:35">2019/09/23</span>
@@ -323,7 +323,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/11/leetcode-note-3/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(三)">Leetcode笔记(三)</span>
             <span class="post-date" title="2019-09-11 17:05:26">2019/09/11</span>
@@ -331,7 +331,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/10/leetcode-note-2/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(二)">Leetcode笔记(二)</span>
             <span class="post-date" title="2019-09-10 21:10:47">2019/09/10</span>
@@ -339,7 +339,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/09/leetcode-note-1/"
-           data-tag="Leetcode,算法"
+           data-tag="算法,Leetcode"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(一)">Leetcode笔记(一)</span>
             <span class="post-date" title="2019-09-09 22:03:38">2019/09/09</span>
@@ -802,7 +802,7 @@ D'=\{(z^{(i)},y^{(i)})\}_{i=1}^m</script><p>然后 $D’$ 用于训练次级学�
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#Leetcode','#算法','#排序','#机器学习','#librosa','#signal processing','#speech separation','#hexo','#3-hexo','#SVM',],
+            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
