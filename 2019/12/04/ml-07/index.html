@@ -123,7 +123,7 @@
     
         
             
-            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
+            <li><div data-rel="算法">算法<small>(1)</small></div>
                 
             </li>
             
@@ -131,7 +131,7 @@
     
         
             
-            <li><div data-rel="算法">算法<small>(1)</small></div>
+            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
                 
             </li>
             
@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="16">
-<input type="hidden" id="yelog_site_word_count" value="32.1k">
+<input type="hidden" id="yelog_site_word_count" value="32.7k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -208,6 +208,10 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">排序</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">librosa</a>
     </li>
     
@@ -217,10 +221,6 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">speech separation</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">排序</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -413,12 +413,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-04 22:07:38'>2019-12-04 16:46</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-05 11:16:53'>2019-12-04 16:46</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:910</span>
+        <span>字数:1.5k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -536,7 +536,57 @@ b_{ij}&=-\frac{1}{2}(dist_{ij}^2-b_{ii}-b_{jj}) \\
 <p>这就是MDS算法, 其伪代码描述为:</p>
 <p><img src="/img/MDS.png" style="width:600px;height:210px;"></p>
 <h3 id="线性变换"><a href="#线性变换" class="headerlink" title="线性变换"></a>线性变换</h3><p>给出原始数据集 $X \in \mathbb{R}^{d\times m}$ 和变换矩阵 $W \in \mathbb{R}^{d\times d’}$, 可以得到降维后的表示为 $Z=W^TX$.</p>
-<h3 id="主成成分分析"><a href="#主成成分分析" class="headerlink" title="主成成分分析"></a>主成成分分析</h3>
+<h3 id="主成成分分析"><a href="#主成成分分析" class="headerlink" title="主成成分分析"></a>主成成分分析</h3><p>如何用一个超平面对所有样本进行恰当表达?</p>
+<ul>
+<li>样本离超平面尽可能近;</li>
+<li>样本在超平面上的投影尽可能分开.</li>
+</ul>
+<p>假设我们对样本数据集进行了中心化, 也就是:</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^mx^{(i)}=0</script><p>投影后得到的新坐标系为:</p>
+<script type="math/tex; mode=display">
+W=\{w_1, w_2, ..., w_d\} \in \mathbb{R}^{d\times d} \\
+w_j \in \mathbb{R}^{d}</script><p>$W$ 是一个标准的正交矩阵, 满足</p>
+<ul>
+<li>$W^T=W^{-1}$, 也就是 $W^{-1}W=W^TW=I$</li>
+<li>$|w_i|=1$</li>
+<li>$w_i^Tw_j=0$</li>
+</ul>
+<p>丢弃新坐标系中的部分坐标, 将维度降低到 $d’&lt;d$ , 也就是,</p>
+<script type="math/tex; mode=display">
+W=\{w_1, w_2, ..., w_{d'}\} \in \mathbb{R}^{d\times d'} \\
+w_j \in \mathbb{R}^{d}</script><p>样本 $x^{(i)} \in \mathbb{R}^d$ 在新坐标系下的表示为:</p>
+<script type="math/tex; mode=display">
+z^{(i)}=\{z^{(i)}_1, z^{(i)}_2, ..., z^{(i)}_{d'}\} \in \mathbb{R}^{d'}</script><p>对应了样本在低维坐标系下的 $d’$ 个坐标. 注意到:</p>
+<script type="math/tex; mode=display">
+z^{(i)}=W^Tx^{(i)}\;\;\text{或}\;\;z^{(i)}_j=w_j^Tx^{(i)}</script><p>由于</p>
+<script type="math/tex; mode=display">
+z^{(i)}_j=w_j^Tx^{(i)}</script><p>重构的做法也很简单, 就是样本低维坐标的各个分量乘上低维坐标系的各个分量的加和:</p>
+<script type="math/tex; mode=display">
+\hat{x}^{(i)}=\sum_{i=1}^{d'}z^{(i)}_jw_j=Wz^{(i)}</script><p>或者, 其实就是下面的逆推过程:</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& z^{(i)}=W^Tx^{(i)} \\
+\Longleftrightarrow\; & z^{(i)}=W^{-1}x^{(i)} \\
+\Longleftrightarrow\; & Wz^{(i)}=WW^{-1}x^{(i)} \\
+\Longleftrightarrow\; & Wz^{(i)}=x^{(i)} \\
+\Longleftrightarrow\; & x^{(i)}=Wz^{(i)}
+\end{aligned}</script><p>那么</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{i=1}^m\big\|\hat{x}^{(i)}-x^{(i)}\big\|^2 &= \sum_{i=1}^m\big\|Wz^{(i)}-x^{(i)}\big\|^2 \\
+&=\sum_{i=1}^m\big(Wz^{(i)}-x^{(i)}\big)^T\big(Wz^{(i)}-x^{(i)}\big) \\
+&=\sum_{i=1}^m\big(z^{(i)T}W^T-x^{(i)T}\big)\big(Wz^{(i)}-x^{(i)}\big) \\
+&=\sum_{i=1}^m(z^{(i)T}W^TWz^{(i)}-z^{(i)T}W^Tx^{(i)}-x^{(i)T}Wz^{(i)}+x^{(i)T}x^{(i)}) \\
+&=\sum_{i=1}^m(z^{(i)T}W^TWz^{(i)}-z^{(i)T}W^Tx^{(i)}-z^{(i)T}W^Tx^{(i)}+x^{(i)T}x^{(i)}) \\
+&=\sum_{i=1}^m(z^{(i)T}Iz^{(i)}-2z^{(i)T}(W^Tx^{(i)})+x^{(i)T}x^{(i)}) \\
+&=\sum_{i=1}^m(z^{(i)T}z^{(i)}-2z^{(i)T}z^{(i)})+\text{const} \\
+&=-\sum_{i=1}^mz^{(i)T}z^{(i)}+\text{const} \\
+&=-\text{tr}(\sum_{i=1}^mz^{(i)T}z^{(i)})+\text{const} \\
+&=-\text{tr}(\sum_{i=1}^mW^Tx^{(i)}x^{(i)T}W)+\text{const} \\
+&=-\text{tr}(W^T\sum_{i=1}^m(x^{(i)}x^{(i)T})W)+\text{const} \\
+&\propto-\text{tr}(W^T\sum_{i=1}^m(x^{(i)}x^{(i)T})W)
+\end{aligned}</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -550,10 +600,10 @@ b_{ij}&=-\frac{1}{2}(dist_{ij}^2-b_{ii}-b_{jj}) \\
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>降维</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">910</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.5k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-12-04, 16:46:56</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-04, 22:07:38</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-05, 11:16:53</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/04/ml-07/" title="降维">https://blog.jtzhang.xyz/2019/12/04/ml-07/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -676,7 +726,7 @@ b_{ij}&=-\frac{1}{2}(dist_{ij}^2-b_{ii}-b_{jj}) \\
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#Leetcode','#算法','#librosa','#signal processing','#speech separation','#排序','#机器学习','#SVM','#hexo','#3-hexo',],
+            'data': ['#Leetcode','#算法','#排序','#librosa','#signal processing','#speech separation','#机器学习','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
