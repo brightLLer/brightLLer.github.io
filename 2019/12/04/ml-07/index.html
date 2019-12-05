@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="16">
-<input type="hidden" id="yelog_site_word_count" value="32.7k">
+<input type="hidden" id="yelog_site_word_count" value="32.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -413,12 +413,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-05 11:16:53'>2019-12-04 16:46</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-05 17:24:09'>2019-12-04 16:46</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.5k</span>
+        <span>字数:1.7k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -585,8 +585,30 @@ z^{(i)}_j=w_j^Tx^{(i)}</script><p>重构的做法也很简单, 就是样本低�
 &=-\text{tr}(\sum_{i=1}^mz^{(i)T}z^{(i)})+\text{const} \\
 &=-\text{tr}(\sum_{i=1}^mW^Tx^{(i)}x^{(i)T}W)+\text{const} \\
 &=-\text{tr}(W^T\sum_{i=1}^m(x^{(i)}x^{(i)T})W)+\text{const} \\
-&\propto-\text{tr}(W^T\sum_{i=1}^m(x^{(i)}x^{(i)T})W)
-\end{aligned}</script>
+&\propto-\text{tr}(W^T\sum_{i=1}^m(x^{(i)}x^{(i)T})W) \\
+&=-\text{tr}(W^TXX^TW)
+\end{aligned}</script><blockquote>
+<blockquote>
+<p>补充: 协方差矩阵 <br><br>协方差一般是定义在两个随机变量(属性)之间的, 给出数据集 $X$, $\mu$ 为所有样本的均值 (数量方向而非属性方向),<br>那么它的协方差矩阵 $\Sigma$ 可以写为</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\Sigma&=\mathbb{E}[(x-\mu)(x-\mu)^T] \\
+&=\frac{1}{m-1}\sum_{i=1}^m(x^{(i)}-\mu)(x^{(i)}-\mu)^T
+\end{aligned}</script><p>如果样本经过中心化, 也就是 $\mu=\frac{\sum_ix^{(i)}}{m}=0$, 那么协方差矩阵可以写为:</p>
+<script type="math/tex; mode=display">
+\Sigma=\frac{1}{m-1}\sum_{i=1}^mx^{(i)}x^{(i)T}\propto \sum_{i=1}^mx^{(i)}x^{(i)T}=XX^T</script></blockquote>
+</blockquote>
+<p>样本投影之前的方差为</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^mx^{(i)}x^{(i)T}</script><p>投影之后的方差为:</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^mz^{(i)}z^{(i)T}=\sum_{i=1}^mW^Tx^{(i)}x^{(i)T}W</script><p>最小化目标函数:</p>
+<script type="math/tex; mode=display">
+\min_W\;-\text{tr}(W^TXX^TW) \\
+\text{s.t.}\;\;W^TW=I</script><p>也等价于最大化投影后的方差:</p>
+<script type="math/tex; mode=display">
+\max_W\;\text{tr}(W^TXX^TW) \\
+\text{s.t.}\;\;W^TW=I</script>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -600,10 +622,10 @@ z^{(i)}_j=w_j^Tx^{(i)}</script><p>重构的做法也很简单, 就是样本低�
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>降维</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.5k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.7k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-12-04, 16:46:56</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-05, 11:16:53</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-05, 17:24:09</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/04/ml-07/" title="降维">https://blog.jtzhang.xyz/2019/12/04/ml-07/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
