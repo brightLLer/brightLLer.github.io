@@ -123,7 +123,7 @@
     
         
             
-            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
+            <li><div data-rel="算法">算法<small>(1)</small></div>
                 
             </li>
             
@@ -139,7 +139,7 @@
     
         
             
-            <li><div data-rel="算法">算法<small>(1)</small></div>
+            <li><div data-rel="语音分离">语音分离<small>(2)</small></div>
                 
             </li>
             
@@ -166,7 +166,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="16">
-<input type="hidden" id="yelog_site_word_count" value="33.3k">
+<input type="hidden" id="yelog_site_word_count" value="33.5k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -208,6 +208,14 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">排序</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">机器学习</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">librosa</a>
     </li>
     
@@ -217,14 +225,6 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">speech separation</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">机器学习</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">排序</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -413,12 +413,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-05 22:49:35'>2019-12-04 16:46</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-06 10:00:23'>2019-12-04 16:46</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.1k</span>
+        <span>字数:2.3k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -549,7 +549,7 @@ W=\{w_1, w_2, ..., w_d\} \in \mathbb{R}^{d\times d} \\
 w_j \in \mathbb{R}^{d}</script><p>$W$ 是一个标准的正交矩阵, 满足</p>
 <ul>
 <li>$W^T=W^{-1}$, 也就是 $W^{-1}W=W^TW=I$</li>
-<li>$|w_i|=1$</li>
+<li>$\left|w_i\right|=1$</li>
 <li>$w_i^Tw_j=0$</li>
 </ul>
 <p>丢弃新坐标系中的部分坐标, 将维度降低到 $d’&lt;d$ , 也就是,</p>
@@ -593,10 +593,16 @@ z^{(i)}_j=w_j^Tx^{(i)}</script><p>重构的做法也很简单, 就是样本低�
 <script type="math/tex; mode=display">
 \begin{aligned}
 \Sigma&=\mathbb{E}[(x-\mu)(x-\mu)^T] \\
-&=\frac{1}{m-1}\sum_{i=1}^m(x^{(i)}-\mu)(x^{(i)}-\mu)^T
-\end{aligned}</script><p>如果样本经过中心化, 也就是 $\mu=\frac{\sum_ix^{(i)}}{m}=0$, 那么协方差矩阵可以写为:</p>
+&=\frac{1}{m}\sum_{i=1}^m(x^{(i)}-\mu)(x^{(i)}-\mu)^T
+\end{aligned}</script><p>如果样本经过中心化, 也就是</p>
 <script type="math/tex; mode=display">
-\Sigma=\frac{1}{m-1}\sum_{i=1}^mx^{(i)}x^{(i)T}\propto \sum_{i=1}^mx^{(i)}x^{(i)T}=XX^T</script></blockquote>
+x^{(i)}\leftarrow x^{(i)}-\frac{1}{m}\sum_{i=1}^mx^{(i)}=x^{(i)}-\overline{x}</script><p>则</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^mx^{(i)}\leftarrow\sum_{i=1}^m(x^{(i)}-\overline{x})=\sum_{i=1}^mx^{(i)}-m\overline{x}=0</script><p>所以中心化的后的数据集的均值:</p>
+<script type="math/tex; mode=display">
+\mu=\frac{\sum_{i=1}^mx^{(i)}}{m}=0</script><p>那么协方差矩阵可以写为:</p>
+<script type="math/tex; mode=display">
+\Sigma=\frac{1}{m}\sum_{i=1}^mx^{(i)}x^{(i)T}\propto \sum_{i=1}^mx^{(i)}x^{(i)T}=XX^T</script></blockquote>
 </blockquote>
 <p>样本投影之前的方差为</p>
 <script type="math/tex; mode=display">
@@ -645,9 +651,23 @@ L(W, \Lambda)&=-\text{tr}(W^TXX^TW)+<\Lambda,(W^TW-I)> \\
 &=\text{tr}[2\Lambda^TW^TdW]
 \end{aligned}</script><p>最终可以得到:</p>
 <script type="math/tex; mode=display">
-\big[\frac{\partial{L}}{\partial{W}}\big]^T=-2W^TXX^T+2\Lambda^TW^T</script><p>也就是:</p>
+\big[\frac{\partial{L}}{\partial{W}}\big]^T=-2W^TXX^T+2\Lambda^TW^T</script><p>令:</p>
 <script type="math/tex; mode=display">
-\frac{\partial{L}}{\partial{W}}=-2XX^TW+2W\Lambda</script>
+\frac{\partial{L}}{\partial{W}}=-2XX^TW+2W\Lambda=0</script><p>得到:</p>
+<script type="math/tex; mode=display">
+XX^TW=W\Lambda</script><p>也就是</p>
+<script type="math/tex; mode=display">
+XX^Tw_i=\lambda_iw_i</script><p>这恰好是特征值的求解公式, 因此只需要</p>
+<ul>
+<li>对协方差矩阵 $XX^T$ 进行特征值分解 (或者奇异值分解)</li>
+<li>求得的特征值排序: $\lambda_1 \geq \lambda_2 \geq … \geq \lambda_d$</li>
+<li>挑出前 $d’$ 个特征值构成投影矩阵.</li>
+</ul>
+<p>这就是PCA算法, 其伪代码如下所示:<br><img src="/img/PCA.png" style="width:650px;height:250px;"></p>
+<p>注意 $d’$ 是一个超参数, 可以通过交叉验证取搜索, 又或者可以采用一个重构阈值 $t$, 例如 $t=95\%$, 使得 $t$ 满足:</p>
+<script type="math/tex; mode=display">
+\frac{\sum_{i=1}^{d'}\lambda_i}{\sum_{i=1}^d\lambda_i}\geq t</script><p>关于方差和PCA还可参考此篇博文: <a href="http://blog.codinglabs.org/articles/pca-tutorial.html" target="_blank" rel="noopener">http://blog.codinglabs.org/articles/pca-tutorial.html</a> </p>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
     </div>
@@ -661,10 +681,10 @@ L(W, \Lambda)&=-\text{tr}(W^TXX^TW)+<\Lambda,(W^TW-I)> \\
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>降维</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">2.1k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.3k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-12-04, 16:46:56</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-05, 22:49:35</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-06, 10:00:23</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/04/ml-07/" title="降维">https://blog.jtzhang.xyz/2019/12/04/ml-07/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -787,7 +807,7 @@ L(W, \Lambda)&=-\text{tr}(W^TXX^TW)+<\Lambda,(W^TW-I)> \\
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#Leetcode','#算法','#librosa','#signal processing','#speech separation','#机器学习','#排序','#SVM','#hexo','#3-hexo',],
+            'data': ['#Leetcode','#算法','#排序','#机器学习','#librosa','#signal processing','#speech separation','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
