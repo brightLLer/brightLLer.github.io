@@ -115,7 +115,7 @@
     
         
             
-            <li><div data-rel="算法">算法<small>(1)</small></div>
+            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
                 
             </li>
             
@@ -123,7 +123,7 @@
     
         
             
-            <li><div data-rel="Leetcode">Leetcode<small>(5)</small></div>
+            <li><div data-rel="算法">算法<small>(1)</small></div>
                 
             </li>
             
@@ -208,15 +208,15 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">Leetcode</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">算法</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">排序</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">Leetcode</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -331,7 +331,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/27/leetcode-note-5/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(五)">Leetcode笔记(五)</span>
             <span class="post-date" title="2019-09-27 10:56:45">2019/09/27</span>
@@ -339,7 +339,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/23/leetcode-note-4/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(四)">Leetcode笔记(四)</span>
             <span class="post-date" title="2019-09-23 22:16:35">2019/09/23</span>
@@ -355,7 +355,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/11/leetcode-note-3/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(三)">Leetcode笔记(三)</span>
             <span class="post-date" title="2019-09-11 17:05:26">2019/09/11</span>
@@ -363,7 +363,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/10/leetcode-note-2/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(二)">Leetcode笔记(二)</span>
             <span class="post-date" title="2019-09-10 21:10:47">2019/09/10</span>
@@ -371,7 +371,7 @@
         
         <a  class="Leetcode "
            href="/2019/09/09/leetcode-note-1/"
-           data-tag="算法,Leetcode"
+           data-tag="Leetcode,算法"
            data-author="" >
             <span class="post-title" title="Leetcode笔记(一)">Leetcode笔记(一)</span>
             <span class="post-date" title="2019-09-09 22:03:38">2019/09/09</span>
@@ -441,7 +441,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-09 21:33:45'>2019-12-06 20:58</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-10 20:42:33'>2019-12-06 20:58</time>
         
     </div>
     <div class="article-meta">
@@ -740,7 +740,7 @@ dl&=\text{tr}(\sum_{i=1}^m(\frac{\partial{l}}{\partial{z^{[2](i)}}})^Tdz^{[2](i)
 \frac{\partial{l}}{\partial{Z^{[2]}}}&=\big[\frac{\partial{l}}{\partial{z^{[2](i)}}}\big] \\
 &=\big[\frac{\partial{l}}{\partial{z^{[2](1)}}}, \frac{\partial{l}}{\partial{z^{[2](2)}}},...,\frac{\partial{l}}{\partial{z^{[2](m)}}}\big] \\
 &=\big[softmax(z^{[2](1)})-y^{(1)}, softmax(z^{[2](1)})-y^{(2)}, ..., softmax(z^{[2](1)})-y^{(m)}\big] \\
-&=softmax(Z^{[2]})-Y^{[2]} \\
+&=softmax(Z^{[2]})-Y \\
 dl&=\text{tr}[(\frac{\partial{l}}{\partial{Z^{[2]}}})^TdZ^{[2]}] \\
 &=\text{tr}[(\frac{\partial{l}}{\partial{Z^{[2]}}})^Td(W^{[2]}A^{[1]}+b^{[2]}1^T)] \\
 &=\text{tr}[(\frac{\partial{l}}{\partial{Z^{[2]}}})^Td(W^{[2]}A^{[1]})]+\text{tr}[(\frac{\partial{l}}{\partial{Z^{[2]}}})^Td(b^{[2]}1^T)] \\
@@ -780,7 +780,7 @@ dl&=\text{tr}[(\frac{\partial{l}}{\partial{Z^{[2]}}})^TdZ^{[2]}] \\
     <p><span class="copy-title">文章字数:</span><span class="post-count">3.7k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-12-06, 20:58:11</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-09, 21:33:45</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-10, 20:42:33</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/06/math-01/" title="矩阵求导">https://blog.jtzhang.xyz/2019/12/06/math-01/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -903,7 +903,7 @@ dl&=\text{tr}[(\frac{\partial{l}}{\partial{Z^{[2]}}})^TdZ^{[2]}] \\
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#机器学习','#矩阵','#数学','#SVM','#hexo','#3-hexo',],
+            'data': ['#Leetcode','#算法','#排序','#librosa','#signal processing','#speech separation','#机器学习','#矩阵','#数学','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
