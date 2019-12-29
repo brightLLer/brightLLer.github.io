@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>librosa术语介绍 | Zeroone</title>
-  <meta name="keywords" content=" librosa , signal processing , speech separation ">
-  <meta name="description" content="librosa术语介绍 | Zeroone">
+  <title>(Leetcode)动态规划方程汇总 | Zeroone</title>
+  <meta name="keywords" content=" 算法 , Leetcode , 动态规划 ">
+  <meta name="description" content="(Leetcode)动态规划方程汇总 | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
 <meta property="og:type" content="website">
@@ -425,9 +425,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-librosa-term" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-leetcode-dp" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">librosa术语介绍</h1>
+        <h1 class="article-title">(Leetcode)动态规划方程汇总</h1>
     
     <div class="article-meta">
         
@@ -435,30 +435,30 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="语音分离">语音分离</a>
+                <a href="javascript:" data-rel="Leetcode">Leetcode</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a href="javascript:" class="color3">librosa</a>
+            <a href="javascript:" class="color3">算法</a>
             
-            <a href="javascript:" class="color3">signal processing</a>
+            <a href="javascript:" class="color4">Leetcode</a>
             
-            <a href="javascript:" class="color3">speech separation</a>
+            <a href="javascript:" class="color5">动态规划</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-02 20:36:08'>2019-09-02 20:33</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-28 22:18:31'>2019-12-24 10:27</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:817</span>
+        <span>字数:1.3k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -488,7 +488,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#librosa中的相关术语介绍"><span class="toc-text">librosa中的相关术语介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#术语解释"><span class="toc-text">术语解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#time-series"><span class="toc-text">time series</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sampling-rate"><span class="toc-text">sampling rate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#frame"><span class="toc-text">frame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window"><span class="toc-text">window</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hop-length"><span class="toc-text">hop length</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window-length"><span class="toc-text">window length</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spectrogram"><span class="toc-text">spectrogram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#onset-strength-envelope"><span class="toc-text">onset (strength) envelope</span></a></li></ol></li></ol></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -503,17 +503,137 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="librosa中的相关术语介绍"><a href="#librosa中的相关术语介绍" class="headerlink" title="librosa中的相关术语介绍"></a>librosa中的相关术语介绍</h1><blockquote>
-<p>注：librosa是一个音频处理库，戳<a href="http://librosa.github.io/librosa/" target="_blank" rel="noopener">这里</a>看官方document。</p>
-</blockquote>
-<h2 id="术语解释"><a href="#术语解释" class="headerlink" title="术语解释"></a>术语解释</h2><h3 id="time-series"><a href="#time-series" class="headerlink" title="time series"></a><strong>time series</strong></h3><p>Typically an audio signal, denoted by <code>y</code>, and represented as a one-dimensional numpy.ndarray of floating-point values. <code>y[t]</code> corresponds to amplitude of the waveform at sample <code>t</code>.<br>时间序列：一般指的是音频信号，用<code>y</code>来表示，<code>y</code>是一个浮点类型的一维数组，<code>y[t]</code>表示波形图中样本<code>t</code>处的幅度值</p>
-<h3 id="sampling-rate"><a href="#sampling-rate" class="headerlink" title="sampling rate"></a><strong>sampling rate</strong></h3><p>The (positive integer) number of samples per second of a time series. This is denoted by an integer variable <code>sr</code>.<br>采样频率：时间序列中，每秒的样本数目（一个正整数）。经常用一个整型变量<code>sr</code>来表示</p>
-<h3 id="frame"><a href="#frame" class="headerlink" title="frame"></a><strong>frame</strong></h3><p>A short slice of a time series used for analysis purposes. This usually corresponds to a single column of a spectrogram matrix.<br>帧：一个时间序列的短切片，常用于分析。帧通常与时频矩阵中一个单独的列相关（specgram的行表示频率，列表示时间），强调一点，帧的意义是时间上的。</p>
-<h3 id="window"><a href="#window" class="headerlink" title="window"></a><strong>window</strong></h3><p>The (positive integer) number of samples in an analysis window (or frame). This is denoted by an integer variable <code>n_fft</code>.<br>在一个分析窗（或者帧）内的样本的数目（一个正整数）。用整型变量<code>n_fft</code>来表示。<br>注：1、傅里叶变换只能对作用于有限长度的信号，因此才要对信号采样，采样数目<code>n_fft</code>就是一帧的长度<br>2、帧的中心样本称为center，<code>stft</code>等函数中，<code>center</code>参数若为<code>True</code>，信号y会被左右填充(padded)以确保第<code>k</code>帧以<code>k*hop_length</code>那个样本为中心（v3.0开始），若为<code>False</code>，则不填充而且第k帧的起点就是<code>k*hop_length</code>那个样本。对应到specgram中就是<code>D[:, t]</code>或者<code>S[:, t]</code><br>center : boolean</p>
-<ul>
-<li>If <code>True</code>, the signal <code>y</code> is padded so that frame <code>D[:, t]</code> is centered at <code>y[t * hop_length]</code>.</li>
-<li>If <code>False</code>, then <code>D[:, t]</code> begins at <code>y[t * hop_length]</code><h3 id="hop-length"><a href="#hop-length" class="headerlink" title="hop length"></a><strong>hop length</strong></h3>The number of samples between successive frames, e.g., the columns of a spectrogram. This is denoted as a positive integer <code>hop_length</code>.<br>帧移：连续帧之间的样本数目，用一个正整数变量<code>hop_length</code>来表示。注：其实就是上一帧的起点到下一帧起点的位移<h3 id="window-length"><a href="#window-length" class="headerlink" title="window length"></a><strong>window length</strong></h3>The length (width) of the window function (e.g., Hann window). Note that this can be smaller than the frame length used in a short-time Fourier transform. Typically denoted as a positive integer variable <code>win_length</code>.<br>窗长度：窗的长度（宽度），在短时傅里叶变换中可以比帧长度小（多数时候两者长度一样，窗长小于帧长时使用零填充补充至长度相等）。经常用正整数变量<code>win_length</code>来表示<h3 id="spectrogram"><a href="#spectrogram" class="headerlink" title="spectrogram"></a><strong>spectrogram</strong></h3>A matrix <code>S</code> where the rows index frequency bins, and the columns index frames (time). Spectrograms can be either real-valued or complex-valued. By convention, real-valued spectrograms are denoted as numpy.ndarrays <code>S</code>, while complex-valued STFT matrices are denoted as <code>D</code>.<br>时频矩阵：一个矩阵，其行索引频带，列索引帧（时间）。时频矩阵的元素可以是实数也可以是复数。按照约定俗成的表示，实数时频矩阵用数组<code>S</code>表示，而复数STFT矩阵则用<code>D</code>表示<br><code>np.abs(D[f, t])</code> is the magnitude of frequency bin <code>f</code> at frame <code>t</code><br><code>np.angle(D[f, t])</code> is the phase of frequency bin <code>f</code> at frame <code>t</code><h3 id="onset-strength-envelope"><a href="#onset-strength-envelope" class="headerlink" title="onset (strength) envelope"></a><strong>onset (strength) envelope</strong></h3>An onset envelope <code>onset_env[t]</code> measures the strength of note onsets at frame <code>t</code>. Typically stored as a one-dimensional numpy.ndarray of floating-point values onset_envelope.<br>帧起点数组：记录着每一帧起始时刻处的强度，用一个浮点型一维数组<code>onset_envelope</code>来表示</li>
-</ul>
+        <ol>
+<li>不同路径：一个机器人位于一个 m x n 网格的左上角机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角。问总共有多少条不同的路径？<script type="math/tex; mode=display">
+f(m,n)=
+\begin{cases}
+1, & m = 1\;\text{or}\;n=1\\
+f(m-1,n)+f(m,n-1), & \text{others}
+\end{cases}</script></li>
+<li>最小路径和：给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。<script type="math/tex; mode=display">
+f(m,n)=
+\begin{cases}
+cost(m,n), & m=1\;\text{and}\;n=1\\
+f(m,n-1)+cost(m,n), & m=1\;\text{and}\;n\neq 1 \\
+f(m-1, n)+cost(m,n), & m\neq 1\;\text{and}\;n=1 \\
+\min\{f(m-1,n),f(m,n-1)\}+cost(m,n)， & \text{others}
+\end{cases}</script></li>
+<li>最大子序和：给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。<br><br>用 $dp[i]$ 存储以 $nums[i]$ 结尾的子序列中最大的一个.<script type="math/tex; mode=display">
+\begin{aligned}
+& dp[i]=\begin{cases}
+nums[i], & i = 0 \\
+\max\{dp[i-1]+nums[i], nums[i]\}, & i > 0
+\end{cases} \\
+& ans=\max_{i:i>0}\{dp[i]\}
+\end{aligned}</script></li>
+<li>爬楼梯：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？<script type="math/tex; mode=display">
+f(n)=
+\begin{cases}
+1, & n=1 \\
+2, & n=2 \\
+f(n-1)+f(n-2), & \text{others}
+\end{cases}</script></li>
+<li>子集加和问题: 给定一个非负整数集，以及一个变量sum，判断是否存在一个给定集合的子集，使得该子集中的数的和等于n？<script type="math/tex; mode=display">
+f(set,n,sum)=
+\begin{cases}
+true, & sum=0 \\
+false, & sum > 0\;\text{and}\; n=0 \\
+f(set,n-1,sum), & set[n-1]>sum\\
+f(set,n-1,sum)\;\text{or}\\
+\;f(set,n-1,sum-set[n-1]), & \text{others}
+\end{cases}</script></li>
+<li>0-1背包问题：给出n个项目的weights和values，把这些项目装进一个容量为W的背包里，应该怎么装才能使得背包获得最大的价值？(给出两个整型数组val[0…n-1]和wt[0…n-1]用来分别代表n个项目的values和weights，同时，给出一个整数W来代表背包的容量，找出val[]的最大价值子集，使得该子集的权重小于或者等于W。)<script type="math/tex; mode=display">
+f(n, W, wt, val)=
+\begin{cases}
+0, & n=0\;\text{or}\;W=0 \\
+f(n-1,W,wt,val), & wt[n-1]>W \\
+\min\{f(n-1,W-wt[n-1],wt,val),\\
+f(n-1,W,wt,val)\}, & \text{others}
+\end{cases}</script></li>
+<li>找零钱：给定一张面额为N的钞票，我们现在想将其更换为同等价值的硬币，如果现在无限提供价值为S = {S1, S2, …, Sm}的硬币，那么我们可以用多少种方式来找零？（不关心硬币的找零顺序）<script type="math/tex; mode=display">
+f(n,m,S)=
+\begin{cases}
+1, & n=0 \\
+0, & n>0\;\text{and}\;m=0 \\
+f(n,m-1,S), & S[m]>n\\
+f(n,m-1,S)+f(n-S[m],m,S), & \text{others}
+\end{cases}</script></li>
+<li>零钱兑换：给定不同面额(k种)的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。<script type="math/tex; mode=display">
+f(n)=
+\begin{cases}
+0, & n=0\\
+1+\min_{1\leq i\leq k}{f(n-c_i)}, & \text{others}
+\end{cases}</script></li>
+<li>编辑距离：给定两个字符串str1和str2还有如下几个可以在str1进行的操作。试找出可以将str1转换为str2的最小编辑（操作）次数。(a. insert; b. Remove; c. Replace)<script type="math/tex; mode=display">
+f(m,n)=
+\begin{cases}
+m, & n=0\\
+n, & m=0\\
+f(m-1,n-1)+1, & str1[m-1]=str2[n-1] \\
+\min\{f(m,n-1),f(m-1,n),f(m-1,n-1)\}, & str1[m-1] \neq str2[n-1]
+\end{cases}</script></li>
+<li>最长公共子序列：给定两个序列，找出它们的最长公共子序列的长度。一个子序列进要求在顺序上一致，但不要求一定要连续。<script type="math/tex; mode=display">
+f(m,n)=
+\begin{cases}
+0, & m=0\;\text{or}\;n=0 \\
+f(m-1,n-1)+1, & X[m-1]=Y[n-1] \\
+\max\{f(m,n-1),f(m-1,n)\}, & X[m-1] \neq Y[n-1]
+\end{cases}</script></li>
+<li>最长递增子序列：找一个给定序列的最长子序列，子序列中的所有元素已经按照升序排列。<br><br>用 $dp[i]$ 表示以 $i$ 结尾的最长递增子序列.<script type="math/tex; mode=display">
+dp[i] =
+\begin{cases}
+\max_{j:0\leq j < i}\{dp[j]\}+1, & a[j]<a[i] \\
+1, & a[j]\geq a[i]
+\end{cases} \\
+ans=\max_{i:i\geq 0}\{dp[i]\}</script></li>
+<li>打家劫舍：你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。<script type="math/tex; mode=display">
+f(n)=
+\begin{cases}
+0, & n=0 \\
+nums[n-1], & n=1 \\
+\max\{f(n-1),f(n-2)+nums[n-1]\}, & \text{others}
+\end{cases}</script></li>
+<li>判断子序列：给定字符串 s 和 t ，判断 s 是否为 t 的子序列。你可以认为 s 和 t 中仅包含英文小写字母。字符串 t 可能会很长（长度 ~= 500,000），而 s 是个短字符串（长度 &lt;=100）。<script type="math/tex; mode=display">
+f(m,n)=
+\begin{cases}
+0, & m=0 \\
+f(m-1,n-1), & s[m-1]=t[n-1] \\
+f(m,n-1), & s[m-1] \neq t[n-1]
+\end{cases}</script></li>
+<li>数组的每个索引做为一个阶梯，第 i个阶梯对应着一个非负数的体力花费值 cost[i](索引从0开始)。每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。(0-n-1为台阶索引，n为楼梯顶部)<script type="math/tex; mode=display">
+dp[i]=
+\begin{cases}
+cost[i], & 0\leq i \leq 1 \\
+\min\{dp[i-1],dp[i-2]\}+cost[i], & 1 < i < n \\
+\min\{dp[i-1],dp[i-2]\}, & i=n
+\end{cases}</script></li>
+<li><p>给定一个整数数组 nums ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。<br><br>$Ma[i]$ 表示以 $nums[i]$ 结尾时的乘积最大值, $Mi[i]$ 表示以 $nums[i]$ 结尾时的乘积最小值.</p>
+<script type="math/tex; mode=display">
+Ma[i-1] \leftrightarrow Mi[i-1]\;\;\text{if and only if}\;\;nums[i]<0\;\;\text{and}\;\;i>0\\
+Ma[i]=
+\begin{cases}
+1, & i=0 \\
+\max\{Ma[i-1]\cdot nums[i], nums[i]\}, & i > 0 \\
+\end{cases} \\
+Mi[i]=\begin{cases}
+1, & i=0 \\
+\min\{Mi[i-1]\cdot nums[i], nums[i]\}, & i > 0
+\end{cases}</script></li>
+<li><p>买卖股票问题（注意买一次卖一次算一次交易, $k=1, n, +\infty$, 手续费, 冷冻期多种题型通用解法）：<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/</a></p>
+<script type="math/tex; mode=display">
+dp[-1][k][0]=dp[i][0][0]=0 \\
+dp[-1][k][1]=dp[i][0][1]=-\infty \\
+dp[i][k][0]=\max\{dp[i-1][k][0], dp[i-1][k][1]+prices[i]\} \\
+dp[i][k][1]=\max\{dp[i-1][k][1], dp[i-1][k-1][0]-prices[i]\}</script></li>
+<li>最长公共子串, 用dp[i][j]表示以X[0:i]和Y[0:j]的最长公共子序列.<script type="math/tex; mode=display">
+dp[i,j]=
+\begin{cases}
+1 , & X[i]=Y[j],i=j=0\\
+dp[i-1,j-1]+1, & X[i]=Y[j],i>0,j>0\\
+0, & X[i]\neq Y[j]
+\end{cases} \\
+ans=\max_{i,j}\{dp[i][j]\}</script></li>
+</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -527,12 +647,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>librosa术语介绍</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">817</span></p>
+    <p><span class="copy-title">文章标题:</span>(Leetcode)动态规划方程汇总</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-09-02, 20:33:39</p>
-    <p><span class="copy-title">最后更新:</span>2019-09-02, 20:36:08</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/02/librosa-term/" title="librosa术语介绍">https://blog.jtzhang.xyz/2019/09/02/librosa-term/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-24, 10:27:07</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-28, 22:18:31</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/24/leetcode-dp/" title="(Leetcode)动态规划方程汇总">https://blog.jtzhang.xyz/2019/12/24/leetcode-dp/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
@@ -563,6 +683,46 @@
 
 
 
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
     
 
 
