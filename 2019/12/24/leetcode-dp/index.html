@@ -139,7 +139,7 @@
     
         
             
-            <li><div data-rel="机器学习">机器学习<small>(7)</small></div>
+            <li><div data-rel="数学">数学<small>(1)</small></div>
                 
             </li>
             
@@ -147,7 +147,7 @@
     
         
             
-            <li><div data-rel="数学">数学<small>(1)</small></div>
+            <li><div data-rel="机器学习">机器学习<small>(7)</small></div>
                 
             </li>
             
@@ -220,6 +220,10 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态规划</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">librosa</a>
     </li>
     
@@ -229,10 +233,6 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color3">speech separation</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">动态规划</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -453,7 +453,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-28 22:18:31'>2019-12-24 10:27</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-29 20:40:56'>2019-12-24 10:27</time>
         
     </div>
     <div class="article-meta">
@@ -625,7 +625,7 @@ dp[-1][k][0]=dp[i][0][0]=0 \\
 dp[-1][k][1]=dp[i][0][1]=-\infty \\
 dp[i][k][0]=\max\{dp[i-1][k][0], dp[i-1][k][1]+prices[i]\} \\
 dp[i][k][1]=\max\{dp[i-1][k][1], dp[i-1][k-1][0]-prices[i]\}</script></li>
-<li>最长公共子串, 用dp[i][j]表示以X[0:i]和Y[0:j]的最长公共子序列.<script type="math/tex; mode=display">
+<li>最长公共子串, 用dp[i][j]表示以X[0:i]和Y[0:j]的最长公共子串.<script type="math/tex; mode=display">
 dp[i,j]=
 \begin{cases}
 1 , & X[i]=Y[j],i=j=0\\
@@ -651,7 +651,7 @@ ans=\max_{i,j}\{dp[i][j]\}</script></li>
     <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-12-24, 10:27:07</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-28, 22:18:31</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-29, 20:40:56</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/24/leetcode-dp/" title="(Leetcode)动态规划方程汇总">https://blog.jtzhang.xyz/2019/12/24/leetcode-dp/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -774,7 +774,7 @@ ans=\max_{i,j}\{dp[i][j]\}</script></li>
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#算法','#排序','#Leetcode','#librosa','#signal processing','#speech separation','#动态规划','#机器学习','#矩阵','#数学','#SVM','#hexo','#3-hexo',],
+            'data': ['#算法','#排序','#Leetcode','#动态规划','#librosa','#signal processing','#speech separation','#机器学习','#矩阵','#数学','#SVM','#hexo','#3-hexo',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
