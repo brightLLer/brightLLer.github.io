@@ -139,7 +139,7 @@
     
         
             
-            <li><div data-rel="数学">数学<small>(1)</small></div>
+            <li><div data-rel="机器学习">机器学习<small>(7)</small></div>
                 
             </li>
             
@@ -147,7 +147,7 @@
     
         
             
-            <li><div data-rel="机器学习">机器学习<small>(7)</small></div>
+            <li><div data-rel="数学">数学<small>(1)</small></div>
                 
             </li>
             
@@ -174,7 +174,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="18">
-<input type="hidden" id="yelog_site_word_count" value="38.5k">
+<input type="hidden" id="yelog_site_word_count" value="38.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -453,12 +453,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-29 20:40:56'>2019-12-24 10:27</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-29 21:05:43'>2019-12-24 10:27</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.3k</span>
+        <span>字数:1.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -633,6 +633,9 @@ dp[i-1,j-1]+1, & X[i]=Y[j],i>0,j>0\\
 0, & X[i]\neq Y[j]
 \end{cases} \\
 ans=\max_{i,j}\{dp[i][j]\}</script></li>
+<li>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。<br><br>在最长公共子串的基础上检查倒置前后回文串中的字符下标是否对应(求解max的时候)。<script type="math/tex; mode=display">
+beforeRev=length-j-1 \\
+beforeRev+dp[i,j]-1=i\;(?)</script></li>
 </ol>
 
       
@@ -648,10 +651,10 @@ ans=\max_{i,j}\{dp[i][j]\}</script></li>
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>(Leetcode)动态规划方程汇总</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.3k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">1.4k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
     <p><span class="copy-title">发布时间:</span>2019-12-24, 10:27:07</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-29, 20:40:56</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-29, 21:05:43</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/24/leetcode-dp/" title="(Leetcode)动态规划方程汇总">https://blog.jtzhang.xyz/2019/12/24/leetcode-dp/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
