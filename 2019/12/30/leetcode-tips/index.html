@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>about | Zeroone</title>
-  <meta name="keywords" content>
-  <meta name="description" content="about | Zeroone">
+  <title>Leetcode上的小技巧 | Zeroone</title>
+  <meta name="keywords" content=" Leetcode , 算法 ">
+  <meta name="description" content="Leetcode上的小技巧 | Zeroone">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本人介绍Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。 联系方式 qq邮箱：1277472231@qq.com gmail: brightinspring@gmail.com">
 <meta property="og:type" content="website">
@@ -433,24 +433,38 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-leetcode-tips" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">Leetcode上的小技巧</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            
+                <a href="javascript:" data-rel="Leetcode">Leetcode</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">Leetcode</a>
+            
+            <a href="javascript:" class="color3">算法</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-09-05 15:56:32'>2019-09-02 10:57</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-30 22:38:28'>2019-12-30 16:25</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:71</span>
+        <span>字数:305</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -480,7 +494,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本人介绍"><span class="toc-text">本人介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#联系方式"><span class="toc-text">联系方式</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -495,11 +509,26 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="本人介绍"><a href="#本人介绍" class="headerlink" title="本人介绍"></a>本人介绍</h2><p>Jiantao Zhang，华南理工大学软件工程学硕，主要研究方向为深度学习和语音分离，有相同研究方向的同学也可以戳我联系方式，互相交流。</p>
-<h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><ul>
-<li>qq邮箱：1277472231@qq.com</li>
-<li>gmail: brightinspring@gmail.com</li>
-</ul>
+        <p>把一个数 $n$ 的二进制表示中最后一个1改成0的方法：$n:=n\&amp;(n-1)$, 也就是说执行到 $n=0$ 时可以得到二进制位为1的总数.（191. 位1的个数）。</p>
+<p>获得一个数的二进制最低位，可以将一个数与位掩码1进行与运算，比如(110)&amp;(001)=1 (191.位1的个数)。</p>
+<p>通过采用下述循环的方法获取位1的个数：</p>
+<pre><code class="lang-java">mask = 1;
+n &amp;= mask;
+mask &lt;&lt;= 1;
+</code></pre>
+<p>几个小技巧总结：</p>
+<pre><code class="lang-java">x &amp; 1 == 1 or == 0 //判断奇偶（x % 2 == 1）
+x &amp; 1 // 也是得到x最低位的操作
+x = x &amp; (x - 1) //清零最低位的1
+x &amp; -x  //得到最低位的1
+x &gt;&gt; y &lt;=&gt; x / 2^y
+x &lt;&lt; y &lt;=&gt; x * 2^y
+</code></pre>
+<p>颠倒32位二进制数, 这里给个不是32位的，比如给出1101，颠倒过来就是1011. 做法很简单, 用一个变量res=0来保存颠倒结果，res先左移一位，还是0, 接着得到1101的最低位1，再将1101右移一位变成110，它的最低位1加到res里变成了res=1, res再左移一位得到10…</p>
+<pre><code class="lang-java">res &lt;&lt;= 1;
+res += n &amp; 1;
+n &gt;&gt;= 1;
+</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1277472231@qq.com </span>
@@ -511,6 +540,18 @@
     <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
 </p>
 
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Leetcode上的小技巧</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">305</span></p>
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="J. Zhang">J. Zhang</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-12-30, 16:25:01</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-30, 22:38:28</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/30/leetcode-tips/" title="Leetcode上的小技巧">https://blog.jtzhang.xyz/2019/12/30/leetcode-tips/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 
@@ -537,6 +578,46 @@
 
 
 
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
     
 
 
